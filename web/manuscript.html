@@ -1,0 +1,2261 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>냥냥츄르 관찰일지 | 집사용 이야기 노트</title>
+    <meta name="description" content="고양이 츄르의 장면을 소설처럼 읽고 집사노트처럼 남기는 42개의 관찰일지" />
+    <link rel="icon" href="data:," />
+    <style>
+      :root {
+        --bg: #FAF9F6;
+        --surface: #ffffff;
+        --ink: #1C1E21;
+        --muted: #5E646E;
+        --line: rgba(28, 30, 33, 0.08);
+        --accent: #2563EB;
+        --green: #0F766E;
+        --coral: #EA580C;
+        --font-sans: "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+        --page-x: clamp(20px, 6vw, 80px);
+        --radius: 12px;
+        --text-xs: clamp(0.76rem, 0.72rem + 0.2vw, 0.86rem);
+        --text-sm: clamp(0.88rem, 0.84rem + 0.22vw, 0.98rem);
+        --text-base: clamp(1rem, 0.94rem + 0.28vw, 1.1rem);
+        --text-md: clamp(1.1rem, 1.02rem + 0.45vw, 1.35rem);
+        --text-lg: clamp(1.28rem, 1.12rem + 0.8vw, 1.85rem);
+        --reader-text: clamp(1.02rem, 0.98rem + 0.25vw, 1.14rem);
+        --reader-lead: clamp(1.12rem, 1.05rem + 0.35vw, 1.28rem);
+        --reader-title: clamp(2.4rem, 1.8rem + 4vw, 4.4rem);
+        --reader-chapter: clamp(1.6rem, 1.3rem + 2.5vw, 2.4rem);
+      }
+
+      * { box-sizing: border-box; }
+
+      html {
+        font-size: 16px;
+        max-width: 100%;
+        overflow-x: hidden;
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        max-width: 100%;
+        overflow-x: hidden;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-sans);
+        font-synthesis: none;
+        letter-spacing: 0;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      a { color: inherit; text-decoration: none; }
+
+      button,
+      input,
+      textarea,
+      select { font: inherit; letter-spacing: 0; }
+
+      img,
+      svg,
+      video,
+      canvas {
+        max-width: 100%;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(28, 30, 33, 0.15);
+        border-radius: 99px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(28, 30, 33, 0.3);
+      }
+
+      .skip-link {
+        position: fixed;
+        z-index: 100;
+        top: 12px;
+        left: var(--page-x);
+        transform: translateY(-150%);
+        border-radius: 999px;
+        padding: 10px 20px;
+        background: var(--surface);
+        color: var(--ink);
+        font-size: var(--text-sm);
+        font-weight: 700;
+        box-shadow: 0 10px 30px rgba(28, 30, 33, 0.08);
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .skip-link:focus-visible {
+        transform: translateY(0);
+        outline: 3px solid rgba(37, 99, 235, 0.35);
+        outline-offset: 2px;
+      }
+
+      a:focus-visible {
+        outline: 3px solid rgba(37, 99, 235, 0.35);
+        outline-offset: 2px;
+      }
+
+      .reader-header {
+        position: sticky;
+        z-index: 50;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        height: 64px;
+        border-bottom: 1px solid var(--line);
+        padding: 0 var(--page-x);
+        background: rgba(250, 249, 246, 0.8);
+        backdrop-filter: blur(20px) saturate(1.4);
+        -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      }
+
+      .reader-header a {
+        font-size: var(--text-sm);
+        font-weight: 700;
+        color: var(--ink);
+      }
+
+      .reader-header a:hover {
+        color: var(--accent);
+      }
+
+      .toc-trigger,
+      .toc-close,
+      .scroll-top {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .toc-trigger {
+        position: fixed;
+        z-index: 95;
+        right: var(--page-x);
+        bottom: max(24px, env(safe-area-inset-bottom));
+        min-height: 44px;
+        border: 1px solid rgba(28, 30, 33, 0.14);
+        border-radius: 999px;
+        padding: 0 18px;
+        background: var(--ink);
+        color: var(--surface);
+        font-size: var(--text-sm);
+        font-weight: 800;
+        box-shadow: 0 14px 34px rgba(28, 30, 33, 0.18);
+      }
+
+      .scroll-top {
+        position: fixed;
+        z-index: 95;
+        right: calc(var(--page-x) + 76px);
+        bottom: max(24px, env(safe-area-inset-bottom));
+        width: 44px;
+        height: 44px;
+        border: 1px solid rgba(28, 30, 33, 0.14);
+        border-radius: 999px;
+        background: var(--surface);
+        color: var(--ink);
+        font-size: 1.2rem;
+        font-weight: 900;
+        line-height: 1;
+        box-shadow: 0 14px 34px rgba(28, 30, 33, 0.14);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(8px);
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+
+      .scroll-top.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      .toc-trigger:focus-visible,
+      .toc-close:focus-visible,
+      .scroll-top:focus-visible {
+        outline: 3px solid rgba(37, 99, 235, 0.35);
+        outline-offset: 3px;
+      }
+
+      .toc-backdrop {
+        position: fixed;
+        z-index: 85;
+        inset: 0;
+        display: block;
+        background: rgba(28, 30, 33, 0.28);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+      }
+
+      .toc-backdrop[hidden] {
+        display: none;
+      }
+
+      .reader-shell {
+        display: grid;
+        grid-template-columns: minmax(0, 720px);
+        justify-content: center;
+        gap: 0;
+        width: min(1180px, calc(100% - (var(--page-x) * 2)));
+        margin: 0 auto;
+        padding: clamp(40px, 6vw, 80px) 0 clamp(64px, 8vw, 108px);
+      }
+
+      .reader-strip {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: clamp(24px, 5vw, 72px);
+        width: min(1180px, calc(100% - (var(--page-x) * 2)));
+        margin: 0 auto;
+        border-bottom: 1px solid var(--line);
+        padding: clamp(48px, 6vw, 80px) 0 clamp(24px, 4vw, 36px);
+      }
+
+      .reader-strip strong {
+        display: block;
+        max-width: 12ch;
+        font-size: clamp(2rem, 1.5rem + 3.5vw, 3rem);
+        line-height: 1.1;
+        font-weight: 800;
+        text-wrap: balance;
+        word-break: keep-all;
+        overflow-wrap: anywhere;
+        letter-spacing: 0;
+        color: var(--ink);
+      }
+
+      .reader-strip span {
+        display: block;
+        max-width: 540px;
+        color: var(--muted);
+        font-size: var(--reader-lead);
+        font-weight: 500;
+        line-height: 1.65;
+        text-wrap: pretty;
+        word-break: keep-all;
+        overflow-wrap: anywhere;
+      }
+
+      .toc {
+        position: fixed;
+        z-index: 80;
+        top: 88px;
+        right: var(--page-x);
+        bottom: max(24px, env(safe-area-inset-bottom));
+        left: auto;
+        display: none;
+        width: min(440px, calc(100% - (var(--page-x) * 2)));
+        overflow-y: auto;
+        border: 1px solid rgba(28, 30, 33, 0.12);
+        border-radius: 14px;
+        padding: 18px;
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 24px 60px rgba(28, 30, 33, 0.2);
+      }
+
+      .toc.is-open {
+        display: block;
+      }
+
+      .toc h2 {
+        margin: 0 72px 14px 0;
+        font-size: 1rem;
+        font-weight: 800;
+        color: var(--ink);
+        text-transform: none;
+        letter-spacing: 0;
+      }
+
+      .toc-close {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        min-height: 36px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 0 12px;
+        background: var(--surface);
+        color: var(--ink);
+        font-size: var(--text-xs);
+        font-weight: 800;
+      }
+
+      .toc-section {
+        display: grid;
+        gap: 6px;
+        min-width: 0;
+        max-width: 100%;
+        margin-bottom: 24px;
+      }
+
+      .toc a {
+        min-width: 0;
+        color: var(--muted);
+        font-size: var(--text-sm);
+        font-weight: 600;
+        line-height: 1.45;
+        padding: 4px 6px;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+      }
+
+      .toc a:hover {
+        color: var(--ink);
+        background: rgba(28, 30, 33, 0.03);
+      }
+
+      .toc a.active {
+        color: var(--accent);
+        background: rgba(37, 99, 235, 0.06);
+        font-weight: 700;
+      }
+
+      .toc-chapters a {
+        padding-left: 14px;
+        font-size: var(--text-xs);
+        font-weight: 500;
+      }
+
+      .toc-chapters a.active {
+        color: var(--accent);
+        background: rgba(37, 99, 235, 0.05);
+      }
+
+      .manuscript {
+        min-width: 0;
+        max-width: 100%;
+      }
+
+      .manuscript h1 {
+        margin: 0 0 20px;
+        max-width: 12ch;
+        font-size: var(--reader-title);
+        line-height: 1.1;
+        font-weight: 800;
+        text-wrap: balance;
+        word-break: keep-all;
+        overflow-wrap: anywhere;
+        letter-spacing: 0;
+        color: var(--ink);
+      }
+
+      .manuscript blockquote {
+        margin: 0 0 24px;
+        border-left: 4px solid var(--line);
+        padding: 4px 0 4px 20px;
+        color: var(--muted);
+        font-size: var(--reader-lead);
+        line-height: 1.7;
+        font-style: italic;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+        word-break: keep-all;
+      }
+
+      .intro-block,
+      .part,
+      .chapter {
+        min-width: 0;
+        max-width: 100%;
+        border-top: 1px solid var(--line);
+        scroll-margin-top: 80px;
+      }
+
+      .intro-block {
+        padding: 32px 0 16px;
+      }
+
+      .part {
+        margin-top: 80px;
+        padding-top: 48px;
+      }
+
+      .part h2 {
+        margin: 0 0 36px;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        font-size: clamp(1.8rem, 1.4rem + 2.5vw, 2.8rem);
+        line-height: 1.15;
+        font-weight: 800;
+        white-space: nowrap;
+        text-wrap: nowrap;
+        word-break: keep-all;
+        overflow-wrap: normal;
+        letter-spacing: 0;
+        color: var(--ink);
+      }
+
+      .chapter {
+        padding: 48px 0 60px;
+      }
+
+      .chapter h3 {
+        margin: 0 0 24px;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        font-size: var(--reader-chapter);
+        line-height: 1.25;
+        font-weight: 800;
+        white-space: nowrap;
+        text-wrap: nowrap;
+        word-break: keep-all;
+        overflow-wrap: normal;
+        letter-spacing: 0;
+        color: var(--ink);
+      }
+
+      .chapter-visual {
+        width: min(100%, 560px);
+        margin: 4px auto 32px;
+        overflow: hidden;
+        border: 1px solid rgba(28, 30, 33, 0.08);
+        border-radius: 8px;
+        background: var(--surface);
+        box-shadow: 0 18px 42px rgba(28, 30, 33, 0.08);
+      }
+
+      .chapter-visual img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .ai-generated-media {
+        position: relative;
+        isolation: isolate;
+      }
+
+      .ai-generated-media::after {
+        content: attr(data-ai-label);
+        position: absolute;
+        z-index: 2;
+        right: 12px;
+        bottom: 12px;
+        max-width: calc(100% - 24px);
+        border: 1px solid rgba(255, 255, 255, 0.38);
+        border-radius: 999px;
+        padding: 6px 10px;
+        background: rgba(28, 30, 33, 0.72);
+        color: #ffffff;
+        font-size: clamp(0.72rem, 0.68rem + 0.18vw, 0.84rem);
+        font-weight: 800;
+        line-height: 1.2;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+        pointer-events: none;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+
+      .ai-generated-media img {
+        user-select: none;
+        -webkit-user-drag: none;
+        -webkit-touch-callout: none;
+      }
+
+      .chapter h4 {
+        margin: 36px 0 16px;
+        font-size: var(--text-base);
+        font-weight: 700;
+        letter-spacing: 0;
+      }
+
+      /* Specific h4 styling */
+      .chapter h4:nth-of-type(1) {
+        color: var(--accent);
+      }
+
+      .chapter h4:nth-of-type(2) {
+        color: var(--green);
+      }
+
+      .chapter h4:nth-of-type(3) {
+        color: var(--coral);
+      }
+
+      .manuscript p,
+      .manuscript li {
+        color: #2D3135;
+        font-size: var(--reader-text);
+        line-height: 1.85;
+        text-wrap: pretty;
+        word-break: keep-all;
+        overflow-wrap: anywhere;
+      }
+
+      .manuscript p { margin: 0 0 20px; }
+
+      /* 30초 체크 Checklist */
+      .chapter ul {
+        list-style: none;
+        margin: 16px 0 28px;
+        padding-left: 0;
+        display: grid;
+        gap: 10px;
+      }
+
+      .chapter li {
+        position: relative;
+        padding-left: 26px;
+        font-size: var(--text-sm);
+        line-height: 1.6;
+        color: var(--ink);
+      }
+
+      .chapter li::before {
+        content: "";
+        position: absolute;
+        left: 4px;
+        top: 5px;
+        width: 12px;
+        height: 8px;
+        border-left: 2px solid var(--accent);
+        border-bottom: 2px solid var(--accent);
+        transform: rotate(-45deg);
+      }
+
+      .checklist-status {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 8px 12px;
+        margin: 0 0 12px;
+      }
+
+      .checklist-progress {
+        color: var(--muted);
+        font-size: var(--text-xs);
+        font-weight: 800;
+        line-height: 1.4;
+      }
+
+      .checklist-reset {
+        min-height: 32px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 6px 12px;
+        background: var(--surface);
+        color: var(--muted);
+        font-size: var(--text-xs);
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .checklist-reset:hover,
+      .checklist-reset:focus-visible {
+        border-color: rgba(37, 99, 235, 0.35);
+        color: var(--accent);
+      }
+
+      .checklist-reset:disabled {
+        cursor: default;
+        opacity: 0.45;
+      }
+
+      .checklist-bar {
+        grid-column: 1 / -1;
+        height: 5px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(37, 99, 235, 0.12);
+      }
+
+      .checklist-bar span {
+        display: block;
+        width: 0%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--accent), var(--green));
+        transition: width 0.2s ease;
+      }
+
+      .chapter ul.checklist {
+        margin-top: 0;
+        gap: 12px;
+      }
+
+      .chapter ul.checklist li {
+        padding-left: 0;
+      }
+
+      .chapter ul.checklist li::before {
+        content: none;
+      }
+
+      .checklist-item {
+        display: grid;
+        grid-template-columns: 22px minmax(0, 1fr);
+        align-items: start;
+        gap: 12px;
+        min-height: 48px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 12px 14px;
+        background: rgba(255, 255, 255, 0.86);
+        cursor: pointer;
+        transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+      }
+
+      .checklist-item:hover {
+        border-color: rgba(37, 99, 235, 0.28);
+        background: rgba(255, 255, 255, 0.96);
+      }
+
+      .checklist-item input {
+        width: 20px;
+        height: 20px;
+        margin: 2px 0 0;
+        accent-color: var(--accent);
+        cursor: pointer;
+      }
+
+      .checklist-item-text {
+        min-width: 0;
+        color: var(--ink);
+        font-size: var(--text-sm);
+        font-weight: 650;
+        line-height: 1.58;
+        word-break: keep-all;
+        overflow-wrap: anywhere;
+      }
+
+      .chapter ul.checklist li.is-checked .checklist-item {
+        border-color: rgba(15, 118, 110, 0.22);
+        background: rgba(15, 118, 110, 0.06);
+      }
+
+      .chapter ul.checklist li.is-checked .checklist-item-text {
+        color: var(--muted);
+      }
+
+      /* 집사 메모 Card */
+      .chapter h4:nth-of-type(2) + p {
+        background: rgba(15, 118, 110, 0.05);
+        border-left: 4px solid var(--green);
+        border-radius: 0 var(--radius) var(--radius) 0;
+        padding: 16px 20px;
+        font-size: var(--text-sm);
+        line-height: 1.65;
+        color: var(--muted);
+        margin-top: 12px;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+      }
+
+      /* 오늘의 한 문장 Card */
+      .chapter h4:nth-of-type(3) + p {
+        background: rgba(234, 88, 12, 0.04);
+        border: 1px dashed rgba(234, 88, 12, 0.2);
+        border-radius: var(--radius);
+        padding: 16px 20px;
+        font-weight: 700;
+        font-size: var(--text-base);
+        color: var(--ink);
+        text-align: center;
+        margin-top: 12px;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+      }
+
+      .reader-footer {
+        border-top: 1px solid var(--line);
+        padding: 32px var(--page-x);
+        color: var(--muted);
+        font-size: var(--text-xs);
+        font-weight: 600;
+        text-align: center;
+        background: var(--surface);
+      }
+
+      @media (max-width: 880px) {
+        .part h2,
+        .chapter h3 {
+          font-size: clamp(1.25rem, 4.3vw, 2.15rem);
+        }
+
+        .reader-shell {
+          grid-template-columns: 1fr;
+          width: 100%;
+          max-width: 720px;
+          padding: 24px var(--page-x) clamp(72px, 10vw, 108px);
+        }
+
+        .toc-trigger {
+          position: fixed;
+          z-index: 1000;
+          top: 72px;
+          right: var(--page-x);
+          bottom: auto;
+          display: inline-flex !important;
+          min-height: 44px;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid rgba(28, 30, 33, 0.14);
+          border-radius: 999px;
+          padding: 0 18px;
+          background: var(--ink);
+          color: var(--surface);
+          font-size: var(--text-sm);
+          font-weight: 800;
+          opacity: 1 !important;
+          visibility: visible !important;
+          pointer-events: auto !important;
+          box-shadow: 0 14px 34px rgba(28, 30, 33, 0.18);
+        }
+
+        .scroll-top {
+          z-index: 1000;
+          right: calc(var(--page-x) + 76px);
+          top: 72px;
+          bottom: auto;
+          display: inline-flex !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+          pointer-events: auto !important;
+          transform: none !important;
+        }
+
+        .toc-backdrop {
+          position: fixed;
+          z-index: 900;
+          inset: 0;
+          display: block;
+          background: rgba(28, 30, 33, 0.28);
+          backdrop-filter: blur(4px);
+          -webkit-backdrop-filter: blur(4px);
+        }
+
+        .toc-backdrop[hidden] {
+          display: none;
+        }
+
+        .toc {
+          position: fixed;
+          z-index: 950;
+          top: 128px;
+          right: var(--page-x);
+          bottom: max(16px, env(safe-area-inset-bottom));
+          left: var(--page-x);
+          display: none;
+          max-height: calc(100svh - 152px);
+          margin: 0;
+          overflow-y: auto;
+          border: 1px solid rgba(28, 30, 33, 0.12);
+          border-radius: 14px;
+          padding: 16px;
+          background: rgba(255, 255, 255, 0.98);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          box-shadow: 0 24px 60px rgba(28, 30, 33, 0.2);
+        }
+
+        .toc.is-open {
+          display: block;
+        }
+
+        .toc h2 {
+          display: block;
+          margin: 0 72px 14px 0;
+          font-size: 1rem;
+          text-transform: none;
+          letter-spacing: 0;
+        }
+
+        .toc-close {
+          position: absolute;
+          top: 12px;
+          right: 12px;
+          display: inline-flex;
+          min-height: 36px;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid var(--line);
+          border-radius: 999px;
+          padding: 0 12px;
+          background: var(--surface);
+          color: var(--ink);
+          font-size: var(--text-xs);
+          font-weight: 800;
+        }
+
+        .toc .toc-chapters {
+          display: grid;
+          margin-top: 14px;
+          margin-bottom: 0;
+        }
+
+        .toc .toc-section:not(.toc-chapters) {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 8px;
+          overflow: visible;
+          max-width: 100%;
+          padding-bottom: 0;
+          margin-bottom: 12px;
+        }
+
+        .toc .toc-section:not(.toc-chapters)::-webkit-scrollbar {
+          display: none;
+        }
+
+        .toc a {
+          display: flex;
+          min-width: 0;
+          min-height: 38px;
+          align-items: center;
+          border: 1px solid var(--line);
+          border-radius: 8px;
+          padding: 7px 10px;
+          background: var(--surface);
+          font-size: var(--text-xs);
+          font-weight: 600;
+          line-height: 1.35;
+          color: var(--muted);
+          white-space: normal;
+          overflow-wrap: anywhere;
+          transition: all 0.2s ease;
+        }
+
+        .toc a.active {
+          background: var(--ink);
+          color: var(--surface);
+          border-color: var(--ink);
+          font-weight: 700;
+        }
+
+        .reader-strip {
+          display: grid;
+          align-items: start;
+          gap: 16px;
+          width: 100%;
+          padding-right: var(--page-x);
+          padding-left: var(--page-x);
+        }
+      }
+
+      @media (max-width: 560px) {
+        :root {
+          --page-x: 16px;
+          --reader-text: 1rem;
+          --reader-lead: 1rem;
+          --reader-title: 2.25rem;
+          --reader-chapter: 1.55rem;
+          --reader-mobile-heading: clamp(0.92rem, 4.3vw, 1.2rem);
+        }
+
+        .reader-header {
+          height: 56px;
+          gap: 12px;
+          padding-right: var(--page-x);
+          padding-left: var(--page-x);
+        }
+
+        .reader-header a {
+          font-size: 0.88rem;
+          line-height: 1.2;
+          white-space: nowrap;
+        }
+
+        .reader-strip {
+          padding-top: 40px;
+          padding-bottom: 22px;
+        }
+
+        .reader-strip strong {
+          max-width: 100%;
+          font-size: 2.25rem;
+        }
+
+        .reader-strip span {
+          max-width: 100%;
+          line-height: 1.6;
+        }
+
+        .reader-shell {
+          max-width: none;
+          padding-top: 18px;
+        }
+
+        .toc {
+          right: 12px;
+          top: 112px;
+          bottom: max(12px, env(safe-area-inset-bottom));
+          left: 12px;
+          max-height: calc(100svh - 132px);
+          padding: 14px;
+        }
+
+        .toc-trigger {
+          top: 64px;
+          bottom: auto;
+        }
+
+        .scroll-top {
+          right: calc(var(--page-x) + 68px);
+          top: 64px;
+          bottom: auto;
+          width: 44px;
+          height: 44px;
+        }
+
+        .toc .toc-section:not(.toc-chapters) {
+          gap: 8px;
+        }
+
+        .toc a {
+          min-height: 40px;
+        }
+
+        .manuscript h1 {
+          max-width: 100%;
+          font-size: var(--reader-title);
+        }
+
+        .manuscript blockquote {
+          padding-left: 14px;
+          line-height: 1.65;
+        }
+
+        .part {
+          margin-top: 56px;
+          padding-top: 36px;
+        }
+
+        .part h2 {
+          margin-bottom: 24px;
+        }
+
+        .part h2,
+        .chapter h3 {
+          font-size: var(--reader-mobile-heading);
+          line-height: 1.24;
+        }
+
+        .chapter {
+          padding: 32px 0 42px;
+        }
+
+        .chapter-visual {
+          width: 100%;
+          margin: 96px 0 26px;
+          box-shadow: 0 12px 28px rgba(28, 30, 33, 0.07);
+        }
+
+        .ai-generated-media::after {
+          right: 10px;
+          bottom: 10px;
+          padding: 5px 9px;
+        }
+
+        .chapter h4:nth-of-type(2) + p,
+        .chapter h4:nth-of-type(3) + p {
+          padding: 14px 16px;
+        }
+      }
+
+      @media (max-width: 359px) {
+        :root {
+          --reader-mobile-heading: clamp(0.82rem, 4.25vw, 0.96rem);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#reader-content">본문으로 건너뛰기</a>
+    <header class="reader-header" aria-label="원고 내비게이션">
+      <a href="./index.html">냥냥츄르</a>
+      <a href="./nyangnyang-chur-landing-standalone.html">신호별 소개</a>
+    </header>
+    <button class="toc-trigger" type="button" aria-controls="reader-toc" aria-expanded="false">목차</button>
+    <div class="toc-backdrop" hidden></div>
+    <button class="scroll-top" type="button" aria-label="맨 위로 이동" aria-hidden="true" tabindex="-1">&uarr;</button>
+    <section class="reader-strip" aria-label="읽기 안내">
+      <strong>츄르의 관찰일지</strong>
+      <span>오늘 자꾸 떠오르는 고양이의 신호가 있다면, 그 장부터 펼쳐도 좋다. 한 장은 짧은 이야기와 30초 체크, 집사 메모로 조용히 닫힌다.</span>
+    </section>
+    <main class="reader-shell" id="reader-content">
+      <aside class="toc" id="reader-toc" aria-label="냥냥노트 목차">
+        <button class="toc-close" type="button" aria-label="목차 닫기">닫기</button>
+        <h2>냥냥노트 목차</h2>
+        <nav class="toc-section" aria-label="파트별 신호">
+          <a href="#part-1">1. 웃다가 배우는 고양이 생활</a>
+<a href="#part-2">2. 집 안에 놓는 안심</a>
+<a href="#part-3">3. 마음의 속도를 맞추는 일</a>
+<a href="#part-4">4. 몸이 보내는 작은 알림</a>
+<a href="#part-5">5. 같이 산다는 것의 거리</a>
+<a href="#part-6">6. 오래 같이 살기 위한 책임</a>
+<a href="#part-7">7. 고양이라는 종을 더 정확히 보기</a>
+        </nav>
+        <nav class="toc-section toc-chapters" aria-label="장면별 노트">
+          <a href="#chapter-1">1. 츄르는 왜 갑자기 뛰었을까</a>
+<a href="#chapter-2">2. 웃긴 장면 뒤에 남은 신호</a>
+<a href="#chapter-3">3. 집사의 상처받는 속도</a>
+<a href="#chapter-4">4. 고양이 과시대회의 뒤끝</a>
+<a href="#chapter-5">5. 이름을 바꾸면 운명도 바뀔까</a>
+<a href="#chapter-6">6. 귀여움이 관찰을 가릴 때</a>
+<a href="#chapter-7">7. 소파 밑 38센티미터</a>
+<a href="#chapter-8">8. 밥그릇보다 먼저 놓아야 할 것</a>
+<a href="#chapter-9">9. 물그릇 세 개의 정치학</a>
+<a href="#chapter-10">10. 화장실은 집의 중심이다</a>
+<a href="#chapter-11">11. 이동장은 감옥이 아니라 방이어야 한다</a>
+<a href="#chapter-12">12. 출근 전 30초</a>
+<a href="#chapter-13">13. 이름을 부르지 않는 인사</a>
+<a href="#chapter-14">14. 하악질의 번역</a>
+<a href="#chapter-15">15. 우다다는 혼난 뒤가 아니라 비운 뒤에 온다</a>
+<a href="#chapter-16">16. 꼬리가 먼저 말한 날</a>
+<a href="#chapter-17">17. 고양이가 나를 좋아한다는 증거</a>
+<a href="#chapter-18">18. 잠깐 싫어할 권리</a>
+<a href="#chapter-19">19. 똥을 보고 쓰는 일기</a>
+<a href="#chapter-20">20. 발톱깎이는 가위가 아니라 약속</a>
+<a href="#chapter-21">21. 병원에 가져갈 세 줄</a>
+<a href="#chapter-22">22. 물을 많이 마신 날</a>
+<a href="#chapter-23">23. 토한 뒤에 해야 할 일</a>
+<a href="#chapter-24">24. 살이 찐 건 귀여움이 아니다</a>
+<a href="#chapter-25">25. 합사는 사랑보다 동선이다</a>
+<a href="#chapter-26">26. 둘째를 들이기 전 첫째에게 묻는 법</a>
+<a href="#chapter-27">27. 아기와 고양이 사이의 규칙</a>
+<a href="#chapter-28">28. 싸움이 끝난 뒤 사람이 해야 할 일</a>
+<a href="#chapter-29">29. 외로움이라는 사람의 오해</a>
+<a href="#chapter-30">30. 가족이 늘어날 때 고양이가 잃는 것</a>
+<a href="#chapter-31">31. 실종을 상상하기 전에 할 일</a>
+<a href="#chapter-32">32. 길고양이를 본 날의 순서</a>
+<a href="#chapter-33">33. 위험한 물건은 귀엽지 않다</a>
+<a href="#chapter-34">34. 노묘의 느린 대답</a>
+<a href="#chapter-35">35. 마지막을 준비한다는 말</a>
+<a href="#chapter-36">36. 모르면 묻는 용기</a>
+<a href="#chapter-37">37. 묘종백과를 읽는 법</a>
+<a href="#chapter-38">38. 예쁜 외모 뒤의 유전 이야기</a>
+<a href="#chapter-39">39. 털과 피부가 보내는 힌트</a>
+<a href="#chapter-40">40. 작은 고양이와 작은 오해</a>
+<a href="#chapter-41">41. 품종보다 먼저 보는 생활</a>
+<a href="#chapter-42">42. 오늘도 츄르는 나를 훈련시킨다</a>
+        </nav>
+      </aside>
+      <article class="manuscript">
+        <h1>냥냥츄르</h1>
+<blockquote>츄르는 우다다 한 번, 살짝 접힌 귀 한쪽으로 사람을 웃게 한다. 이 책은 그 웃음이 지나간 자리에 남은 작은 신호를 오래 들여다본다.</blockquote>
+<div class="intro-block"><h2>이 노트는 이렇게 펼친다</h2></div>
+<ul>
+<li>처음부터 끝까지 따라 읽어도 좋고, 오늘 유난히 눈에 밟히는 신호가 있다면 그 장부터 펼쳐도 좋다.</li>
+<li>각 장은 짧은 이야기, 30초 체크, 집사 메모, 오늘의 한 문장으로 이어진다.</li>
+<li>이 책은 진단을 대신하지 않는다. 다만 집사가 본 변화를 차분히 적어 두게 하고, 필요할 때 병원에 가져갈 말로 정리해 준다.</li>
+</ul>
+<section class="part" id="part-1">
+<h2>Part 1. 웃다가 배우는 고양이 생활</h2>
+<article class="chapter" id="chapter-1">
+<h3>1. 츄르는 왜 갑자기 뛰었을까</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_01_sudden_run_context_monoline.png" width="1254" height="1254" loading="lazy" decoding="async" alt="조용한 집 안에서 뛰는 회색 태비 고양이를 집사가 노트에 기록하는 장면" />
+</figure>
+<p>츄르가 갑자기 뛰는 날이면 집 안의 공기가 먼저 달라졌다.<br />방금 전까지 창가에서 졸던 고양이가 복도 끝으로 튀어나가고, 발바닥 소리가 마룻바닥을 두드렸다.<br />나는 처음엔 웃었다.<br />고양이의 우다다는 사람에게 늘 조금 우스운 장면으로 보인다.<br />하지만 같은 행동이 반복되자 웃음만으로는 부족했다.</p>
+<p>갑자기 뛰는 이유는 하나가 아니다.<br />화장실을 다녀온 뒤 몸이 가벼워졌을 수도 있고, 놀이가 부족했을 수도 있고, 밖에서 들린 작은 소리에 긴장했을 수도 있다.<br />어떤 날은 몸의 불편함이 행동을 바꿀 수도 있다.<br />그래서 나는 츄르가 뛴 순간만 보지 않고 전후를 보기 시작했다.<br />뛰기 전 화장실에 갔는지, 사료를 먹었는지, 꼬리와 귀는 어땠는지, 뛰고 난 뒤 숨은 가쁘지 않은지.</p>
+<p>고양이 행동은 짧지만 맥락은 길다.<br />한 장면을 잘라 귀엽다고만 부르면 놓치는 것이 생긴다.<br />츄르는 뛰었고, 나는 그 뒤를 따라가지 않았다.<br />대신 오늘 하루 츄르의 몸과 집 안의 리듬을 다시 떠올렸다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>갑자기 뛰기 전 화장실, 식사, 놀이가 있었는가?</li>
+<li>뛰고 난 뒤 호흡과 활력은 평소와 같은가?</li>
+<li>최근 소음, 손님, 가구 배치 변화가 있었는가?</li>
+<li>행동이 갑자기 잦아졌는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>우다다는 자연스러운 활동일 수 있지만, 갑작스러운 행동 변화가 배변·배뇨 이상, 통증 반응, 식욕 변화와 함께 나타나면 단순한 장난으로 넘기지 않는다.<br />행동을 기록할 때는 전후 상황을 같이 적는다.</p>
+<h4>오늘의 한 문장</h4>
+<p>고양이 행동은 순간보다 전후가 더 많은 말을 한다.</p>
+</article>
+<article class="chapter" id="chapter-2">
+<h3>2. 웃긴 장면 뒤에 남은 신호</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_02_funny_signal_box_monoline.png" width="1254" height="1254" loading="lazy" decoding="async" alt="작은 상자에 불편하게 걸친 회색 태비 고양이와 휴대폰을 내려놓는 집사의 손" />
+</figure>
+<p>츄르는 작은 상자에 들어가려다 실패했다.<br />앞발은 안에 있고, 엉덩이는 밖에 남았다.<br />나는 휴대폰을 들었다.<br />화면 속 츄르는 너무 웃겼다.<br />그런데 화면 밖의 츄르는 귀를 뒤로 조금 눕히고 있었다.</p>
+<p>그때 알았다.<br />웃긴 장면과 불편한 장면은 가끔 같은 자세를 하고 있다.<br />사람은 먼저 웃고, 고양이는 먼저 균형을 잡는다.<br />나는 휴대폰을 내려놓고 상자를 조금 넓혔다.<br />츄르는 다시 들어갔다.<br />이번에는 몸을 낮추지 않았고, 오래 머물렀다.</p>
+<p>우리가 고양이를 사랑하는 방식에는 기록하고 싶은 욕심이 섞여 있다.<br />사진을 찍고, 공유하고, 귀엽다고 말하고 싶다.<br />하지만 고양이의 몸이 불편하다고 말하는 순간에는 기록보다 조정이 먼저다.<br />귀여움은 관찰을 멈추는 신호가 아니라 더 정확히 보라는 초대일 수 있다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>사진을 찍기 전에 귀, 꼬리, 몸 자세를 보았는가?</li>
+<li>장면을 연출하려고 고양이를 붙잡지는 않았는가?</li>
+<li>실패한 물건이나 공간을 더 편하게 바꿀 수 있는가?</li>
+<li>웃긴 행동이 반복되는 불편 신호는 아닌가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>사진과 영상 기록은 도움이 될 수 있지만, 플래시, 큰 소리, 억지 자세는 피한다.<br />귀여운 행동도 스트레스, 통증, 불안과 겹칠 수 있으므로 전후 맥락을 함께 본다.</p>
+<h4>오늘의 한 문장</h4>
+<p>귀여움은 관찰을 멈추는 이유가 아니다.</p>
+</article>
+<article class="chapter" id="chapter-3">
+<h3>3. 집사의 상처받는 속도</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_03_new_cushion_time_monoline.png" width="1254" height="1254" loading="lazy" decoding="async" alt="새 방석 위 익숙한 천을 조심스럽게 확인하는 회색 태비 고양이와 멀리서 기다리는 집사" />
+</figure>
+<p>나는 츄르에게 좋은 방석을 사 줬다.<br />부드러운 천, 낮은 높이, 세탁하기 쉬운 커버. 내 기준으로는 완벽했다.<br />츄르는 방석 앞에서 냄새를 맡고 돌아섰다.<br />나는 하루 만에 상처받았다.</p>
+<p>고양이가 거절한 것은 마음이 아니라 시간일 수 있다.<br />새 물건에는 낯선 냄새가 있고, 낯선 촉감이 있고, 집 안의 익숙한 지도를 바꾸는 힘이 있다.<br />나는 가격표와 리뷰를 봤지만, 츄르는 냄새와 거리와 도망갈 길을 봤다.</p>
+<p>방석을 한가운데 두지 않고 창가 구석으로 옮겼다.<br />츄르가 쓰던 천을 올리고, 며칠 동안 아무 말도 하지 않았다.<br />사흘째 되는 날 앞발 하나가 올라갔다.<br />닷새째에는 몸을 말았다.<br />선물은 실패한 것이 아니라 검수 중이었다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>새 물건을 바로 쓰라고 강요하지 않았는가?</li>
+<li>익숙한 냄새를 함께 제공했는가?</li>
+<li>고양이가 접근하고 떠날 시간을 주었는가?</li>
+<li>내 서운함을 고양이의 문제로 바꾸지 않았는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>새 물건은 천천히 소개한다.<br />특히 이동장, 방석, 숨숨집은 고양이가 직접 확인할 시간을 줘야 한다.<br />갑작스러운 회피가 통증이나 다른 불편함과 관련될 수도 있으므로 행동 변화를 함께 살핀다.</p>
+<h4>오늘의 한 문장</h4>
+<p>고양이는 선물을 거절하지 않고 시간을 요구한다.</p>
+</article>
+<article class="chapter" id="chapter-4">
+<h3>4. 고양이 과시대회의 뒤끝</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_04_quiet_trust_distance_monoline.png" width="1254" height="1254" loading="lazy" decoding="async" alt="밤 창가 아래 집사의 발치 근처에서 조용히 잠든 회색 태비 고양이" />
+</figure>
+<p>친구는 자기 고양이가 부르면 바로 온다고 했다.<br />나는 집에 돌아와 츄르를 불렀다.<br />츄르는 오지 않았다.<br />대신 같은 방에 남아 꼬리 끝만 한 번 움직였다.<br />그날 나는 이상하게 졌다는 기분이 들었다.</p>
+<p>비교는 사람의 놀이지만 고양이에게는 쓸모가 없다.<br />어떤 고양이는 부르면 오고, 어떤 고양이는 도망가지 않는 것으로 답한다.<br />어떤 고양이는 무릎에 올라오고, 어떤 고양이는 같은 방에서 등을 보이며 쉰다.<br />신뢰는 늘 사진이 되는 자세로 오지 않는다.</p>
+<p>밤이 되자 츄르는 내 발치에서 잤다.<br />손이 닿지 않는 거리였지만, 도망가지 않아도 되는 거리였다.<br />나는 그 거리를 자랑하지 않기로 했다.<br />대신 기억하기로 했다.<br />내 고양이는 내 방식이 아니라 자기 방식으로 가까워지고 있었다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>다른 고양이 기준으로 내 고양이를 평가하고 있지 않은가?</li>
+<li>내 고양이의 편안한 신호를 알고 있는가?</li>
+<li>무릎냥, 애교, 호출 반응만 친밀함으로 보지 않는가?</li>
+<li>작은 신뢰를 알아차리는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>고양이 성격과 친밀 표현은 개체차가 크다.<br />부르면 오는 행동만으로 애착을 판단하지 않는다.<br />억지 접촉은 오히려 관계를 늦출 수 있다.</p>
+<h4>오늘의 한 문장</h4>
+<p>내 고양이의 속도는 비교 대상이 아니다.</p>
+</article>
+<article class="chapter" id="chapter-5">
+<h3>5. 이름을 바꾸면 운명도 바뀔까</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_05_name_safe_signal_monoline.png" width="1254" height="1254" loading="lazy" decoding="async" alt="집사가 거리를 두고 간식 접시를 놓아 주자 차분히 바라보는 회색 태비 고양이" />
+</figure>
+<p>츄르라는 이름은 처음엔 임시였다.<br />부르기 쉽고, 입에 붙고, 간식처럼 기분이 좋아서 붙인 이름이었다.<br />그런데 이름은 반복될수록 관계의 표정이 된다.</p>
+<p>문제는 내가 이름 뒤에 싫은 일을 많이 붙였다는 점이었다.<br />발톱을 깎을 때도, 약을 먹일 때도, 사진을 찍으려고 다가갈 때도 나는 이름을 불렀다.<br />어느 순간 츄르에게 이름은 초대장이 아니라 예고장이 되어 있었다.</p>
+<p>나는 이름을 다시 가볍게 만들기로 했다.<br />이름을 부르고 아무것도 하지 않는 날, 이름을 부르고 간식만 놓고 지나가는 날, 이름을 부르고 눈을 천천히 감았다 뜨는 날. 이름은 조금씩 무서운 소리에서 평범한 소리로 돌아왔다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>이름 뒤에 싫은 일이 자주 따라오는가?</li>
+<li>이름을 부르고 억지로 잡지는 않는가?</li>
+<li>이름과 좋은 경험을 다시 연결하고 있는가?</li>
+<li>반응하지 않아도 혼내지 않는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>이름은 통제 도구가 아니라 예측 가능한 신호가 되어야 한다.<br />이름을 부른 뒤 불편한 일이 반복되면 회피 반응이 생길 수 있다.</p>
+<h4>오늘의 한 문장</h4>
+<p>이름은 부르는 소리만이 아니라 뒤따르는 경험까지 포함한다.</p>
+</article>
+<article class="chapter" id="chapter-6">
+<h3>6. 귀여움이 관찰을 가릴 때</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_06_cute_signal_water_bowl_monoline.png" width="1254" height="1254" loading="lazy" decoding="async" alt="물그릇을 앞발로 건드리는 회색 태비 고양이와 그 모습을 노트에 적는 집사" />
+</figure>
+<p>츄르는 물그릇을 앞발로 툭툭 쳤다.<br />처음에는 귀여웠다.<br />두 번째도 귀여웠다.<br />사흘째에는 물그릇 주변이 늘 젖어 있었다.</p>
+<p>나는 그제야 귀여움 대신 질문을 붙였다.<br />그릇이 너무 깊은가. 수염이 닿아 불편한가. 물 위치가 마음에 들지 않는가. 그릇을 낮고 넓은 것으로 바꾸고, 위치도 창가 쪽으로 옮겼다.<br />츄르는 덜 건드렸다.</p>
+<p>고양이는 설명하지 않는다.<br />대신 반복한다.<br />반복되는 행동을 귀엽다고만 부르면, 고양이가 어렵게 보내는 신호를 놓칠 수 있다.<br />귀여움은 애정의 시작일 수 있지만, 돌봄의 끝이어서는 안 된다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>반복 행동을 귀엽다고만 넘기고 있지 않은가?</li>
+<li>그릇, 위치, 소음, 주변 동선을 바꿔 볼 수 있는가?</li>
+<li>행동이 갑자기 시작되었는가?</li>
+<li>식욕, 음수량, 배변·배뇨 변화가 함께 있는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>반복 행동은 환경 불편, 놀이 부족, 스트레스, 건강 문제 등과 관련될 수 있다.<br />행동 하나만 보고 결론 내리지 말고 전후 변화를 함께 본다.</p>
+<h4>오늘의 한 문장</h4>
+<p>귀엽다는 말 뒤에 질문 하나를 더 붙인다.</p>
+</article>
+</section>
+<section class="part" id="part-2">
+<h2>Part 2. 집 안에 놓는 안심</h2>
+<article class="chapter" id="chapter-7">
+<h3>7. 소파 밑 38센티미터</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_07_safe_hide_sofa_monoline.png" width="1254" height="1254" loading="lazy" decoding="async" alt="소파 밑에서 조심스럽게 앞발을 내민 회색 태비 고양이와 거리를 두고 밥과 물을 놓는 집사" />
+</figure>
+<p>츄르가 처음 고른 방은 방이 아니었다.<br />소파 밑 38센티미터의 어둠이었다.<br />나는 이름을 불렀고, 츄르는 더 깊이 들어갔다.<br />내가 다정하다고 생각한 목소리는 츄르에게 아직 너무 가까운 소리였을지 모른다.</p>
+<p>새집은 사람에게 시작이지만 고양이에게는 정보의 폭주다.<br />낯선 바닥 냄새, 냉장고 소리, 먼지의 방향, 사람 발걸음, 문틈의 바람. 츄르는 그 모든 것을 한 번에 읽어야 했다.<br />그러니 소파 밑은 도망이 아니라 임시 사무실 같은 곳이었다.<br />거기서 집을 검토하고 있었다.</p>
+<p>나는 손을 넣지 않았다.<br />대신 구조를 바꿨다.<br />밥은 입구에서 조금 떨어진 곳에 두고, 물은 더 조용한 곳에 두었다.<br />화장실은 벽을 등질 수 있는 자리로 옮겼다.<br />조명은 낮추고, TV는 켜지 않았다.<br />나오라고 설득하는 대신 나올 수 있는 조건을 만들었다.</p>
+<p>밤이 깊어지자 앞발 하나가 나왔다.<br />나는 보지 않는 척했다.<br />그 발은 나에게 온 것이 아니라 자기 세계를 넓히러 나온 것이었다.<br />관계는 그날 시작됐다.<br />포옹이 아니라 거리에서.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>고양이가 숨을 수 있는 안전한 공간이 있는가?</li>
+<li>손을 넣어 끌어내려 하지 않았는가?</li>
+<li>밥, 물, 화장실이 접근하기 쉬운가?</li>
+<li>새 환경의 소음과 조명을 줄였는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>새 환경에서 숨는 행동은 흔하다.<br />다만 장시간 식욕 부진, 배변·배뇨 이상, 호흡 이상, 심한 무기력이 있으면 상담한다.<br />숨을 곳을 없애기보다 안전한 숨을 곳을 제공한다.</p>
+<h4>오늘의 한 문장</h4>
+<p>나오게 하지 말고, 나올 수 있게 만든다.</p>
+</article>
+<article class="chapter" id="chapter-8">
+<h3>8. 밥그릇보다 먼저 놓아야 할 것</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_08_quiet_food_place_monoline.png" width="1254" height="1254" loading="lazy" decoding="async" alt="조용한 벽 쪽에 밥그릇을 놓아 주자 회색 태비 고양이가 천천히 다가오는 장면" />
+</figure>
+<p>좋은 그릇을 샀다.<br />낮고 넓고, 미끄러지지 않고, 보기에도 예뻤다.<br />츄르는 그릇 앞에서 멈췄다.<br />냄새를 맡고, 고개를 돌렸다.<br />나는 그릇이 마음에 들지 않는다고 생각했다.</p>
+<p>문제는 그릇이 아니라 자리였다.<br />그릇은 세탁기 옆에 있었다.<br />사람에게는 생활 소음이지만, 고양이에게는 밥 먹는 자리 밑에서 울리는 불안일 수 있었다.<br />나는 그릇을 조용한 벽 쪽으로 옮겼다.<br />등 뒤로 사람이 자주 지나가지 않고, 화장실과도 떨어진 곳이었다.</p>
+<p>그날 밤 도자기에 사료 알갱이가 부딪히는 소리가 났다.<br />고양이의 첫 식사는 축하받는 장면이 아니라 방해받지 않는 장면이어야 했다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>밥자리 근처에 큰 소음이나 진동이 있는가?</li>
+<li>등 뒤로 사람이 자주 지나가는가?</li>
+<li>화장실과 너무 가깝지는 않은가?</li>
+<li>갑작스러운 식욕 저하가 있는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>식욕 변화는 위치나 그릇 문제일 수도 있지만 건강 문제일 수도 있다.<br />하루 이상 먹지 않거나 활력 저하가 함께 보이면 상담한다.</p>
+<h4>오늘의 한 문장</h4>
+<p>좋은 그릇보다 먼저 조용한 자리를 놓는다.</p>
+</article>
+<article class="chapter" id="chapter-9">
+<h3>9. 물그릇 세 개의 정치학</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_09_safe_water_bowls_monoline.png" width="1254" height="1254" loading="lazy" decoding="async" alt="여러 위치의 물그릇 중 창가 물그릇을 고른 회색 태비 고양이를 집사가 노트에 적는 장면" />
+</figure>
+<p>츄르가 물을 적게 마시는 것 같았다.<br />나는 물그릇을 하나 더 샀고, 그래도 마음이 놓이지 않아 세 개를 두었다.<br />부엌, 창가, 침실 문 근처. 같은 물이었지만 츄르는 창가 물을 골랐다.</p>
+<p>창가에는 이유가 있었다.<br />밖을 볼 수 있고, 등 뒤가 막혀 있고, 발소리가 갑자기 지나가지 않았다.<br />물은 물만의 문제가 아니었다.<br />통로, 시야, 그릇 깊이, 냄새, 소음이 모두 물을 마시는 경험을 만들었다.</p>
+<p>사람은 효율을 좋아한다.<br />밥 옆에 물, 물 옆에 간식, 한곳에 깔끔하게. 고양이는 효율보다 안심을 먼저 마신다.<br />나는 창가 물그릇을 건드리지 않기로 했다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>물그릇이 여러 위치에 있는가?</li>
+<li>사료, 화장실, 가전 소음과 떨어져 있는가?</li>
+<li>그릇 높이와 깊이가 편한가?</li>
+<li>음수량 변화가 갑자기 생겼는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>물을 적게 마시거나 갑자기 많이 마시는 변화는 기록한다.<br />소변 양, 식욕, 체중, 활력 변화와 함께 보이면 병원에 상담한다.</p>
+<h4>오늘의 한 문장</h4>
+<p>고양이는 물보다 먼저 안심을 마신다.</p>
+</article>
+<article class="chapter" id="chapter-10">
+<h3>10. 화장실은 집의 중심이다</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_10_litter_box_access_monoline.png" width="1254" height="1254" loading="lazy" decoding="async" alt="열린 동선에 놓인 깨끗한 화장실로 편하게 다가가는 회색 태비 고양이와 정리하는 집사" />
+</figure>
+<p>나는 화장실을 숨기고 싶었다.<br />손님 눈에 덜 띄는 곳, 냄새가 덜 나는 곳, 청소할 때 덜 보이는 곳. 그래서 세탁실 구석에 두었다.<br />사람 기준으로는 좋은 위치였다.<br />츄르 기준으로는 아니었다.</p>
+<p>츄르는 화장실 앞에서 멈추는 일이 많아졌다.<br />들어갔다가 바로 나오기도 했다.<br />처음엔 모래가 마음에 안 드나 생각했다.<br />하지만 위치를 보니 소리가 많았다.<br />세탁기, 문, 발걸음. 게다가 안쪽에 들어가면 도망갈 방향이 하나뿐이었다.</p>
+<p>화장실은 사람에게 숨기고 싶은 물건이지만, 고양이에게는 몸을 맡기는 자리다.<br />취약한 자세로 머무는 곳이다.<br />그래서 조용하고, 접근하기 쉽고, 빠져나갈 길이 있어야 한다.<br />나는 화장실을 더 열린 곳으로 옮겼다.<br />대신 주변을 더 자주 청소했다.<br />숨기는 대신 관리하기로 했다.</p>
+<p>위치를 바꾼 뒤 츄르는 더 편하게 들어갔다.<br />나는 그제야 알았다.<br />집의 중심은 거실 테이블이나 소파가 아니라, 고양이가 편하게 화장실을 쓸 수 있는 동선일 때도 있다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>화장실 입구가 막혀 있지 않은가?</li>
+<li>주변에 큰 소음이나 진동이 있는가?</li>
+<li>고양이 수에 맞는 화장실 개수를 갖췄는가?</li>
+<li>매일 모래 상태를 확인하는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>화장실 회피는 모래 취향, 위치, 스트레스, 통증, 방광 문제 등 다양한 원인과 관련될 수 있다.<br />배뇨 곤란, 혈뇨, 반복 출입은 빠른 상담이 필요하다.</p>
+<h4>오늘의 한 문장</h4>
+<p>화장실을 숨기기 전에 고양이가 쓰기 편한지 본다.</p>
+</article>
+<article class="chapter" id="chapter-11">
+<h3>11. 이동장은 감옥이 아니라 방이어야 한다</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_11_carrier_safe_room_monoline.png" alt="열린 이동장 앞에서 고양이가 스스로 다가가고 집사가 거리를 둔 채 기다리는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>이동장을 꺼내면 츄르는 사라졌다.<br />병원 가는 날마다 나는 숨바꼭질을 했고, 츄르는 이동장을 더 싫어하게 됐다.<br />이동장은 외출 준비가 아니라 체포의 예고가 되어 있었다.</p>
+<p>나는 이동장을 거실에 계속 두었다.<br />안에 담요를 깔고, 가끔 간식을 넣었다.<br />문은 닫지 않았다.<br />들어가도 아무 일도 일어나지 않는 날이 많아지자 츄르는 조금씩 의심을 내려놓았다.<br />어느 날은 앞발을 넣었고, 어느 날은 안에서 잠깐 앉았다.</p>
+<p>병원 가는 일이 쉬워진 것은 아니었다.<br />하지만 이동장이 매번 최악의 사건으로만 남지는 않았다.<br />평소의 방이 되어야 필요한 날에도 덜 무서운 상자가 된다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>이동장이 평소에도 열려 있는가?</li>
+<li>안에서 좋은 경험이 있었는가?</li>
+<li>병원 당일에만 갑자기 꺼내지 않는가?</li>
+<li>이동장 안의 냄새와 바닥이 익숙한가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>이동장 적응은 응급 상황의 안전과도 연결된다.<br />억지로 밀어 넣는 경험이 반복되면 공포가 커질 수 있다.</p>
+<h4>오늘의 한 문장</h4>
+<p>이동장은 병원 가는 상자가 아니라 평소부터 존재하는 방이어야 한다.</p>
+</article>
+<article class="chapter" id="chapter-12">
+<h3>12. 출근 전 30초</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_12_before_work_check_monoline.png" alt="출근 전 문 앞에서 집사가 고양이 위치와 물그릇 화장실을 차분히 확인하는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>아침은 늘 급했다.<br />머그컵, 충전기, 가방, 열쇠. 나는 문 앞에서야 츄르를 찾았다.<br />츄르는 창가에 있었다.<br />나는 오래 미안해했고, 츄르는 그 긴 감정을 이해하지 못한 얼굴로 나를 봤다.</p>
+<p>그 뒤 출근 전 30초를 정했다.<br />물그릇, 화장실, 창문 잠금, 위험한 끈과 비닐, 츄르의 위치. 확인은 짧고 정확해야 했다.<br />인사도 길게 하지 않았다.<br />“다녀올게.” 그게 전부였다.</p>
+<p>고양이는 사람의 미안함보다 예측 가능한 하루를 더 잘 이해한다.<br />퇴근 후에도 나는 바로 안으려 하지 않았다.<br />가방을 내려놓고, 손을 씻고, 츄르가 올 시간을 두었다.<br />어떤 날은 바로 오고, 어떤 날은 늦게 왔다.<br />둘 다 인사였다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>출근 전 물과 화장실을 확인했는가?</li>
+<li>창문과 위험 물건을 봤는가?</li>
+<li>나갈 때 과한 감정으로 긴장시키지 않는가?</li>
+<li>퇴근 후 고양이가 먼저 다가올 시간을 주는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>분리 관련 문제가 반복되면 울음, 파괴, 식욕 변화, 배변 실수 등 구체적 행동을 기록한다.<br />단순 외로움으로만 해석하지 않는다.</p>
+<h4>오늘의 한 문장</h4>
+<p>미안함보다 예측 가능한 하루를 남긴다.</p>
+</article>
+</section>
+<section class="part" id="part-3">
+<h2>Part 3. 마음의 속도를 맞추는 일</h2>
+<article class="chapter" id="chapter-13">
+<h3>13. 이름을 부르지 않는 인사</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_13_quiet_greeting_monoline.png" alt="집사가 낮게 내민 손등을 고양이가 스스로 냄새 맡으며 인사하는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>내가 이름을 부르면 츄르는 귀만 움직였다.<br />몸은 오지 않았다.<br />나는 더 다정하게 불렀고, 츄르는 다른 방으로 갔다.<br />이름이 싫은 게 아니라, 이름 뒤에 오는 일이 싫었을지도 모른다.</p>
+<p>나는 방식을 바꿨다.<br />이름을 덜 부르고, 손등을 낮게 내밀었다.<br />잡겠다는 손바닥이 아니라 냄새 맡을 수 있는 손등. 첫날 츄르는 오지 않았다.<br />둘째 날도 오지 않았다.<br />사흘째 되는 날 수염이 스쳤다.</p>
+<p>인사는 내가 시작하는 소리라고 생각했다.<br />츄르는 인사가 자기가 정하는 거리라는 것을 알려 줬다.<br />그 뒤로 나는 고양이가 먼저 닿는 순간을 기다리는 법을 배웠다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>이름 뒤에 싫은 일이 따라오지는 않는가?</li>
+<li>손을 위에서 내려오게 하지 않는가?</li>
+<li>고양이가 먼저 다가올 시간을 주는가?</li>
+<li>반응이 없어도 반복해서 부르지 않는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>친밀함은 반복되는 좋은 예측으로 만들어진다.<br />이름을 부르고 억지로 잡는 습관은 피한다.</p>
+<h4>오늘의 한 문장</h4>
+<p>인사는 소리보다 거리를 먼저 배운다.</p>
+</article>
+<article class="chapter" id="chapter-14">
+<h3>14. 하악질의 번역</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_14_hiss_translation_monoline.png" alt="새 담요 앞에서 조심스러운 고양이와 멈춰서 거리를 지키는 집사의 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>새 담요는 부드러웠다.<br />색도 좋았다.<br />나는 펼치는 순간부터 츄르가 좋아할 거라고 생각했다.<br />거실 한가운데 담요를 놓고, 손으로 몇 번 눌러 보이며 말했다.<br />“봐, 좋지?” 츄르는 담요를 보았다.<br />그리고 몸을 낮췄다.</p>
+<p>내가 한 걸음 다가가자 공기가 짧게 갈라졌다.<br />하악. 큰 소리는 아니었다.<br />하지만 그 소리 하나로 방 안의 거리가 달라졌다.<br />나는 멈췄다.<br />처음 느낀 것은 당황이었다.<br />그다음은 서운함이었다.<br />좋은 걸 사 줬는데 왜 저럴까.</p>
+<p>그 생각이 문제였다.<br />좋은 것은 내 기준이었다.<br />츄르에게 담요는 갑자기 집 한가운데 들어온 낯선 냄새였고, 피할 길을 좁히는 큰 물건이었다.<br />사람은 선물이라고 부르지만, 고양이는 침입이라고 느낄 수 있다.<br />하악질은 나를 미워한다는 말이 아니었다.<br />지금 이 거리와 속도가 어렵다는 말이었다.</p>
+<p>나는 담요를 치웠다.<br />버린 것이 아니라 구석으로 옮겼다.<br />그 위에 츄르가 쓰던 작은 천을 올렸다.<br />그리고 더 이상 설명하지 않았다.<br />고양이에게 설명은 냄새와 시간보다 설득력이 약하다.<br />하루 동안 츄르는 담요를 보지 않는 척했다.<br />이틀째에는 지나가다 멈췄다.<br />사흘째에는 끝을 밟았다.<br />일주일 뒤에는 그 위에서 잤다.</p>
+<p>하악질은 관계의 실패가 아니었다.<br />오히려 관계를 지키는 마지막 안내에 가까웠다.<br />더 오면 힘들다.<br />더 빠르면 무섭다.<br />다시 시작하려면 멀리서 시작해 달라. 그 말을 들을 줄 아는 사람이 되면, 고양이는 더 자주 말해도 된다고 느낀다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>하악질 뒤에 더 다가가지 않았는가?</li>
+<li>새 물건이나 새 사람을 천천히 소개했는가?</li>
+<li>고양이가 피할 길과 숨을 곳을 남겨 두었는가?</li>
+<li>“성격이 나쁘다”보다 “무엇이 어려웠을까”를 먼저 생각했는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>하악질은 불편함과 거리 요청의 신호일 수 있다.<br />반복되거나 공격 행동으로 이어지면 환경 변화, 통증, 스트레스 요인을 함께 살핀다.<br />갑자기 성격이 바뀐 것처럼 보일 때는 몸의 불편함이 원인일 수도 있으므로 관찰과 상담이 필요하다.</p>
+<h4>오늘의 한 문장</h4>
+<p>하악질은 나쁜 성격이 아니라 더 멀리서 다시 시작하라는 번역이다.</p>
+</article>
+<article class="chapter" id="chapter-15">
+<h3>15. 우다다는 혼난 뒤가 아니라 비운 뒤에 온다</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_15_zoomies_after_release_monoline.png" alt="사냥 놀이 뒤 고양이가 거실을 가볍게 달리고 집사가 차분히 지켜보는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>밤 열한 시가 되면 츄르는 다른 고양이가 되었다.<br />낮에는 햇빛 속에서 길게 누워 있다가, 밤이 되면 복도 끝에서 거실까지 뛰었다.<br />방향을 바꾸는 소리, 캣타워에 오르는 소리, 다시 내려오는 소리. 나는 처음엔 웃었고, 다음엔 피곤했고, 그다음엔 화가 났다.</p>
+<p>“그만.”</p>
+<p>말은 늦었다.<br />츄르는 이미 다음 코너를 돌고 있었다.<br />나는 츄르가 말을 안 듣는다고 생각했다.<br />그런데 낮에 장난감을 보니 너무 깨끗했다.<br />깃털은 멀쩡했고, 공은 구석에 그대로 있었다.<br />나는 놀아 줬다고 생각했지만, 츄르는 사냥한 적이 없었다.<br />막대를 몇 번 흔든 것은 놀이가 아니라 사람의 의무감에 가까웠다.</p>
+<p>그날부터 밤 우다다 전에 작은 사냥 시간을 만들었다.<br />숨어 기다리게 하고, 천천히 움직이고, 실패하게 하고, 다시 기회를 주고, 마지막에는 잡게 했다.<br />끝에는 아주 작은 간식을 주었다.<br />츄르는 그날도 뛰었다.<br />하지만 짧게 뛰고 물을 마신 뒤 누웠다.</p>
+<p>모든 우다다가 놀이 부족 때문은 아니다.<br />통증, 배뇨 문제, 스트레스, 환경 변화도 행동을 바꿀 수 있다.<br />하지만 적어도 나는 혼내기 전에 물어야 했다.<br />오늘 이 몸에 남은 에너지는 어디로 가야 했을까.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>하루에 고양이가 직접 잡는 놀이가 있었는가?</li>
+<li>우다다 전후 식사, 배변, 배뇨는 정상인가?</li>
+<li>갑작스러운 과활동이나 통증 반응이 있는가?</li>
+<li>놀이가 매번 같은 방식으로 너무 빨리 끝나지는 않는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>밤 활동은 고양이의 자연스러운 리듬과 관련될 수 있다.<br />다만 갑작스러운 행동 변화, 배뇨 이상, 통증 반응, 식욕 변화가 함께 있으면 단순 에너지로 넘기지 않는다.</p>
+<h4>오늘의 한 문장</h4>
+<p>뛰는 고양이를 멈추기 전에 무엇이 남아 있었는지 본다.</p>
+</article>
+<article class="chapter" id="chapter-16">
+<h3>16. 꼬리가 먼저 말한 날</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_16_tail_signal_pause_monoline.png" alt="꼬리를 흔드는 고양이를 보고 집사가 손을 멈추는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>츄르가 내 옆에 앉았다.<br />나는 조심스럽게 등을 쓰다듬었다.<br />처음에는 괜찮았다.<br />몸은 낮아지지 않았고, 귀도 그대로였다.<br />그래서 나는 조금 더 쓰다듬었다.<br />그때 꼬리가 움직이기 시작했다.</p>
+<p>처음에는 천천히, 그다음에는 더 빠르게. 나는 그걸 늦게 읽었다.<br />손을 멈추지 않았고, 츄르는 내 손을 피했다.<br />물지는 않았다.<br />하지만 분명히 거리를 만들었다.<br />내가 놓친 것은 거절이 아니라 거절 전의 문장이었다.</p>
+<p>사람은 손의 의도를 믿는다.<br />사랑해서 만지는 거니까 괜찮다고 생각한다.<br />고양이는 의도보다 몸의 감각을 믿는다.<br />좋다가도 너무 길면 싫어질 수 있고, 같은 손이라도 오늘은 불편할 수 있다.<br />친한 사이일수록 멈추는 신호를 더 잘 읽어야 한다.</p>
+<p>그 뒤로 나는 쓰다듬기 전에 시간을 짧게 잡았다.<br />한 번 만지고 멈춘다.<br />츄르가 다시 다가오면 이어 간다.<br />떠나면 끝낸다.<br />만지는 일은 내가 주는 애정이지만, 끝내는 일은 츄르가 지키는 경계다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>쓰다듬는 중 꼬리 속도가 빨라지는가?</li>
+<li>귀가 뒤로 눕거나 몸이 손에서 멀어지는가?</li>
+<li>고양이가 떠날 때 붙잡지 않는가?</li>
+<li>짧게 만지고 반응을 기다리는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>과자극은 피하기, 물기, 공격 행동으로 이어질 수 있다.<br />고양이가 먼저 다가오고 먼저 떠날 수 있는 구조를 만든다.<br />갑자기 접촉을 싫어하면 통증 가능성도 살핀다.</p>
+<h4>오늘의 한 문장</h4>
+<p>만지는 손보다 멈추는 손이 더 다정할 때가 있다.</p>
+</article>
+<article class="chapter" id="chapter-17">
+<h3>17. 고양이가 나를 좋아한다는 증거</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_17_quiet_trust_same_room_monoline.png" alt="책을 든 집사 곁 같은 방에 고양이가 편히 머무는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>츄르는 무릎에 올라오지 않았다.<br />나는 한동안 그것을 서운해했다.<br />하지만 츄르는 내가 책을 읽으면 같은 방에 있었다.<br />등을 보이고 앉았고, 가끔 눈을 천천히 감았다 떴다.</p>
+<p>고양이의 신뢰는 반드시 사람 품으로 오지 않는다.<br />같은 공간에 남는 것도, 등을 보이는 것도, 눈을 천천히 감는 것도 작은 허락일 수 있다.<br />문제는 사람이 그 조용한 표현을 자주 못 알아본다는 점이다.</p>
+<p>어느 날 츄르는 내 발치에서 잤다.<br />손이 닿지 않는 거리였지만 도망가지 않아도 되는 거리였다.<br />그날 나는 무릎보다 중요한 거리가 있다는 걸 배웠다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>내 고양이만의 편안한 신호를 알고 있는가?</li>
+<li>무릎냥 기준으로 친밀함을 재고 있지 않은가?</li>
+<li>같은 공간에 머무는 신뢰를 알아차리는가?</li>
+<li>고양이가 떠날 때 붙잡지 않는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>친밀 표현은 고양이마다 다르다.<br />억지 접촉보다 안정된 반복 경험이 관계를 만든다.</p>
+<h4>오늘의 한 문장</h4>
+<p>고양이의 사랑은 조용해서 더 자주 놓친다.</p>
+</article>
+<article class="chapter" id="chapter-18">
+<h3>18. 잠깐 싫어할 권리</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_18_right_to_dislike_brush_monoline.png" alt="빗을 바닥에 두고 고양이가 스스로 바라볼 시간을 주는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>츄르는 빗을 싫어했다.<br />나는 털 관리를 해야 한다는 이유로 빗질을 밀어붙였다.<br />필요한 일이니까 참아야 한다고 생각했다.<br />츄르는 빗만 보면 사라졌다.</p>
+<p>필요한 일도 무섭게 오면 더 어려워진다.<br />나는 빗질을 하지 않는 날을 만들었다.<br />빗을 바닥에 두고 간식만 줬다.<br />다음 날은 한 번 빗고 멈췄다.<br />그다음은 두 번. 싫어할 권리를 주자, 견딜 수 있는 시간이 조금 생겼다.</p>
+<p>돌봄은 필요하다는 말로 끝나지 않는다.<br />고양이가 덜 무섭게 받아들일 수 있도록 과정을 나누는 일까지 돌봄이다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>필요한 관리라는 이유로 신호를 무시하지 않는가?</li>
+<li>한 번에 끝내려고 하지 않는가?</li>
+<li>싫어하는 도구를 좋은 경험과 다시 연결하는가?</li>
+<li>갑자기 거부가 심해졌다면 몸 상태를 확인했는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>빗질 거부는 털 엉킴, 피부 문제, 통증과 관련될 수도 있다.<br />갑작스러운 변화는 관찰하고 필요하면 상담한다.</p>
+<h4>오늘의 한 문장</h4>
+<p>돌봄은 싫어할 권리를 지우는 일이 아니다.</p>
+</article>
+</section>
+<section class="part" id="part-4">
+<h2>Part 4. 몸이 보내는 작은 알림</h2>
+<article class="chapter" id="chapter-19">
+<h3>19. 똥을 보고 쓰는 일기</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_19_litter_diary_observation_monoline.png" alt="화장실에서 나온 고양이를 집사가 빈 노트로 차분히 관찰하는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>츄르가 화장실에서 나오는 소리는 늘 조금 달랐다.<br />어떤 날은 모래를 오래 덮었고, 어떤 날은 두 번만 긁고 나왔다.<br />어떤 날은 아무 일도 없었다는 듯 창가로 갔고, 어떤 날은 거실 끝까지 뛰었다.<br />사람에게 화장실은 치워야 할 곳이지만, 고양이에게는 몸이 매일 남기는 보고서였다.</p>
+<p>처음에는 나도 웃기만 했다.<br />특히 화장실을 다녀온 뒤 갑자기 달리는 날에는 “시원했어?” 하고 말했다.<br />츄르는 대답하지 않았다.<br />대신 캣타워 2층에 앉아 꼬리 끝을 짧게 흔들었다.<br />웃긴 장면은 웃긴 장면이었다.<br />하지만 어느 날 모래 위를 보다가, 웃음 뒤에 확인할 것이 있다는 걸 알았다.</p>
+<p>그날 변은 평소보다 조금 작고 단단했다.<br />색은 크게 다르지 않았지만, 모양이 어제와 달랐다.<br />나는 대수롭지 않게 넘기려다 작은 노트를 꺼냈다.<br />월요일, 평소보다 단단함. 물그릇 위치 바꿈. 화요일, 양 보통. 수요일, 냄새 조금 강함. 이렇게 적고 보니 걱정이 줄었다.<br />걱정이 사라진 것이 아니라 쓸모 있는 방향을 얻었다.</p>
+<p>기록을 하기 전의 나는 늘 같은 말을 했다.<br />“뭔가 이상한 것 같아요.” 병원에 가도 이 말은 별 도움이 되지 않았다.<br />언제부터인지, 얼마나 달라졌는지, 식욕과 물 마시는 양은 어땠는지 말하지 못했기 때문이다.<br />기록을 시작한 뒤에는 문장이 바뀌었다.<br />“사흘째 변이 작고 단단해졌고, 물은 평소보다 덜 줄었습니다.” 그 말은 내 불안을 줄이고, 츄르에게 필요한 판단을 더 정확히 만들었다.</p>
+<p>화장실을 확인하는 일은 집사의 체면과는 거리가 멀다.<br />하지만 고양이와 오래 살려면 체면보다 반복이 중요하다.<br />매일 같은 시간에 모래를 보고, 평소와 다른 것을 기억하고, 이상 신호가 반복되면 미루지 않는 일. 그 작은 반복이 고양이 몸의 변화를 가장 먼저 알려 준다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>오늘 배변과 배뇨 횟수를 알고 있는가?</li>
+<li>크기, 색, 단단함, 냄새가 평소와 다른가?</li>
+<li>화장실을 오래 들락거리거나 힘들어하는 모습이 있었는가?</li>
+<li>식욕, 물, 활력 변화가 함께 나타났는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>배변과 배뇨 변화는 중요한 건강 신호다.<br />특히 소변을 못 보거나 화장실을 반복해서 들락거리는 경우, 혈뇨가 보이는 경우, 심한 설사나 구토와 무기력이 함께 보이는 경우에는 빠르게 병원에 상담해야 한다.<br />기록할 때는 날짜, 시간, 횟수, 모양, 색, 식욕, 물 마시는 양을 간단히 적는다.<br />사진이 도움이 될 때도 있지만, 불필요하게 오래 관찰하며 고양이를 불편하게 만들 필요는 없다.</p>
+<h4>오늘의 한 문장</h4>
+<p>화장실은 더러운 곳이 아니라 매일 도착하는 건강 편지다.</p>
+</article>
+<article class="chapter" id="chapter-20">
+<h3>20. 발톱깎이는 가위가 아니라 약속</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_20_claw_clip_promise_monoline.png" alt="발톱깎이를 옆에 두고 집사가 고양이 앞발을 아주 천천히 만지는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>첫 발톱깎이 날, 나는 준비가 완벽하다고 생각했다.<br />전용 발톱깎이, 간식, 밝은 조명. 츄르는 준비되어 있지 않았다.<br />앞발을 잡는 순간 몸이 굳었고, 다음 순간 빠져나갔다.</p>
+<p>나는 계획을 바꿨다.<br />첫날은 발 근처에 손만 갔다.<br />둘째 날은 발등을 1초 만졌다.<br />셋째 날은 발가락 하나를 살짝 눌렀다.<br />일주일 뒤 발톱 하나를 깎았다.<br />하나. 예전 같으면 실패라고 했을 숫자다.</p>
+<p>하지만 츄르는 도망가지 않았다.<br />다음 발톱을 망치지 않았으니 성공이었다.<br />발톱깎이는 도구가 아니라 다음에도 해볼 수 있다는 약속이었다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>한 번에 전부 끝내려 하지 않는가?</li>
+<li>발 만지는 연습과 실제 자르기를 분리했는가?</li>
+<li>싫어하는 신호에서 멈추는가?</li>
+<li>깊게 자르지 않도록 위치를 확인하는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>발톱을 너무 깊게 자르면 통증과 출혈이 생길 수 있다.<br />불안이 심하거나 공격성이 커지면 병원이나 전문가 도움을 받는다.</p>
+<h4>오늘의 한 문장</h4>
+<p>오늘 하나만 성공해도 다음을 지켰다면 충분하다.</p>
+</article>
+<article class="chapter" id="chapter-21">
+<h3>21. 병원에 가져갈 세 줄</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_21_vet_three_lines_notes_monoline.png" alt="이동장과 빈 카드 앞에서 집사가 병원에 가져갈 정보를 차분히 준비하는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>병원에 가는 날이면 나는 늘 말이 많아졌다.<br />이동장을 꺼내는 순간부터 미안하다는 말을 반복했고, 차 안에서는 괜찮을 거라고 말했다.<br />정작 진료실에 들어가면 가장 필요한 말은 잘 나오지 않았다.<br />언제부터였는지, 얼마나 달라졌는지, 평소와 무엇이 달랐는지. 걱정은 컸지만 정보는 흐렸다.</p>
+<p>츄르는 이동장 안에서 낮은 자세로 앉아 있었다.<br />나는 그 자세를 보며 더 불안해졌다.<br />수의사 선생님이 물었다.<br />“식욕은 어땠나요?” 나는 “조금 줄었어요”라고 말했다.<br />“언제부터요?” 그때부터 머릿속이 비었다.<br />그제였나, 어제였나. 아침이었나, 저녁이었나. 불안은 기억을 선명하게 만들 것 같지만, 실제로는 자주 흐리게 만든다.</p>
+<p>그 뒤로 병원에 가기 전 세 줄을 쓰기 시작했다.<br />첫째, 언제부터 달라졌는지. 둘째, 무엇이 얼마나 달라졌는지. 셋째, 먹고 싸고 마시고 움직이는 기본 리듬이 어떤지. 세 줄은 길지 않았다.<br />하지만 진료실에서 내 말을 붙잡아 주었다.</p>
+<p>예를 들면 이렇게 썼다.<br />“그제 저녁부터 사료를 절반 정도 남김. 어제부터 화장실에 평소보다 두 번 더 감. 물그릇은 평소보다 빨리 줄었고, 놀이 반응은 짧아짐.” 이 정도만 적어도 “이상한 것 같아요”보다 훨씬 낫다.<br />보호자가 병명을 맞힐 필요는 없다.<br />오히려 너무 빨리 결론을 내리면 관찰이 좁아질 수 있다.<br />보호자의 역할은 진단이 아니라 변화를 정확히 가져가는 일이다.</p>
+<p>세 줄을 쓰면 마음도 조금 달라진다.<br />걱정이 사라지지는 않는다.<br />하지만 걱정이 할 일을 갖는다.<br />이동장을 들고 병원에 가는 길에도 내가 츄르를 위해 이미 한 가지를 했다는 느낌이 든다.<br />봤고, 적었고, 전달할 준비를 했다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>변화가 시작된 날짜와 시간을 적었는가?</li>
+<li>식욕, 물, 배변, 배뇨, 활력을 따로 보았는가?</li>
+<li>사진이나 짧은 영상이 진료에 도움이 될 수 있는가?</li>
+<li>내가 추측한 병명보다 실제 변화를 먼저 말할 준비가 되었는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>병원 상담 전 기록은 진단을 대신하지 않는다.<br />다만 수의사가 상황을 판단하는 데 도움을 준다.<br />호흡 이상, 배뇨 불가, 심한 무기력, 반복 구토, 경련처럼 응급 가능성이 있는 상황은 기록을 정리하느라 시간을 보내기보다 내원이 우선이다.</p>
+<h4>오늘의 한 문장</h4>
+<p>좋은 집사는 병명을 맞히는 사람이 아니라 변화를 정확히 가져가는 사람이다.</p>
+</article>
+<article class="chapter" id="chapter-22">
+<h3>22. 물을 많이 마신 날</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_22_water_intake_tracking_monoline.png" alt="물을 마시는 고양이와 물그릇 변화를 차분히 살피는 집사의 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>물그릇은 조용히 비었다.<br />처음에는 좋은 일이라고 생각했다.<br />물을 잘 마시는 건 좋은 거니까. 그런데 이틀째에도 물그릇이 평소보다 빨리 줄었다.<br />츄르는 화장실에도 더 자주 갔다.<br />좋은 일이라는 생각이 조금씩 질문으로 바뀌었다.</p>
+<p>나는 물그릇 옆에 작은 표시를 했다.<br />아침에 어느 높이였는지, 밤에는 얼마나 줄었는지. 정확한 계량컵은 아니었지만, 어제와 오늘을 비교할 정도는 되었다.<br />화장실 모래도 같이 봤다.<br />감자가 커졌는지, 횟수가 늘었는지, 냄새가 달라졌는지.</p>
+<p>많이 마시는 것은 단순히 건강한 습관일 수도 있다.<br />날씨, 사료 종류, 활동량에 따라 달라질 수 있다.<br />하지만 갑자기 달라진 변화는 몸이 보내는 신호일 수도 있다.<br />집사가 해야 할 일은 물을 많이 마신다는 사실 하나에 결론을 붙이는 것이 아니라, 그 변화가 다른 변화와 함께 오는지 보는 것이다.</p>
+<p>그날 나는 츄르에게 더 말을 걸지 않았다.<br />대신 물그릇을 씻고, 기록을 남기고, 다음 날도 확인했다.<br />걱정은 몸을 굳게 만들지만, 기록은 손을 움직이게 한다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>물 마시는 양이 갑자기 늘었는가?</li>
+<li>소변 양이나 횟수도 같이 늘었는가?</li>
+<li>식욕, 체중, 활력 변화가 함께 있는가?</li>
+<li>사료 종류나 날씨, 실내 온도가 달라졌는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>음수량과 배뇨 변화는 여러 건강 문제와 관련될 수 있다.<br />특히 변화가 며칠 이상 이어지거나 체중, 식욕, 활력 변화가 함께 나타나면 기록을 들고 병원에 상담한다.<br />물을 못 마시게 제한하지 않는다.</p>
+<h4>오늘의 한 문장</h4>
+<p>물그릇의 변화도 몸의 문장이다.</p>
+</article>
+<article class="chapter" id="chapter-23">
+<h3>23. 토한 뒤에 해야 할 일</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_23_after_vomit_observe_monoline.png" alt="토한 뒤 고양이 상태를 먼저 살피고 수건을 준비한 집사의 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>츄르가 처음 토한 날, 나는 소리부터 들었다.<br />작고 낮은 기침 같은 소리, 몸을 낮추는 자세, 그리고 바닥에 남은 젖은 흔적. 머릿속에는 바로 무서운 단어들이 떠올랐다.<br />검색창은 그런 마음을 잘 안다.<br />몇 글자만 쳐도 겁나는 말들이 줄을 선다.</p>
+<p>나는 검색을 하려다 멈췄다.<br />먼저 츄르를 봐야 했다.<br />츄르는 토한 자리에서 두 걸음 물러나 앉아 있었다.<br />눈은 평소보다 조금 커졌지만, 숨이 가쁘지는 않았다.<br />다시 움직였고, 물그릇 쪽으로 가지는 않았다.<br />그다음 바닥을 보았다.<br />양은 어느 정도인지, 색은 어떤지, 사료가 그대로 보이는지, 털이 섞였는지, 피처럼 보이는 것은 없는지.</p>
+<p>토한 뒤 해야 할 일은 겁먹지 않는 척하는 것이 아니었다.<br />겁을 관찰로 바꾸는 일이었다.<br />나는 시간을 적었다.<br />오전 8시 20분. 아침 사료 후 15분. 한 번. 이후 활력 보통. 그리고 이후 몇 시간 동안 식욕과 움직임을 봤다.</p>
+<p>고양이가 한 번 토했다고 모든 일이 응급은 아니다.<br />하지만 반복 구토, 피, 무기력, 식욕 부진, 이물 섭취 의심은 다르다.<br />괜찮겠지와 큰일이야 사이에서 집사가 해야 할 일은 결론을 빨리 내는 게 아니라 위험 신호를 놓치지 않는 것이다.</p>
+<p>그날 츄르는 오후에 조금 먹었고, 밤에는 평소처럼 창가에 앉았다.<br />나는 안심했지만 기록은 지우지 않았다.<br />다음에 같은 일이 생겼을 때 비교할 첫 줄이 생겼기 때문이다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>몇 번 토했는가?</li>
+<li>토한 뒤 식욕, 활력, 호흡은 어떤가?</li>
+<li>피, 이물, 반복 구토, 심한 무기력이 있는가?</li>
+<li>최근 사료, 간식, 장난감, 식물 접근이 달라졌는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>반복 구토, 피가 섞인 구토, 이물 섭취 의심, 식욕 부진, 무기력, 복통처럼 보이는 자세가 있으면 빠르게 병원에 상담한다.<br />토한 내용물 사진은 도움이 될 수 있지만, 고양이 상태 확인이 먼저다.<br />집에서 임의로 약을 먹이거나 사람용 약을 쓰지 않는다.</p>
+<h4>오늘의 한 문장</h4>
+<p>검색보다 먼저 고양이와 바닥을 본다.</p>
+</article>
+<article class="chapter" id="chapter-24">
+<h3>24. 살이 찐 건 귀여움이 아니다</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_24_weight_is_care_monoline.png" alt="둥글어진 고양이 곁에서 집사가 적정 식사와 놀이를 준비하는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>츄르가 둥글어졌다.<br />나는 귀엽다고 했다.<br />사진 속 츄르는 더 포근해 보였다.<br />하지만 캣타워에 오르다 멈추는 날이 늘었다.<br />귀여움이 몸의 부담을 가리고 있었다.</p>
+<p>간식은 사랑의 증거처럼 쉽다.<br />봉지를 열면 고양이가 오고, 고양이가 오면 사람은 사랑받는 기분이 든다.<br />하지만 몸은 감정이 아니라 무게로 대답한다.<br />나는 간식 양을 적고, 놀이 시간을 늘렸다.<br />츄르는 불만이 있어 보였고, 나도 있었다.</p>
+<p>오래 같이 살기 위한 사랑은 가끔 덜 주는 방식으로 온다.<br />덜 주되 더 자주 놀고, 덜 열되 더 정확히 기록하는 방식으로.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>간식 양을 실제로 알고 있는가?</li>
+<li>체중 변화를 기록하는가?</li>
+<li>놀이량이 줄어 있지는 않은가?</li>
+<li>급격한 제한을 하려 하지는 않는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>체중 관리는 급격히 하지 않는다.<br />식단 조절은 건강 상태를 고려해야 하므로 병원과 상의하는 것이 안전하다.</p>
+<h4>오늘의 한 문장</h4>
+<p>간식을 덜 주는 것도 오래 살자는 말일 수 있다.</p>
+</article>
+</section>
+<section class="part" id="part-5">
+<h2>Part 5. 같이 산다는 것의 거리</h2>
+<article class="chapter" id="chapter-25">
+<h3>25. 합사는 사랑보다 동선이다</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_25_cat_introduction_routes_monoline.png" alt="문을 사이에 두고 두 고양이가 각자의 공간과 동선을 유지하는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>둘째 이야기는 늘 부드럽게 시작된다.<br />“혼자 있으면 외롭지 않을까?” “친구가 있으면 좋지 않을까?” 그 말에는 사랑이 들어 있다.<br />하지만 고양이에게 사랑은 사람의 상상과 다른 모양으로 도착할 수 있다.<br />새 고양이는 친구가 아니라 갑자기 나타난 냄새, 소리, 발자국, 밥그릇 경쟁일 수 있다.</p>
+<p>몽이가 임시로 우리 집에 온 날, 나는 츄르에게 바로 보여 주고 싶은 마음을 참았다.<br />문 하나를 닫았다.<br />몽이는 작은 방에, 츄르는 원래 생활하던 거실에 있었다.<br />둘은 서로를 보지 못했지만 냄새는 문틈을 지나갔다.<br />그게 첫 만남이었다.</p>
+<p>처음 며칠은 냄새만 바꿨다.<br />담요를 바꾸고, 밥을 문 양쪽에 놓았다.<br />문은 닫혀 있었지만 좋은 일이 근처에서 일어나게 했다.<br />그다음 문을 아주 조금 열었다.<br />눈이 마주쳤다.<br />오래 두지 않았다.<br />잘 끝나는 순간에서 멈췄다.<br />사람은 “조금만 더”를 좋아하지만, 합사에서는 그 조금이 실패를 만든다.</p>
+<p>중요한 것은 감정이 아니라 동선이었다.<br />각자 도망갈 길이 있는가. 화장실이 충분한가. 밥과 물을 따로 둘 수 있는가. 높은 자리와 숨을 곳이 있는가. 둘이 같은 방에 있어도 서로를 피할 수 있는가. 사랑은 같이 있으라는 명령이 아니라, 피할 수 있어도 다시 돌아올 수 있는 구조였다.</p>
+<p>츄르와 몽이는 금방 친구가 되지 않았다.<br />하지만 큰 싸움 없이 서로의 존재를 배웠다.<br />그 정도면 좋은 시작이었다.<br />사진을 찍을 만한 장면보다 중요한 것은 사진을 찍을 필요가 없을 만큼 평온한 날이었다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>새 고양이와 기존 고양이에게 분리 공간이 있는가?</li>
+<li>화장실, 밥, 물, 숨을 곳을 충분히 나누었는가?</li>
+<li>만남을 길게 밀어붙이지 않고 잘 끝나는 시점에서 멈췄는가?</li>
+<li>사람의 기대보다 고양이의 회복 속도를 우선하는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>합사는 속도와 자원 배치가 핵심이다.<br />싸움이 반복되거나 식욕, 배변, 은신, 공격성 변화가 커지면 무리한 접촉을 중단하고 이전 단계로 돌아간다.<br />필요하면 행동 전문가나 수의사에게 상담한다.</p>
+<h4>오늘의 한 문장</h4>
+<p>합사는 마음을 붙이는 일이 아니라 길을 겹치지 않게 만드는 일에서 시작한다.</p>
+</article>
+<article class="chapter" id="chapter-26">
+<h3>26. 둘째를 들이기 전 첫째에게 묻는 법</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_26_before_second_cat_space_monoline.png" alt="첫째 고양이와 함께 둘째를 위한 분리 공간과 자원을 미리 살피는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>사람은 외로움을 상상한다.<br />“혼자 심심하지 않을까?” 그 질문은 다정하지만 고양이의 답은 아닐 수 있다.<br />첫째에게 둘째는 친구가 아니라 생활 전체를 바꾸는 사건일 수 있다.</p>
+<p>첫째에게 묻는 법은 말이 아니다.<br />공간은 충분한가. 화장실은 나눌 수 있는가. 밥자리와 물자리는 떨어뜨릴 수 있는가. 숨을 곳은 여러 개인가. 실패했을 때 분리할 수 있는가. 무엇보다 보호자는 기다릴 수 있는가.</p>
+<p>둘째는 첫째에게 주는 선물이 아니라 첫째의 생활을 바꾸는 책임이다.<br />사람의 외로움보다 고양이의 영토를 먼저 봐야 한다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>둘째를 사람의 외로움 기준으로 결정하고 있지 않은가?</li>
+<li>공간과 자원을 나눌 수 있는가?</li>
+<li>실패했을 때 분리 관리가 가능한가?</li>
+<li>첫째의 성향과 스트레스 신호를 알고 있는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>다묘 가정은 자원 경쟁을 줄이는 설계가 중요하다.<br />개체 성향에 따라 합사 속도는 크게 다르며, 무리한 접촉은 관계를 악화시킬 수 있다.</p>
+<h4>오늘의 한 문장</h4>
+<p>둘째는 선물 이전에 생활 변화다.</p>
+</article>
+<article class="chapter" id="chapter-27">
+<h3>27. 아기와 고양이 사이의 규칙</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_27_baby_and_cat_rules_monoline.png" alt="높은 자리의 고양이를 아기가 바라보고 집사가 손을 부드럽게 안내하는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>아기가 온 뒤 집의 소리가 바뀌었다.<br />울음, 작은 발소리, 장난감, 낯선 냄새. 츄르는 높은 곳에 더 자주 올라갔다.<br />나는 처음엔 츄르가 예민해졌다고 생각했다.<br />사실은 집이 예민해진 것이었다.</p>
+<p>높은 곳은 도망이 아니라 조절이었다.<br />츄르는 거기서 새 가족을 관찰했다.<br />아기에게도 규칙이 필요했다.<br />자는 고양이를 깨우지 않기, 밥 먹는 고양이를 건드리지 않기, 꼬리를 잡지 않기, 싫다는 신호를 보면 멈추기.</p>
+<p>가족이 된다는 것은 모두가 만져도 된다는 뜻이 아니다.<br />사랑하는 사이에도 안전한 거리는 필요하다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>고양이가 피할 높은 장소가 있는가?</li>
+<li>아이에게 고양이 규칙을 알려 주는가?</li>
+<li>식사와 휴식 공간이 보호되는가?</li>
+<li>상호작용을 반드시 지켜보고 있는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>아이와 고양이는 반드시 감독한다.<br />고양이가 스트레스 신호를 보이면 거리를 확보하고, 아이에게도 반복적으로 규칙을 알려 준다.</p>
+<h4>오늘의 한 문장</h4>
+<p>가족이어도 경계는 필요하다.</p>
+</article>
+<article class="chapter" id="chapter-28">
+<h3>28. 싸움이 끝난 뒤 사람이 해야 할 일</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_28_after_cat_fight_space_monoline.png" alt="두 고양이가 떨어진 뒤 집사가 쿠션으로 시야를 가리고 동선을 열어 주는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>두 고양이가 마주쳤다.<br />소리는 짧았지만 내 심장은 길게 뛰었다.<br />본능적으로 손을 넣으려 했다.<br />말려야 한다고 생각했다.<br />하지만 손은 해결책이 아니라 다칠 물건이 될 수 있다.</p>
+<p>나는 가까이 가지 않고 큰 소리를 줄였다.<br />시야를 막을 수 있는 쿠션을 들고, 각자 빠질 길을 만들었다.<br />둘은 떨어졌다.<br />그 순간 나는 바로 다시 만나게 하고 싶은 충동을 느꼈다.<br />괜찮아졌는지 확인하고 싶었다.<br />하지만 싸움이 끝난 뒤에도 몸은 아직 끝나지 않는다.<br />심장은 빠르고, 냄새는 남아 있고, 긴장은 계속된다.</p>
+<p>분리된 공간에서 각자 진정할 시간을 줬다.<br />밥도 따로, 물도 따로, 화장실도 따로. 다시 만나는 것은 확인이 아니라 다음 단계였다.<br />서두르면 싸움은 기억으로 굳어진다.<br />천천히 하면 사건은 지나간 일이 될 수 있다.</p>
+<p>싸움 뒤 사람이 해야 할 일은 화해 연출이 아니다.<br />안전 확인, 상처 확인, 자원 분리, 단계 되돌리기다.<br />고양이 관계에서 사람의 조급함은 자주 두 번째 싸움을 부른다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>싸움 중 손을 넣지 않았는가?</li>
+<li>시야 차단과 분리 동선을 만들었는가?</li>
+<li>상처, 절뚝거림, 식욕 변화를 확인했는가?</li>
+<li>바로 다시 만나게 하지 않았는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>싸움 후 상처, 통증, 절뚝거림, 식욕 부진, 은신 증가가 있으면 확인과 상담이 필요하다.<br />반복 싸움은 합사 단계를 되돌리고 자원 배치를 재점검한다.</p>
+<h4>오늘의 한 문장</h4>
+<p>싸움 뒤에는 화해보다 진정이 먼저다.</p>
+</article>
+<article class="chapter" id="chapter-29">
+<h3>29. 외로움이라는 사람의 오해</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_29_misreading_loneliness_monoline.png" alt="창가에서 편히 시간을 보내는 고양이를 집사가 문 앞에서 차분히 기다리는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>내가 없는 시간 츄르가 외로울 거라고 생각했다.<br />그래서 집에 오면 크게 부르고, 오래 미안해하고, 바로 안으려 했다.<br />츄르는 피했다.</p>
+<p>카메라를 보니 츄르는 잤고, 물을 마셨고, 창밖을 봤다.<br />물론 기다리는 시간이 있었을지 모른다.<br />하지만 하루 전체를 슬픔으로 쓰지는 않았다.<br />내 죄책감이 츄르의 하루를 전부 설명하지 못했다.</p>
+<p>내가 할 일은 미안함을 길게 말하는 것이 아니라, 혼자 있는 시간을 안정적으로 설계하는 것이었다.<br />물, 화장실, 창문, 위험 물건, 놀이 후 휴식. 고양이에게 필요한 것은 사람의 사과문보다 예측 가능한 환경일 때가 많다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>내 감정으로 고양이 상태를 단정하지 않는가?</li>
+<li>혼자 있는 시간의 환경이 안전한가?</li>
+<li>퇴근 후 고양이가 먼저 오게 두는가?</li>
+<li>반복적인 문제 행동이 있다면 기록하는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>분리 관련 문제가 반복되면 울음, 파괴, 식욕 변화, 배변 실수 등 구체적 행동을 기록한다.<br />단순 외로움으로만 해석하지 않는다.</p>
+<h4>오늘의 한 문장</h4>
+<p>고양이의 하루를 내 죄책감으로 번역하지 않는다.</p>
+</article>
+<article class="chapter" id="chapter-30">
+<h3>30. 가족이 늘어날 때 고양이가 잃는 것</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_30_family_change_lost_places_monoline.png" alt="새 물건으로 막힌 고양이의 익숙한 동선을 집사가 다시 열어 주는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>집에 사람이 늘면 기쁨도 늘지만, 고양이에게는 예측 불가능도 늘어난다.<br />손님, 아이, 새 가구, 새 냄새. 츄르는 식탁 밑에 더 오래 있었다.</p>
+<p>나는 츄르가 예민해졌다고 생각했다.<br />하지만 바뀐 것은 츄르만이 아니었다.<br />집이 바뀌었다.<br />소리가 많아지고, 길이 막히고, 쉬던 자리에 낯선 물건이 놓였다.<br />고양이가 잃은 것을 보지 못하면, 새로 얻은 기쁨도 불편이 된다.</p>
+<p>가족 변화에는 고양이의 자리도 다시 설계해야 한다.<br />숨을 곳, 조용한 시간, 만지지 않는 규칙. 고양이가 잃는 것을 줄여야 새로 생긴 것을 받아들일 수 있다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>가족 변화 뒤 고양이 루틴이 깨졌는가?</li>
+<li>조용한 전용 공간이 있는가?</li>
+<li>손님에게 고양이 규칙을 안내하는가?</li>
+<li>식욕, 은신, 배변 변화가 이어지는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>환경 변화 뒤 스트레스 신호가 길어지면 생활 구조를 조정한다.<br />식욕 부진, 배변 문제, 공격성 변화가 반복되면 상담한다.</p>
+<h4>오늘의 한 문장</h4>
+<p>가족이 늘수록 고양이의 조용한 자리는 더 필요하다.</p>
+</article>
+</section>
+<section class="part" id="part-6">
+<h2>Part 6. 오래 같이 살기 위한 책임</h2>
+<article class="chapter" id="chapter-31">
+<h3>31. 실종을 상상하기 전에 할 일</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_31_door_escape_prevention_monoline.png" alt="현관 앞 안전문 뒤의 고양이 위치를 확인하고 문을 여는 집사의 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>현관문이 열린 순간 츄르가 고개를 들었다.<br />그 짧은 순간에 나는 모든 나쁜 상상을 했다.<br />상상은 빠르고 무섭다.<br />하지만 예방은 더 구체적이어야 한다.</p>
+<p>현관 앞 중문, 방묘문, 가족의 문 여닫는 규칙, 최근 사진, 식별 정보. 실종은 마음으로만 걱정할 일이 아니라 구조로 막아야 할 일이다.<br />불안이 도움이 되려면 물건과 습관으로 바뀌어야 한다.</p>
+<p>그 뒤 나는 문 앞에서 가방보다 츄르 위치를 먼저 봤다.<br />문이 열리는 시간은 짧지만, 준비는 평소에 해야 한다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>현관 탈출 방지 구조가 있는가?</li>
+<li>최근 사진과 식별 정보가 준비되어 있는가?</li>
+<li>가족 모두 문 여닫는 규칙을 아는가?</li>
+<li>손님 방문 때 고양이 위치를 확인하는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>실종 예방은 일상 습관이다.<br />사고 뒤 대응보다 사고 전 구조가 중요하다.<br />지역 상황에 맞는 등록과 식별 방법도 확인한다.</p>
+<h4>오늘의 한 문장</h4>
+<p>불안은 구조로 바꿔야 도움이 된다.</p>
+</article>
+<article class="chapter" id="chapter-32">
+<h3>32. 길고양이를 본 날의 순서</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_32_stray_cat_help_order_monoline.png" alt="비 오는 날 처마 아래 길고양이를 집사가 거리를 두고 관찰하는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>비 오는 날 주차장 밑에 고양이가 있었다.<br />나는 바로 데려오고 싶었다.<br />하지만 마음이 빠를수록 순서가 필요했다.</p>
+<p>즉시 위험한 위치인지, 다친 곳이 보이는지, 새끼라면 어미가 있는지, 주변에 돌보는 사람이 있는지 확인해야 했다.<br />구조는 선한 마음만으로 충분하지 않다.<br />잘못된 포획은 더 큰 위험이 될 수 있다.</p>
+<p>고양이를 돕는 일은 내가 주인공이 되는 일이 아니다.<br />고양이에게 가장 덜 위험한 순서를 찾는 일이다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>즉시 위험 상황인가?</li>
+<li>다친 곳이나 질병 신호가 보이는가?</li>
+<li>새끼라면 어미 여부를 확인했는가?</li>
+<li>지역 구조 단체나 병원과 연결할 수 있는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>길고양이 구조는 상황 판단이 중요하다.<br />무리한 포획은 위험할 수 있으므로 지역 구조 경험이 있는 단체나 전문가 도움을 받는다.</p>
+<h4>오늘의 한 문장</h4>
+<p>돕고 싶을수록 순서를 지킨다.</p>
+</article>
+<article class="chapter" id="chapter-33">
+<h3>33. 위험한 물건은 귀엽지 않다</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_33_dangerous_small_objects_monoline.png" alt="놀이가 끝난 리본과 끈 장난감을 집사가 닫힌 상자에 정리하는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>츄르는 리본을 좋아했다.<br />나는 귀엽다고 흔들었다.<br />어느 날 리본 끝이 짧아진 것을 보고 심장이 내려앉았다.<br />장난감은 놀 때만 장난감이었다.<br />사람이 보지 않을 때는 위험한 물건이 될 수 있었다.</p>
+<p>끈, 비닐, 고무줄, 작은 부품. 고양이는 빠르게 잡고, 물고, 삼킬 수 있다.<br />사람에게는 사소한 물건이지만 고양이에게는 병원으로 이어질 수 있는 위험이다.</p>
+<p>그 뒤 장난감은 닫힌 상자에 넣었다.<br />놀이는 같이 하고, 끝나면 치웠다.<br />귀여운 장면보다 안전한 마무리가 더 중요했다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>끈, 리본, 고무줄을 방치하지 않는가?</li>
+<li>삼킬 수 있는 작은 부품이 있는가?</li>
+<li>놀이 후 장난감을 치우는가?</li>
+<li>이물 섭취 의심 신호를 알고 있는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>이물 섭취가 의심되면 지켜보기보다 병원에 상담한다.<br />구토, 식욕 부진, 무기력, 배변 이상은 위험 신호가 될 수 있다.</p>
+<h4>오늘의 한 문장</h4>
+<p>장난감은 사람이 함께 있을 때만 안전하다.</p>
+</article>
+<article class="chapter" id="chapter-34">
+<h3>34. 노묘의 느린 대답</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_34_senior_cat_slow_answer_monoline.png" alt="낮은 발판 앞에서 천천히 움직이는 노묘를 집사가 차분히 관찰하는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>언젠가 츄르도 느려질 것이다.<br />높은 곳에 덜 오르고, 더 오래 자고, 이름을 불러도 천천히 눈만 뜰 것이다.<br />상상만으로도 마음이 조용해진다.<br />하지만 느려짐을 모두 나이 탓으로 넘기면 중요한 신호를 놓칠 수 있다.</p>
+<p>나이 든 고양이에게 필요한 것은 불안한 감시가 아니라 정확한 비교다.<br />예전에는 한 번에 오르던 곳을 망설이는지, 식욕이 줄었는지, 물을 더 마시는지, 화장실 실수가 생겼는지, 몸무게가 달라졌는지. 느린 대답에도 이유가 있을 수 있다.</p>
+<p>나는 츄르의 좋은 날 기준을 적어 보기로 했다.<br />잘 먹는 날, 창가에 올라가는 날, 화장실을 편하게 쓰는 날, 손등에 이마를 대는 날. 좋은 날의 기준을 알아야 나쁜 날도 더 정확히 볼 수 있다.<br />막연히 “늙었으니까”라고 말하는 대신 “지난달보다 점프를 덜 한다”고 말할 수 있어야 한다.</p>
+<p>오래 같이 산다는 것은 속도가 줄어드는 시간을 함께 배우는 일이다.<br />다만 그 느려짐 속에 통증이 숨어 있지 않은지, 불편이 방치되고 있지 않은지 묻는 일도 사랑이다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>활동량, 식욕, 체중 변화가 있는가?</li>
+<li>점프, 계단, 화장실 이용을 힘들어하는가?</li>
+<li>물과 소변 변화가 있는가?</li>
+<li>좋은 날의 기준을 알고 있는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>노령 고양이는 정기 검진과 생활 환경 조정이 중요하다.<br />통증, 신장, 치아, 관절, 체중 변화 등은 나이 탓으로만 넘기지 않는다.<br />높은 곳을 낮추고, 미끄럼을 줄이고, 화장실 접근성을 높이는 작은 조정이 도움이 될 수 있다.</p>
+<h4>오늘의 한 문장</h4>
+<p>느려진 고양이에게도 새 기록이 필요하다.</p>
+</article>
+<article class="chapter" id="chapter-35">
+<h3>35. 마지막을 준비한다는 말</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_35_good_days_record_monoline.png" alt="햇빛 속에서 쉬는 고양이 곁에 집사가 빈 앨범을 두고 좋은 날을 기억하는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>마지막을 생각하는 일은 잔인해 보인다.<br />하지만 생각하지 않는다고 시간이 멈추지는 않는다.<br />나는 츄르의 좋은 날을 기록하기로 했다.</p>
+<p>잘 먹는 날, 햇빛을 보는 날, 화장실을 편히 쓰는 날, 손등에 이마를 대는 날. 좋은 날의 기준을 알아야 나쁜 날도 더 정확히 볼 수 있다.<br />마지막을 준비한다는 말은 포기가 아니라 고통을 혼자 두지 않겠다는 약속일 수 있다.</p>
+<p>그 약속은 보호자 혼자 감당할 것이 아니다.<br />어려운 판단은 수의사와 상의해야 한다.<br />사랑은 끝까지 혼자 버티는 일이 아니라, 필요한 도움을 함께 부르는 일이기도 하다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>내 고양이의 좋은 날 기준을 알고 있는가?</li>
+<li>통증, 식욕, 배변, 움직임 변화를 기록하는가?</li>
+<li>어려운 결정은 전문가와 상의할 준비가 되어 있는가?</li>
+<li>보호자 혼자 버티고 있지는 않은가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>말기 돌봄과 안락사 판단은 보호자 혼자 감당할 문제가 아니다.<br />고양이의 고통, 삶의 질, 치료 가능성을 수의사와 충분히 상담한다.</p>
+<h4>오늘의 한 문장</h4>
+<p>끝을 생각하는 일도 사랑의 일부일 수 있다.</p>
+</article>
+<article class="chapter" id="chapter-36">
+<h3>36. 모르면 묻는 용기</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_36_courage_to_ask_monoline.png" alt="고양이 곁에서 집사가 빈 종이와 빈 화면의 휴대폰을 두고 도움을 묻기 위해 준비하는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>나는 자주 몰랐다.<br />검색했고, 더 헷갈렸고, 괜찮겠지 하다가 다시 걱정했다.<br />정보가 많아질수록 판단은 더 흐려질 때가 있었다.</p>
+<p>어느 날부터 질문을 적었다.<br />지금 당장 위험한가. 오늘 관찰할 수 있는가. 병원에 물어볼 정보는 무엇인가. 모른다는 말은 부끄러운 말이 아니라 다음 행동의 시작이었다.</p>
+<p>좋은 집사는 모든 걸 아는 사람이 아니다.<br />모를 때 안전한 쪽으로 움직이는 사람이다.<br />고양이에게 필요한 것은 보호자의 자존심이 아니라 다음 행동이다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>모르는 것을 미루고 있지는 않은가?</li>
+<li>질문을 구체적으로 적었는가?</li>
+<li>위험 신호라면 바로 상담하는가?</li>
+<li>온라인 정보만으로 결론 내리지 않는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>온라인 정보는 참고 자료일 뿐이다.<br />진단과 치료 결정은 고양이 상태를 직접 평가할 수 있는 전문가와 상의한다.</p>
+<h4>오늘의 한 문장</h4>
+<p>모르면 묻는 것이 돌봄을 망치지 않는 방법이다.</p>
+</article>
+</section>
+<section class="part" id="part-7">
+<h2>Part 7. 고양이라는 종을 더 정확히 보기</h2>
+<article class="chapter" id="chapter-37">
+<h3>37. 묘종백과를 읽는 법</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_37_breed_book_observation_monoline.png" alt="무지 책은 옆에 두고 실제 고양이의 하루 모습을 관찰하는 집사의 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>나는 품종 설명을 재미로 읽었다.<br />털, 눈, 체형, 성격. 츄르는 품종표 밖에서 하품했다.<br />그 모습을 보고 알았다.<br />품종 정보는 힌트지만, 한 고양이를 전부 설명하지 않는다.</p>
+<p>품종은 건강 주의나 생활 관리의 시작점이 될 수 있다.<br />하지만 오늘의 식욕, 화장실, 놀이 반응은 지금 내 앞의 고양이가 말하는 정보다.<br />백과는 시작이고, 관찰은 매일의 본문이다.</p>
+<p>나는 츄르를 품종으로만 설명하지 않기로 했다.<br />창가 물을 좋아하고, 손바닥보다 손등을 믿고, 밤에는 짧게 뛰는 고양이. 그게 같이 사는 데 더 필요한 설명이었다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>품종 설명으로 성격을 단정하지 않는가?</li>
+<li>품종별 건강 주의만큼 현재 생활도 보는가?</li>
+<li>내 고양이의 실제 반응을 기록하는가?</li>
+<li>외모보다 생활 신호를 먼저 보는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>품종별 질환 경향은 참고할 수 있지만 개체 상태와 검진이 중요하다.<br />품종 정보는 관찰을 보조해야지 대체해서는 안 된다.</p>
+<h4>오늘의 한 문장</h4>
+<p>품종은 힌트이고 고양이는 본문이다.</p>
+</article>
+<article class="chapter" id="chapter-38">
+<h3>38. 예쁜 외모 뒤의 유전 이야기</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_38_genetic_beauty_responsibility_monoline.png" alt="편히 쉬는 고양이의 몸 상태와 자세를 집사가 책임 있게 살피는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>예쁜 귀, 짧은 다리, 납작한 얼굴. 사람은 특징을 좋아한다.<br />하지만 특징은 때로 몸의 부담과 연결된다.</p>
+<p>나는 외모를 좋아하는 마음을 부정하지 않기로 했다.<br />대신 그 마음 뒤에 책임을 붙이기로 했다.<br />어떤 구조가 어떤 불편을 만들 수 있는지, 어떤 검진과 생활 관리가 필요한지 묻는 책임이다.</p>
+<p>예쁨은 끝이 아니라 질문의 시작이어야 한다.<br />귀엽다는 감탄 뒤에 불편하지 않은지 보는 눈이 따라와야 한다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>외모 특징과 건강 주의를 함께 알고 있는가?</li>
+<li>불편 신호를 귀여움으로 넘기지 않는가?</li>
+<li>검진과 환경 조정을 고려하는가?</li>
+<li>품종 정보가 책임으로 이어지는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>품종 관련 건강 이슈는 일반화만으로 판단하지 않는다.<br />개체별 상태를 병원에서 확인하고 생활 환경을 조정한다.</p>
+<h4>오늘의 한 문장</h4>
+<p>예쁘다고 끝내지 말고 불편하지 않은지 묻는다.</p>
+</article>
+<article class="chapter" id="chapter-39">
+<h3>39. 털과 피부가 보내는 힌트</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_39_fur_skin_hints_monoline.png" alt="턱 아래 작은 변화를 집사가 부드러운 천과 빈 노트로 차분히 살피는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>츄르의 턱 아래가 거뭇해졌다.<br />처음엔 먼지인 줄 알았다.<br />닦아도 다시 생겼다.<br />작은 변화였지만 반복되었다.</p>
+<p>피부와 털은 조용하지만 부지런히 말한다.<br />그릇 재질, 위생, 스트레스, 알레르기, 통증. 원인을 하나로 찍을 수 없을 때일수록 기록이 필요하다.<br />나는 사진을 찍고 날짜를 적었다.<br />닦은 방식도 적었다.</p>
+<p>병원에 갈 때 내 말은 조금 더 정확해졌다.<br />“턱이 지저분해요”보다 “일주일째 반복되고, 닦아도 다시 생깁니다”가 더 도움이 된다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>털 빠짐, 비듬, 상처, 턱 오염이 반복되는가?</li>
+<li>그릇과 생활 환경을 확인했는가?</li>
+<li>사진으로 변화를 기록했는가?</li>
+<li>가려움이나 통증 반응이 있는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>피부 문제는 원인이 다양하다.<br />반복되거나 악화되면 임의 처치보다 상담이 안전하다.</p>
+<h4>오늘의 한 문장</h4>
+<p>피부는 작은 변화로 오래 말한다.</p>
+</article>
+<article class="chapter" id="chapter-40">
+<h3>40. 작은 고양이와 작은 오해</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_40_kitten_small_risks_monoline.png" alt="작은 고양이가 지켜보는 동안 집사가 작은 집안 물건을 닫힌 상자에 정리하는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>새끼 고양이는 작아서 모든 것이 귀엽다.<br />그래서 더 위험하다.<br />높은 곳, 작은 틈, 삼킬 수 있는 물건, 너무 긴 놀이. 작음은 보호자의 방심을 부를 수 있다.</p>
+<p>어린 츄르의 사진을 보면 나는 웃는다.<br />하지만 사진 밖에는 자주 먹이고, 자주 확인하고, 자주 멈추던 시간이 있었다.<br />작은 고양이는 작은 장난감이 아니라 빠르게 변하는 몸이다.</p>
+<p>귀여움만큼 관리가 필요하다.<br />밥을 먹는지, 배변이 어떤지, 몸이 차갑지는 않은지, 너무 오래 놀지는 않았는지. 작다는 것은 더 자주 봐야 한다는 뜻이다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>작은 틈과 높은 낙하 위험을 막았는가?</li>
+<li>식사와 배변을 자주 확인하는가?</li>
+<li>놀이가 과하지 않은가?</li>
+<li>무기력이나 식욕 부진이 있는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>새끼 고양이는 컨디션 변화가 빠를 수 있다.<br />식욕 부진, 설사, 무기력, 체온 저하가 의심되면 빠르게 상담한다.</p>
+<h4>오늘의 한 문장</h4>
+<p>작다는 것은 더 자주 봐야 한다는 뜻이다.</p>
+</article>
+<article class="chapter" id="chapter-41">
+<h3>41. 품종보다 먼저 보는 생활</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_41_life_before_breed_monoline.png" alt="창가 물그릇과 좋아하는 자리를 중심으로 고양이의 생활을 관찰하는 집사의 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>츄르가 어떤 품종인지 묻는 사람은 많았다.<br />츄르가 어느 자리를 좋아하는지 묻는 사람은 적었다.<br />하지만 같이 사는 데 더 필요한 답은 대개 두 번째 질문에 있다.</p>
+<p>어디서 자는지, 무엇을 무서워하는지, 어떤 그릇을 고르는지, 언제 화장실에 가는지. 고양이의 생활은 매일 갱신되는 설명서다.<br />품종은 바뀌지 않지만 생활은 계속 말한다.</p>
+<p>나는 츄르를 설명할 때 이렇게 말하기로 했다.<br />창가 물을 좋아하고, 손등을 믿고, 밤에는 짧게 뛰는 고양이. 그 설명이 우리 집에서는 가장 정확했다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>내 고양이를 품종 말고 생활로 설명할 수 있는가?</li>
+<li>좋아하는 자리와 싫어하는 상황을 아는가?</li>
+<li>매일 반복되는 리듬을 보고 있는가?</li>
+<li>품종 정보가 생활 관찰을 가리고 있지 않은가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>품종 정보는 유용하지만 생활 관찰을 대체하지 않는다.<br />돌봄은 개체의 실제 반응에 맞춘다.</p>
+<h4>오늘의 한 문장</h4>
+<p>같이 사는 데 필요한 답은 대개 집 안에 있다.</p>
+</article>
+<article class="chapter" id="chapter-42">
+<h3>42. 오늘도 츄르는 나를 훈련시킨다</h3>
+<figure class="chapter-visual">
+<img src="../assets/generated/chapter-images/chapter_42_cat_trains_observer_monoline.png" alt="창가에서 물을 마시는 고양이를 집사가 조용히 관찰하며 배운 것을 떠올리는 장면" width="1254" height="1254" loading="lazy" decoding="async" />
+</figure>
+<p>츄르는 이제 소파 밑에 거의 들어가지 않는다.<br />하지만 가끔 들어간다.<br />나는 예전처럼 걱정부터 하지 않는다.<br />오늘의 소리, 냄새, 손님, 청소기, 내 속도를 떠올린다.</p>
+<p>츄르는 나를 좋은 사람으로 만든 것이 아니다.<br />더 관찰하는 사람으로 만들었다.<br />손을 멈출 줄 아는 사람, 물그릇을 씻는 사람, 걱정보다 날짜를 적는 사람, 모르면 묻는 사람.</p>
+<p>오늘 밤 츄르는 창가에서 물을 마신다.<br />나는 그 소리를 듣는다.<br />한때 나는 고양이를 잘 키우는 사람이 되고 싶었다.<br />지금은 조금 다르게 생각한다.<br />나는 츄르가 나를 매일 조금씩 고쳐 쓸 시간을 주고 싶다.</p>
+<h4>30초 체크</h4>
+<ul>
+<li>오늘 새로 본 신호가 하나 있는가?</li>
+<li>혼내기 전에 환경과 몸 상태를 함께 보았는가?</li>
+<li>내일 바꿀 작은 행동 하나는 무엇인가?</li>
+<li>모르면 물을 준비가 되어 있는가?</li>
+</ul>
+<h4>집사 메모</h4>
+<p>고양이 돌봄은 완벽한 지식보다 꾸준한 관찰에 가깝다.<br />반복 변화는 기록하고, 위험 신호는 미루지 않는다.</p>
+<h4>오늘의 한 문장</h4>
+<p>고양이를 키운다는 것은 매일 조금 더 정확한 사람이 되는 일이다.</p>
+</article>
+</section>
+      </article>
+    </main>
+    <footer class="reader-footer">냥냥츄르 집사용 이야기 노트</footer>
+    <script>
+      const initReader = () => {
+        const toc = document.querySelector(".toc");
+        const tocTrigger = document.querySelector(".toc-trigger");
+        const tocBackdrop = document.querySelector(".toc-backdrop");
+        const tocClose = document.querySelector(".toc-close");
+        const scrollTopButton = document.querySelector(".scroll-top");
+        const tocLinks = Array.from(document.querySelectorAll(".toc a"));
+        const sections = document.querySelectorAll("section.part, article.chapter");
+        const compactQuery = window.matchMedia("(max-width: 880px)");
+        let titleFitFrame;
+
+        const protectGeneratedMedia = () => {
+          const generatedImages = Array.from(document.querySelectorAll('img[src*="assets/generated/"]'));
+
+          generatedImages.forEach((image) => {
+            const media = image.closest("figure, picture, .chapter-visual") || image.parentElement;
+            if (media) {
+              media.classList.add("ai-generated-media");
+              media.dataset.aiLabel = "AI 생성";
+            }
+
+            image.dataset.aiGenerated = "true";
+            image.draggable = false;
+            image.setAttribute("draggable", "false");
+            image.addEventListener("dragstart", (event) => event.preventDefault());
+          });
+
+          document.addEventListener("contextmenu", (event) => {
+            event.preventDefault();
+          });
+        };
+
+        const fitReaderTitles = () => {
+          const headings = Array.from(document.querySelectorAll(".part h2, .chapter h3"));
+          if (!headings.length) return;
+
+          const minFontSize = compactQuery.matches ? 12 : 28;
+          headings.forEach((heading) => {
+            heading.style.fontSize = "";
+            heading.style.whiteSpace = "nowrap";
+          });
+
+          let fontSize = Math.min(
+            ...headings.map((heading) => parseFloat(window.getComputedStyle(heading).fontSize))
+          );
+
+          while (headings.some((heading) => heading.scrollWidth > heading.clientWidth + 1) && fontSize > minFontSize) {
+            fontSize -= 0.5;
+            headings.forEach((heading) => {
+              heading.style.fontSize = `${fontSize}px`;
+            });
+          }
+        };
+
+        const scheduleTitleFit = () => {
+          window.cancelAnimationFrame(titleFitFrame);
+          titleFitFrame = window.requestAnimationFrame(fitReaderTitles);
+        };
+
+        const setTocOpen = (open, options = {}) => {
+          if (!toc || !tocTrigger || !tocBackdrop) return;
+          const { returnFocus = true } = options;
+          toc.classList.toggle("is-open", open);
+          tocTrigger.setAttribute("aria-expanded", String(open));
+          tocBackdrop.hidden = !open;
+          if (open) {
+            tocClose?.focus({ preventScroll: true });
+          } else if (returnFocus) {
+            tocTrigger.focus({ preventScroll: true });
+          }
+        };
+
+        tocTrigger?.addEventListener("click", () => {
+          setTocOpen(!toc?.classList.contains("is-open"));
+        });
+
+        tocBackdrop?.addEventListener("click", () => setTocOpen(false));
+        tocClose?.addEventListener("click", () => setTocOpen(false));
+
+        const setScrollTopVisible = () => {
+          if (!scrollTopButton) return;
+          const visible = compactQuery.matches || window.scrollY > 700;
+          if (!visible && document.activeElement === scrollTopButton) {
+            scrollTopButton.blur();
+          }
+          scrollTopButton.classList.toggle("is-visible", visible);
+          scrollTopButton.setAttribute("aria-hidden", String(!visible));
+          scrollTopButton.tabIndex = visible ? 0 : -1;
+        };
+
+        scrollTopButton?.addEventListener("click", () => {
+          setTocOpen(false, { returnFocus: false });
+          window.scrollTo({ top: 0, behavior: "auto" });
+          history.replaceState(null, "", window.location.pathname + window.location.search);
+          window.setTimeout(setScrollTopVisible, 0);
+        });
+
+        window.addEventListener("scroll", setScrollTopVisible, { passive: true });
+        setScrollTopVisible();
+
+        const initializeChecklists = () => {
+          const storagePrefix = "nyangnyang-chur:reader-check:v1:";
+
+          const hashText = (value) => {
+            let hash = 0;
+            for (let index = 0; index < value.length; index += 1) {
+              hash = ((hash << 5) - hash + value.charCodeAt(index)) | 0;
+            }
+            return Math.abs(hash).toString(36);
+          };
+
+          const readSaved = (key) => {
+            try {
+              return window.localStorage.getItem(key) === "1";
+            } catch {
+              return false;
+            }
+          };
+
+          const writeSaved = (key, checked) => {
+            try {
+              if (checked) {
+                window.localStorage.setItem(key, "1");
+              } else {
+                window.localStorage.removeItem(key);
+              }
+            } catch {
+              // 체크 기능은 저장소가 막혀도 현재 화면에서는 계속 동작한다.
+            }
+          };
+
+          document.querySelectorAll(".chapter h4").forEach((heading) => {
+            if (heading.textContent.trim() !== "30초 체크") return;
+
+            const list = heading.nextElementSibling;
+            if (!list || list.tagName !== "UL" || list.dataset.checklistReady === "true") return;
+
+            const chapter = heading.closest(".chapter");
+            const chapterId = chapter?.id || `chapter-${Date.now()}`;
+            const chapterTitle = chapter?.querySelector("h3")?.textContent.trim() || "이 장";
+            const items = Array.from(list.children).filter((child) => child.tagName === "LI");
+            if (!items.length) return;
+
+            list.classList.add("checklist");
+            list.dataset.checklistReady = "true";
+            list.setAttribute("aria-label", `${chapterTitle} 30초 체크`);
+
+            const status = document.createElement("div");
+            status.className = "checklist-status";
+
+            const progressText = document.createElement("span");
+            progressText.className = "checklist-progress";
+            progressText.setAttribute("aria-live", "polite");
+
+            const resetButton = document.createElement("button");
+            resetButton.className = "checklist-reset";
+            resetButton.type = "button";
+            resetButton.textContent = "초기화";
+
+            const progressBar = document.createElement("span");
+            progressBar.className = "checklist-bar";
+            progressBar.setAttribute("aria-hidden", "true");
+            const progressFill = document.createElement("span");
+            progressBar.append(progressFill);
+
+            status.append(progressText, resetButton, progressBar);
+            heading.insertAdjacentElement("afterend", status);
+
+            const checkboxes = items.map((item, itemIndex) => {
+              const text = item.textContent.trim();
+              const inputId = `${chapterId}-check-${itemIndex + 1}`;
+              const storageKey = `${storagePrefix}${chapterId}:${itemIndex}:${hashText(text)}`;
+
+              item.textContent = "";
+              const label = document.createElement("label");
+              label.className = "checklist-item";
+              label.setAttribute("for", inputId);
+
+              const checkbox = document.createElement("input");
+              checkbox.type = "checkbox";
+              checkbox.id = inputId;
+              checkbox.dataset.storageKey = storageKey;
+              checkbox.checked = readSaved(storageKey);
+
+              const textNode = document.createElement("span");
+              textNode.className = "checklist-item-text";
+              textNode.textContent = text;
+
+              label.append(checkbox, textNode);
+              item.append(label);
+              item.classList.toggle("is-checked", checkbox.checked);
+
+              checkbox.addEventListener("change", () => {
+                item.classList.toggle("is-checked", checkbox.checked);
+                writeSaved(storageKey, checkbox.checked);
+                updateProgress();
+              });
+
+              return checkbox;
+            });
+
+            const updateProgress = () => {
+              const checkedCount = checkboxes.filter((checkbox) => checkbox.checked).length;
+              const total = checkboxes.length;
+              const percent = total ? Math.round((checkedCount / total) * 100) : 0;
+              progressText.textContent = `${checkedCount}/${total} 완료`;
+              progressFill.style.width = `${percent}%`;
+              resetButton.disabled = checkedCount === 0;
+              resetButton.setAttribute("aria-label", `${chapterTitle} 30초 체크 초기화`);
+            };
+
+            resetButton.addEventListener("click", () => {
+              checkboxes.forEach((checkbox) => {
+                checkbox.checked = false;
+                checkbox.closest("li")?.classList.remove("is-checked");
+                writeSaved(checkbox.dataset.storageKey, false);
+              });
+              updateProgress();
+            });
+
+            updateProgress();
+          });
+        };
+
+        protectGeneratedMedia();
+        initializeChecklists();
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && toc?.classList.contains("is-open")) {
+            setTocOpen(false);
+          }
+        });
+
+        compactQuery.addEventListener?.("change", (event) => {
+          if (!event.matches) setTocOpen(false);
+          setScrollTopVisible();
+          scheduleTitleFit();
+        });
+
+        window.addEventListener("resize", scheduleTitleFit, { passive: true });
+        window.addEventListener("load", scheduleTitleFit, { once: true });
+        document.fonts?.ready?.then(scheduleTitleFit);
+        fitReaderTitles();
+        scheduleTitleFit();
+        window.setTimeout(scheduleTitleFit, 120);
+        window.setTimeout(scheduleTitleFit, 450);
+
+        tocLinks.forEach((link) => {
+          link.addEventListener("click", (event) => {
+            const href = link.getAttribute("href");
+            if (!href || !href.startsWith("#")) return;
+            const target = document.querySelector(href);
+            if (!target) return;
+
+            event.preventDefault();
+            setTocOpen(false, { returnFocus: false });
+
+            requestAnimationFrame(() => {
+              const headerHeight = document.querySelector(".reader-header")?.getBoundingClientRect().height || 64;
+              const targetTop = target.getBoundingClientRect().top + window.scrollY - headerHeight - 16;
+              window.scrollTo({ top: Math.max(0, targetTop), behavior: "auto" });
+              history.replaceState(null, "", href);
+            });
+          });
+        });
+
+        const observerOptions = {
+          root: null,
+          rootMargin: "-10% 0px -75% 0px",
+          threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+
+            const id = entry.target.getAttribute("id");
+            if (!id) return;
+
+            const activeId = compactQuery.matches && entry.target.classList.contains("chapter")
+              ? entry.target.closest(".part")?.getAttribute("id") || id
+              : id;
+
+            tocLinks.forEach((link) => {
+              const href = link.getAttribute("href");
+              link.classList.toggle("active", href === `#${activeId}`);
+            });
+          });
+        }, observerOptions);
+
+        sections.forEach((section) => observer.observe(section));
+      };
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initReader, { once: true });
+      } else {
+        initReader();
+      }
+    </script>
+  </body>
+</html>

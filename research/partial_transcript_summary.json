@@ -1,0 +1,549 @@
+{
+  "note": "Partial transcript analysis stopped after YouTube returned IP block / 429. Full transcript text was not stored.",
+  "processed_before_stop": 94,
+  "status_counts": {
+    "ok": 34,
+    "error": 60
+  },
+  "error_counts": {
+    "IpBlocked": 58,
+    "VideoUnplayable": 2
+  },
+  "ok_count": 34,
+  "aggregate_topics_from_ok_transcripts": {
+    "생활/돌봄": 798,
+    "행동/감정": 757,
+    "건강/진료": 420,
+    "관계/윤리": 370,
+    "서사/상담": 335,
+    "품종/지식": 95
+  },
+  "aggregate_terms_from_ok_transcripts": [
+    [
+      "근데",
+      389
+    ],
+    [
+      "웃음",
+      378
+    ],
+    [
+      "있는",
+      374
+    ],
+    [
+      "이제",
+      362
+    ],
+    [
+      "하는",
+      191
+    ],
+    [
+      "음악",
+      190
+    ],
+    [
+      "하고",
+      182
+    ],
+    [
+      "많이",
+      163
+    ],
+    [
+      "그냥",
+      146
+    ],
+    [
+      "내가",
+      113
+    ],
+    [
+      "같아요",
+      93
+    ],
+    [
+      "때문에",
+      90
+    ],
+    [
+      "되게",
+      82
+    ],
+    [
+      "가지고",
+      75
+    ],
+    [
+      "하면",
+      74
+    ],
+    [
+      "조금",
+      72
+    ],
+    [
+      "같은",
+      65
+    ],
+    [
+      "이게",
+      61
+    ],
+    [
+      "다른",
+      55
+    ],
+    [
+      "어떤",
+      46
+    ],
+    [
+      "집에",
+      45
+    ],
+    [
+      "있어요",
+      44
+    ],
+    [
+      "아기",
+      37
+    ],
+    [
+      "되는",
+      37
+    ],
+    [
+      "고양이를",
+      32
+    ],
+    [
+      "맞아",
+      31
+    ],
+    [
+      "뭔가",
+      31
+    ],
+    [
+      "같아",
+      29
+    ],
+    [
+      "그니까",
+      29
+    ],
+    [
+      "좋은",
+      29
+    ],
+    [
+      "먹는",
+      27
+    ],
+    [
+      "고양이들이",
+      27
+    ],
+    [
+      "그러니까",
+      26
+    ],
+    [
+      "그때",
+      25
+    ],
+    [
+      "가장",
+      24
+    ],
+    [
+      "거는",
+      23
+    ],
+    [
+      "있을",
+      23
+    ],
+    [
+      "친구들",
+      21
+    ],
+    [
+      "대해서",
+      20
+    ],
+    [
+      "정도",
+      19
+    ],
+    [
+      "어떻게",
+      19
+    ],
+    [
+      "사실",
+      19
+    ],
+    [
+      "있다",
+      18
+    ],
+    [
+      "경우들이",
+      18
+    ],
+    [
+      "한번",
+      18
+    ],
+    [
+      "수도",
+      18
+    ],
+    [
+      "친구들이",
+      17
+    ],
+    [
+      "갑자기",
+      16
+    ],
+    [
+      "사모님",
+      16
+    ],
+    [
+      "번째",
+      16
+    ],
+    [
+      "일단",
+      16
+    ],
+    [
+      "사람이",
+      16
+    ],
+    [
+      "먹어",
+      15
+    ],
+    [
+      "먹을",
+      15
+    ],
+    [
+      "이름",
+      15
+    ],
+    [
+      "뭐야",
+      15
+    ],
+    [
+      "보니까",
+      15
+    ],
+    [
+      "이혼",
+      15
+    ],
+    [
+      "먹고",
+      15
+    ],
+    [
+      "친구들은",
+      15
+    ],
+    [
+      "여기",
+      14
+    ],
+    [
+      "주시면",
+      14
+    ],
+    [
+      "맞습니다",
+      14
+    ],
+    [
+      "집사가",
+      14
+    ],
+    [
+      "엄마",
+      13
+    ],
+    [
+      "것도",
+      13
+    ],
+    [
+      "굉장히",
+      13
+    ],
+    [
+      "남자",
+      13
+    ],
+    [
+      "주는",
+      12
+    ],
+    [
+      "이름을",
+      12
+    ],
+    [
+      "휴모",
+      12
+    ],
+    [
+      "항상",
+      12
+    ],
+    [
+      "윙크",
+      12
+    ],
+    [
+      "있으니까",
+      12
+    ],
+    [
+      "아니",
+      12
+    ],
+    [
+      "화장실",
+      11
+    ],
+    [
+      "같습니다",
+      11
+    ],
+    [
+      "같은데",
+      11
+    ],
+    [
+      "발톱",
+      11
+    ],
+    [
+      "예민한",
+      11
+    ]
+  ],
+  "topic_examples_from_ok_transcripts": {
+    "생활/돌봄": [
+      {
+        "id": "k1m_EewHQ80",
+        "title": "💩똥싸고 나면 우다다 뛰어다니는 고양이 특징",
+        "url": "https://www.youtube.com/watch?v=k1m_EewHQ80",
+        "duration_min": 22.53
+      },
+      {
+        "id": "G6tWUwAGnkU",
+        "title": "우리 고양이가 편안하다는 증거",
+        "url": "https://www.youtube.com/watch?v=G6tWUwAGnkU",
+        "duration_min": 4.78
+      },
+      {
+        "id": "aOtBpnJokLw",
+        "title": "[어린이날 기념] 수의사도 어쩔수 없었던 캣초딩 시절 레전드 에피소드",
+        "url": "https://www.youtube.com/watch?v=aOtBpnJokLw",
+        "duration_min": 53.27
+      },
+      {
+        "id": "E0gkq3Q_Me0",
+        "title": "고양이 간식은 하루에 딱 이만큼만 먹이세요",
+        "url": "https://www.youtube.com/watch?v=E0gkq3Q_Me0",
+        "duration_min": 15.48
+      },
+      {
+        "id": "3HddCDIGQ2Y",
+        "title": "분노 공허 시기 질투만 남은 남의 《고양이 과시대회》",
+        "url": "https://www.youtube.com/watch?v=3HddCDIGQ2Y",
+        "duration_min": 16.65
+      },
+      {
+        "id": "NYQ2k_DzKOg",
+        "title": "고양이 발톱 이렇게 깎으면 트라우마 생깁니다",
+        "url": "https://www.youtube.com/watch?v=NYQ2k_DzKOg",
+        "duration_min": 4.15
+      },
+      {
+        "id": "NW96CmZeSzI",
+        "title": "고양이는 보호자를 얼마나 오래 기억할까?",
+        "url": "https://www.youtube.com/watch?v=NW96CmZeSzI",
+        "duration_min": 14.77
+      },
+      {
+        "id": "PMwwKVmf-Eg",
+        "title": "이혼소송보다 고양이 합사가 더 힘든 이유ㅣ고양식탁 조인섭 변호사 편",
+        "url": "https://www.youtube.com/watch?v=PMwwKVmf-Eg",
+        "duration_min": 28.65
+      }
+    ],
+    "행동/감정": [
+      {
+        "id": "k1m_EewHQ80",
+        "title": "💩똥싸고 나면 우다다 뛰어다니는 고양이 특징",
+        "url": "https://www.youtube.com/watch?v=k1m_EewHQ80",
+        "duration_min": 22.53
+      },
+      {
+        "id": "G6tWUwAGnkU",
+        "title": "우리 고양이가 편안하다는 증거",
+        "url": "https://www.youtube.com/watch?v=G6tWUwAGnkU",
+        "duration_min": 4.78
+      },
+      {
+        "id": "aOtBpnJokLw",
+        "title": "[어린이날 기념] 수의사도 어쩔수 없었던 캣초딩 시절 레전드 에피소드",
+        "url": "https://www.youtube.com/watch?v=aOtBpnJokLw",
+        "duration_min": 53.27
+      },
+      {
+        "id": "VU8-78KuHSg",
+        "title": "미야옹철학관 OPEN 고양이 이름, 운명까지 바꿉니다",
+        "url": "https://www.youtube.com/watch?v=VU8-78KuHSg",
+        "duration_min": 14.05
+      },
+      {
+        "id": "E0gkq3Q_Me0",
+        "title": "고양이 간식은 하루에 딱 이만큼만 먹이세요",
+        "url": "https://www.youtube.com/watch?v=E0gkq3Q_Me0",
+        "duration_min": 15.48
+      },
+      {
+        "id": "3HddCDIGQ2Y",
+        "title": "분노 공허 시기 질투만 남은 남의 《고양이 과시대회》",
+        "url": "https://www.youtube.com/watch?v=3HddCDIGQ2Y",
+        "duration_min": 16.65
+      },
+      {
+        "id": "LBCfK8Ahf1c",
+        "title": "고양이가 나를 얼마나 좋아하는지 확인하는 고양이 인사법",
+        "url": "https://www.youtube.com/watch?v=LBCfK8Ahf1c",
+        "duration_min": 5.2
+      },
+      {
+        "id": "Pv6aPt5ll1k",
+        "title": "외모 일황 고양이의 충격적인 실체ㅣ묘종백과 랙돌 편",
+        "url": "https://www.youtube.com/watch?v=Pv6aPt5ll1k",
+        "duration_min": 9.48
+      }
+    ],
+    "건강/진료": [
+      {
+        "id": "HUrdSF2ob5w",
+        "title": "다음 생엔 강아지 키울거예여...고양이만 10년 이상 키우다가 변절한 이유",
+        "url": "https://www.youtube.com/watch?v=HUrdSF2ob5w",
+        "duration_min": 65.8
+      },
+      {
+        "id": "NYQ2k_DzKOg",
+        "title": "고양이 발톱 이렇게 깎으면 트라우마 생깁니다",
+        "url": "https://www.youtube.com/watch?v=NYQ2k_DzKOg",
+        "duration_min": 4.15
+      },
+      {
+        "id": "NW96CmZeSzI",
+        "title": "고양이는 보호자를 얼마나 오래 기억할까?",
+        "url": "https://www.youtube.com/watch?v=NW96CmZeSzI",
+        "duration_min": 14.77
+      },
+      {
+        "id": "Vb_sCADhvC8",
+        "title": "진료실에서 수의사에게 거짓말하는 보호자의 심리",
+        "url": "https://www.youtube.com/watch?v=Vb_sCADhvC8",
+        "duration_min": 11.62
+      },
+      {
+        "id": "uDpySxHdjng",
+        "title": "보호소 고양이의 삶은 달라질수 있을까?",
+        "url": "https://www.youtube.com/watch?v=uDpySxHdjng",
+        "duration_min": 11.55
+      },
+      {
+        "id": "pH9gwrTzyeg",
+        "title": "겨울이라 잠깐 커진거 맞아요? 《뚱냥이 반성회》",
+        "url": "https://www.youtube.com/watch?v=pH9gwrTzyeg",
+        "duration_min": 13.4
+      }
+    ],
+    "서사/상담": [
+      {
+        "id": "HUrdSF2ob5w",
+        "title": "다음 생엔 강아지 키울거예여...고양이만 10년 이상 키우다가 변절한 이유",
+        "url": "https://www.youtube.com/watch?v=HUrdSF2ob5w",
+        "duration_min": 65.8
+      },
+      {
+        "id": "VU8-78KuHSg",
+        "title": "미야옹철학관 OPEN 고양이 이름, 운명까지 바꿉니다",
+        "url": "https://www.youtube.com/watch?v=VU8-78KuHSg",
+        "duration_min": 14.05
+      },
+      {
+        "id": "xzQXd7FdzQg",
+        "title": "평소와 같이 그냥 출근하면 안 되는 이유",
+        "url": "https://www.youtube.com/watch?v=xzQXd7FdzQg",
+        "duration_min": 3.65
+      },
+      {
+        "id": "EAgLtHWLq4c",
+        "title": "인간관계 손절할 때 고양이를 참고하세요",
+        "url": "https://www.youtube.com/watch?v=EAgLtHWLq4c",
+        "duration_min": 13.97
+      },
+      {
+        "id": "wQnqruAhLnA",
+        "title": "고양이도 자리지키기 하는데 인간은 왜 안해요?",
+        "url": "https://www.youtube.com/watch?v=wQnqruAhLnA",
+        "duration_min": 19.98
+      },
+      {
+        "id": "mdwvt0qPIQE",
+        "title": "연프출신 수의사가 말아주는 연애상담💘 회사상사에게 고백 할말?/고양이를 반대하는 예랑이/애인있는 사람을 좋아해요/불법도박 남친 사연",
+        "url": "https://www.youtube.com/watch?v=mdwvt0qPIQE",
+        "duration_min": 30.3
+      }
+    ],
+    "관계/윤리": [
+      {
+        "id": "LBCfK8Ahf1c",
+        "title": "고양이가 나를 얼마나 좋아하는지 확인하는 고양이 인사법",
+        "url": "https://www.youtube.com/watch?v=LBCfK8Ahf1c",
+        "duration_min": 5.2
+      },
+      {
+        "id": "-qOGsTPB8f8",
+        "title": "한국이 이건 확실히 낫지🇰🇷 전세계 고양이 탐험",
+        "url": "https://www.youtube.com/watch?v=-qOGsTPB8f8",
+        "duration_min": 18.45
+      },
+      {
+        "id": "uDpySxHdjng",
+        "title": "보호소 고양이의 삶은 달라질수 있을까?",
+        "url": "https://www.youtube.com/watch?v=uDpySxHdjng",
+        "duration_min": 11.55
+      }
+    ],
+    "품종/지식": [
+      {
+        "id": "Pv6aPt5ll1k",
+        "title": "외모 일황 고양이의 충격적인 실체ㅣ묘종백과 랙돌 편",
+        "url": "https://www.youtube.com/watch?v=Pv6aPt5ll1k",
+        "duration_min": 9.48
+      }
+    ]
+  }
+}

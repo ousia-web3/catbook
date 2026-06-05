@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Desktop Chapter 7-10 Image Verification</title>
+    <style>
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: start center;
+        padding: 24px;
+        background: #edf1f7;
+        font-family: system-ui, sans-serif;
+      }
+
+      iframe {
+        width: 1120px;
+        max-width: 100%;
+        height: 900px;
+        border: 1px solid rgba(28, 30, 33, 0.14);
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 0 16px 40px rgba(28, 30, 33, 0.16);
+      }
+    </style>
+  </head>
+  <body>
+    <iframe
+      id="reader-frame"
+      title="desktop verification frame"
+      src="../web/manuscript.html?chapter-images=20260604-710"
+    ></iframe>
+    <script>
+      const frame = document.querySelector("#reader-frame");
+
+      frame.addEventListener("load", () => {
+        window.setTimeout(() => {
+          const doc = frame.contentDocument;
+          const target = doc?.querySelector("#chapter-7");
+          if (!target) return;
+
+          frame.contentWindow.scrollTo({
+            top: Math.max(0, target.offsetTop - 84),
+            behavior: "auto"
+          });
+        }, 700);
+      });
+    </script>
+  </body>
+</html>

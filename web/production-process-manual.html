@@ -1,0 +1,1702 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>냥냥츄르 제작 프로세스 매뉴얼</title>
+    <meta
+      name="description"
+      content="catbook 프로젝트 폴더를 분석해 정리한 냥냥츄르 제작 프로세스 단일 HTML 매뉴얼"
+    />
+    <link rel="icon" href="data:," />
+    <link
+      rel="preload"
+      as="image"
+      href="../assets/hero-window-cat-768.jpg"
+      media="(max-width: 767px)"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="../assets/hero-window-cat-1280.jpg"
+      media="(min-width: 768px)"
+      fetchpriority="high"
+    />
+    <style>
+      :root {
+        --bg: #f7f5f0;
+        --paper: #fffdfa;
+        --ink: #1d2026;
+        --muted: #626a73;
+        --line: rgba(29, 32, 38, 0.12);
+        --line-strong: rgba(29, 32, 38, 0.22);
+        --teal: #0f766e;
+        --blue: #2563eb;
+        --brick: #b45309;
+        --rose: #be123c;
+        --leaf: #3f6212;
+        --shadow: 0 18px 46px rgba(28, 30, 33, 0.1);
+        --radius: 8px;
+        --page-x: clamp(18px, 5vw, 72px);
+        --font: "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", system-ui, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font);
+        letter-spacing: 0;
+        line-height: 1.65;
+        word-break: keep-all;
+        overflow-wrap: anywhere;
+      }
+
+      body.modal-open {
+        overflow: hidden;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      input {
+        font: inherit;
+        letter-spacing: 0;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      code {
+        border: 1px solid rgba(29, 32, 38, 0.12);
+        border-radius: 6px;
+        padding: 2px 6px;
+        background: rgba(255, 255, 255, 0.78);
+        font-family: "Cascadia Mono", "Consolas", monospace;
+        font-size: 0.92em;
+      }
+
+      .skip-link {
+        position: fixed;
+        z-index: 100;
+        top: 12px;
+        left: var(--page-x);
+        transform: translateY(-160%);
+        border-radius: 999px;
+        padding: 8px 14px;
+        background: var(--paper);
+        box-shadow: var(--shadow);
+        font-weight: 800;
+      }
+
+      .skip-link:focus-visible {
+        transform: translateY(0);
+      }
+
+      :focus-visible {
+        outline: 3px solid rgba(37, 99, 235, 0.35);
+        outline-offset: 3px;
+      }
+
+      .site-header {
+        position: sticky;
+        z-index: 50;
+        top: 0;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        min-height: 64px;
+        gap: 20px;
+        padding: 0 var(--page-x);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(20, 22, 26, 0.82);
+        color: #fff;
+        backdrop-filter: blur(18px);
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 10px;
+        min-width: 0;
+        font-weight: 900;
+      }
+
+      .brand span {
+        color: rgba(255, 255, 255, 0.66);
+        font-size: 0.82rem;
+        font-weight: 700;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 14px 24px;
+        color: rgba(255, 255, 255, 0.74);
+        font-size: 0.92rem;
+        font-weight: 800;
+      }
+
+      .nav-links a:hover {
+        color: #fff;
+      }
+
+      .hero {
+        position: relative;
+        isolation: isolate;
+        min-height: clamp(560px, 82svh, 760px);
+        display: grid;
+        align-items: end;
+        overflow: hidden;
+        padding: 120px var(--page-x) 78px;
+        color: #fff;
+      }
+
+      .hero-media,
+      .hero-image,
+      .hero-scrim {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .hero-media {
+        z-index: -3;
+        overflow: hidden;
+        background: #121418;
+      }
+
+      .hero-image {
+        object-fit: cover;
+        object-position: 58% center;
+        transform: scale(1.02);
+      }
+
+      .ai-generated-media {
+        position: relative;
+        isolation: isolate;
+      }
+
+      .ai-generated-media::after {
+        content: attr(data-ai-label);
+        position: absolute;
+        z-index: 2;
+        right: 12px;
+        bottom: 12px;
+        max-width: calc(100% - 24px);
+        border: 1px solid rgba(255, 255, 255, 0.38);
+        border-radius: 999px;
+        padding: 6px 10px;
+        background: rgba(28, 30, 33, 0.72);
+        color: #ffffff;
+        font-size: clamp(0.72rem, 0.68rem + 0.18vw, 0.84rem);
+        font-weight: 800;
+        line-height: 1.2;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+        pointer-events: none;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+
+      .ai-generated-media img {
+        user-select: none;
+        -webkit-user-drag: none;
+        -webkit-touch-callout: none;
+      }
+
+      .hero-scrim {
+        z-index: -2;
+        background:
+          linear-gradient(90deg, rgba(13, 15, 18, 0.88), rgba(13, 15, 18, 0.48), rgba(13, 15, 18, 0.22)),
+          linear-gradient(0deg, rgba(13, 15, 18, 0.78), rgba(13, 15, 18, 0.02));
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        width: min(920px, 100%);
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        color: var(--teal);
+        font-size: 0.82rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .hero .eyebrow {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 860px;
+        margin-bottom: 18px;
+        font-size: clamp(2.45rem, 7vw, 6.7rem);
+        line-height: 0.96;
+      }
+
+      h2 {
+        margin-bottom: 16px;
+        font-size: clamp(1.85rem, 4vw, 3.5rem);
+        line-height: 1.08;
+      }
+
+      h3 {
+        margin-bottom: 10px;
+        font-size: clamp(1.12rem, 1vw + 0.95rem, 1.45rem);
+        line-height: 1.28;
+      }
+
+      .hero-copy {
+        max-width: 780px;
+        color: rgba(255, 255, 255, 0.82);
+        font-size: clamp(1.02rem, 1.2vw, 1.28rem);
+        font-weight: 650;
+      }
+
+      .hero-actions,
+      .inline-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 24px;
+      }
+
+      .button,
+      .icon-button,
+      .filter-button,
+      .copy-button {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--paper);
+        color: var(--ink);
+        font-weight: 850;
+        transition:
+          transform 0.18s ease,
+          border-color 0.18s ease,
+          background 0.18s ease,
+          color 0.18s ease;
+      }
+
+      .button {
+        min-height: 44px;
+        padding: 10px 18px;
+      }
+
+      .button.primary {
+        border-color: rgba(15, 118, 110, 0.1);
+        background: var(--teal);
+        color: #fff;
+      }
+
+      .hero .button:not(.primary) {
+        border-color: rgba(255, 255, 255, 0.24);
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+      }
+
+      .button:hover,
+      .icon-button:hover,
+      .filter-button:hover,
+      .copy-button:hover {
+        transform: translateY(-1px);
+        border-color: rgba(37, 99, 235, 0.36);
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        background: var(--paper);
+      }
+
+      .stat {
+        min-height: 124px;
+        padding: 24px var(--page-x);
+        border-right: 1px solid var(--line);
+      }
+
+      .stat:last-child {
+        border-right: 0;
+      }
+
+      .stat strong {
+        display: block;
+        margin-bottom: 5px;
+        color: var(--teal);
+        font-size: clamp(1.8rem, 3vw, 3rem);
+        line-height: 1;
+      }
+
+      .stat span {
+        color: var(--muted);
+        font-weight: 750;
+      }
+
+      .section {
+        padding: 74px var(--page-x);
+      }
+
+      .section.alt {
+        background: #ede9df;
+      }
+
+      .section-head {
+        display: grid;
+        grid-template-columns: minmax(0, 0.96fr) minmax(280px, 0.58fr);
+        gap: clamp(24px, 5vw, 72px);
+        align-items: end;
+        margin-bottom: 34px;
+      }
+
+      .section-head p {
+        color: var(--muted);
+        font-size: 1.02rem;
+        font-weight: 650;
+      }
+
+      .control-surface {
+        display: grid;
+        gap: 14px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 16px;
+        background: rgba(255, 253, 250, 0.8);
+      }
+
+      .search-wrap {
+        display: grid;
+        gap: 8px;
+      }
+
+      .search-wrap label,
+      .filter-label {
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .search-input {
+        width: 100%;
+        min-height: 44px;
+        border: 1px solid var(--line-strong);
+        border-radius: 999px;
+        padding: 9px 16px;
+        background: #fff;
+        color: var(--ink);
+        font-weight: 750;
+      }
+
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .filter-button {
+        min-height: 36px;
+        padding: 7px 13px;
+        font-size: 0.88rem;
+      }
+
+      .filter-button[aria-pressed="true"] {
+        border-color: rgba(180, 83, 9, 0.3);
+        background: #fff4e6;
+        color: var(--brick);
+      }
+
+      .process-layout {
+        display: grid;
+        grid-template-columns: minmax(220px, 0.28fr) minmax(0, 1fr);
+        gap: 22px;
+      }
+
+      .step-rail {
+        position: sticky;
+        top: 86px;
+        align-self: start;
+        display: grid;
+        gap: 8px;
+      }
+
+      .rail-button {
+        display: grid;
+        grid-template-columns: 34px minmax(0, 1fr);
+        gap: 10px;
+        align-items: center;
+        min-height: 48px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 8px 10px;
+        background: rgba(255, 253, 250, 0.74);
+        color: var(--ink);
+        text-align: left;
+        font-weight: 850;
+      }
+
+      .rail-button span {
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: #e5f4f2;
+        color: var(--teal);
+        font-size: 0.82rem;
+      }
+
+      .rail-button[aria-current="step"] {
+        border-color: rgba(15, 118, 110, 0.35);
+        background: #ffffff;
+        box-shadow: 0 12px 28px rgba(15, 118, 110, 0.12);
+      }
+
+      .stage-grid {
+        display: grid;
+        gap: 14px;
+      }
+
+      .stage-card,
+      .artifact-row,
+      .check-row,
+      .path-block {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--paper);
+        box-shadow: 0 8px 22px rgba(28, 30, 33, 0.04);
+      }
+
+      .stage-card {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 18px;
+        padding: 20px;
+      }
+
+      .stage-card.is-hidden {
+        display: none;
+      }
+
+      .stage-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-bottom: 11px;
+      }
+
+      .pill {
+        border-radius: 999px;
+        padding: 4px 9px;
+        background: #eef2ff;
+        color: #3730a3;
+        font-size: 0.76rem;
+        font-weight: 900;
+      }
+
+      .pill.owner {
+        background: #ecfdf5;
+        color: var(--teal);
+      }
+
+      .pill.risk {
+        background: #fff7ed;
+        color: var(--brick);
+      }
+
+      .stage-summary {
+        margin-bottom: 14px;
+        color: var(--muted);
+        font-weight: 650;
+      }
+
+      .stage-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .stage-list li {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 10px;
+        background: rgba(255, 255, 255, 0.72);
+        color: #353941;
+        font-size: 0.88rem;
+        font-weight: 760;
+      }
+
+      .stage-actions {
+        display: flex;
+        align-items: start;
+        gap: 8px;
+      }
+
+      .icon-button {
+        width: 42px;
+        height: 42px;
+        display: grid;
+        place-items: center;
+        padding: 0;
+        font-size: 1rem;
+      }
+
+      .commands {
+        display: grid;
+        gap: 8px;
+        margin-top: 14px;
+      }
+
+      .command-line {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 8px;
+        align-items: center;
+        min-width: 0;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 8px 8px 8px 12px;
+        background: #f8fafc;
+      }
+
+      .command-line > * {
+        min-width: 0;
+      }
+
+      .command-line code {
+        border: 0;
+        padding: 0;
+        background: transparent;
+        color: #20242b;
+        white-space: nowrap;
+        overflow-x: auto;
+      }
+
+      .copy-button {
+        min-height: 32px;
+        padding: 5px 10px;
+        background: #fff;
+        font-size: 0.8rem;
+      }
+
+      .path-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .path-block {
+        padding: 16px;
+      }
+
+      .path-block strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .path-block p {
+        margin-bottom: 12px;
+        color: var(--muted);
+        font-size: 0.94rem;
+        font-weight: 650;
+      }
+
+      .artifact-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      .artifact-count {
+        color: var(--muted);
+        font-weight: 850;
+      }
+
+      .artifact-list {
+        display: grid;
+        gap: 8px;
+      }
+
+      .artifact-row {
+        display: grid;
+        grid-template-columns: 132px minmax(0, 1fr) auto;
+        gap: 14px;
+        align-items: center;
+        width: 100%;
+        min-width: 0;
+        min-height: 58px;
+        padding: 12px 14px;
+      }
+
+      .artifact-row > * {
+        min-width: 0;
+      }
+
+      .artifact-row.is-hidden {
+        display: none;
+      }
+
+      .artifact-kind {
+        color: var(--brick);
+        font-size: 0.82rem;
+        font-weight: 900;
+      }
+
+      .artifact-row code {
+        display: inline-block;
+        max-width: 100%;
+        white-space: nowrap;
+        min-width: 0;
+        overflow-x: auto;
+      }
+
+      .check-panel {
+        display: grid;
+        gap: 10px;
+      }
+
+      .check-head {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 14px;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .progress {
+        overflow: hidden;
+        height: 10px;
+        border-radius: 999px;
+        background: rgba(15, 118, 110, 0.14);
+      }
+
+      .progress span {
+        display: block;
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(90deg, var(--teal), var(--blue), var(--brick));
+        transition: width 0.2s ease;
+      }
+
+      .check-row {
+        display: grid;
+        grid-template-columns: 26px minmax(0, 1fr);
+        gap: 12px;
+        align-items: start;
+        padding: 14px;
+      }
+
+      .check-row input {
+        width: 20px;
+        height: 20px;
+        margin-top: 4px;
+        accent-color: var(--teal);
+      }
+
+      .check-row strong {
+        display: block;
+        margin-bottom: 2px;
+      }
+
+      .check-row span {
+        color: var(--muted);
+        font-weight: 650;
+      }
+
+      .check-row.is-done {
+        border-color: rgba(15, 118, 110, 0.28);
+        background: #f0fdfa;
+      }
+
+      .matrix {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .matrix-cell {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 16px;
+        background: var(--paper);
+      }
+
+      .matrix-cell strong {
+        color: var(--teal);
+      }
+
+      .matrix-cell p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 0.94rem;
+        font-weight: 650;
+      }
+
+      .modal {
+        position: fixed;
+        inset: 0;
+        z-index: 80;
+        display: none;
+        padding: 24px;
+      }
+
+      .modal.is-open {
+        display: grid;
+        place-items: center;
+      }
+
+      .modal-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(12, 14, 17, 0.62);
+        backdrop-filter: blur(10px);
+      }
+
+      .modal-panel {
+        position: relative;
+        width: min(760px, 100%);
+        max-height: min(760px, 86svh);
+        overflow: auto;
+        border-radius: var(--radius);
+        padding: 24px;
+        background: var(--paper);
+        box-shadow: var(--shadow);
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        width: 38px;
+        height: 38px;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        background: #fff;
+        font-size: 1.1rem;
+        font-weight: 900;
+      }
+
+      .modal-list {
+        display: grid;
+        gap: 10px;
+        margin: 16px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .modal-list li {
+        border-left: 3px solid var(--teal);
+        padding: 8px 0 8px 12px;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .toast {
+        position: fixed;
+        z-index: 90;
+        right: var(--page-x);
+        bottom: 22px;
+        transform: translateY(140%);
+        border: 1px solid rgba(15, 118, 110, 0.3);
+        border-radius: 999px;
+        padding: 10px 15px;
+        background: #ecfdf5;
+        color: var(--teal);
+        font-weight: 900;
+        box-shadow: var(--shadow);
+        transition: transform 0.2s ease;
+      }
+
+      .toast.is-visible {
+        transform: translateY(0);
+      }
+
+      .empty-state {
+        display: none;
+        border: 1px dashed var(--line-strong);
+        border-radius: var(--radius);
+        padding: 26px;
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.44);
+        font-weight: 800;
+        text-align: center;
+      }
+
+      .empty-state.is-visible {
+        display: block;
+      }
+
+      .footer {
+        border-top: 1px solid var(--line);
+        padding: 32px var(--page-x) 48px;
+        color: var(--muted);
+        background: var(--paper);
+        font-weight: 700;
+      }
+
+      @media (max-width: 980px) {
+        .site-header,
+        .section-head,
+        .process-layout,
+        .path-grid,
+        .matrix {
+          grid-template-columns: 1fr;
+        }
+
+        .site-header {
+          align-items: start;
+          padding-top: 12px;
+          padding-bottom: 12px;
+        }
+
+        .nav-links {
+          justify-content: flex-start;
+        }
+
+        .stats {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .step-rail {
+          position: static;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .stage-card {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .hero {
+          min-height: 680px;
+          padding-top: 86px;
+        }
+
+        .stats,
+        .step-rail,
+        .artifact-row {
+          grid-template-columns: 1fr;
+        }
+
+        .stat {
+          min-height: auto;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .artifact-row {
+          align-items: start;
+        }
+
+        .ai-generated-media::after {
+          right: 10px;
+          bottom: 10px;
+          padding: 5px 9px;
+        }
+
+        .artifact-row code {
+          display: block;
+          white-space: normal;
+          overflow-wrap: anywhere;
+        }
+
+        .section {
+          padding-top: 54px;
+          padding-bottom: 54px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#manual">본문으로 건너뛰기</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">냥냥츄르 <span>제작 프로세스 매뉴얼</span></a>
+      <nav class="nav-links" aria-label="주요 섹션">
+        <a href="#manual">프로세스</a>
+        <a href="#artifacts">산출물</a>
+        <a href="#checklist">체크리스트</a>
+        <a href="./index.html">메인</a>
+        <a href="./manuscript.html">관찰일지</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <picture class="hero-media">
+          <source
+            type="image/jpeg"
+            media="(max-width: 767px)"
+            srcset="../assets/hero-window-cat-768.jpg"
+          />
+          <source
+            type="image/jpeg"
+            media="(min-width: 768px)"
+            srcset="../assets/hero-window-cat-1280.jpg"
+          />
+          <img
+            class="hero-image"
+            src="../assets/hero-window-cat-1280.jpg"
+            width="1280"
+            height="683"
+            alt="창가에 앉은 고양이와 책, 물그릇"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </picture>
+        <div class="hero-scrim"></div>
+        <div class="hero-content">
+          <p class="eyebrow">Single HTML Manual</p>
+          <h1 id="hero-title">catbook 제작 흐름을 한 장으로 운영한다</h1>
+          <p class="hero-copy">
+            `catbook/` 프로젝트 폴더를 기준으로 리서치, 문체 설계, 원고 빌드, 웹 구현, 검증까지 이어지는
+            제작 프로세스를 정리한 동적 매뉴얼입니다. 이 파일 하나 안에 화면 스타일과 상호작용 스크립트가 함께 들어 있습니다.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#manual">프로세스 보기</a>
+            <button class="button" type="button" data-copy="catbook/web/production-process-manual.html">
+              HTML 경로 복사
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats" aria-label="프로젝트 핵심 수치">
+        <div class="stat">
+          <strong>644</strong>
+          <span>Shorts 제외 분석 후보</span>
+        </div>
+        <div class="stat">
+          <strong>100.56h</strong>
+          <span>분석 대상 총 분량</span>
+        </div>
+        <div class="stat">
+          <strong>7 x 6</strong>
+          <span>7파트 42장 원고 구조</span>
+        </div>
+        <div class="stat">
+          <strong>1 file</strong>
+          <span>CSS/JS 인라인 HTML 매뉴얼</span>
+        </div>
+      </section>
+
+      <section class="section" id="manual" aria-labelledby="manual-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Production Map</p>
+            <h2 id="manual-title">제작 단계를 역할과 산출물 기준으로 추적한다</h2>
+            <p>
+              각 단계는 실제 폴더의 파일과 연결됩니다. 검색어나 필터를 바꾸면 단계 카드와 산출물 목록이 함께 좁혀집니다.
+            </p>
+          </div>
+          <div class="control-surface" aria-label="프로세스 필터">
+            <div class="search-wrap">
+              <label for="process-search">검색</label>
+              <input
+                class="search-input"
+                id="process-search"
+                type="search"
+                placeholder="예: 리서치, 원고, 검증, TARS, manuscript"
+              />
+            </div>
+            <div>
+              <div class="filter-label">역할 필터</div>
+              <div class="filters" id="role-filters"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="process-layout">
+          <aside class="step-rail" id="step-rail" aria-label="제작 단계 바로가기"></aside>
+          <div>
+            <div class="stage-grid" id="stage-grid"></div>
+            <div class="empty-state" id="stage-empty">검색 조건에 맞는 제작 단계가 없습니다.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section alt" id="artifacts" aria-labelledby="artifacts-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Artifact Ledger</p>
+            <h2 id="artifacts-title">파일은 목적별로 찾고, 경로는 바로 복사한다</h2>
+            <p>
+              실제 제작에 필요한 핵심 파일만 추렸습니다. 공용 CSS나 JS 없이도 이 매뉴얼은 단독으로 동작하지만,
+              아래 파일들은 catbook 제작 결과를 이해하고 재생성하는 기준점입니다.
+            </p>
+          </div>
+          <div class="artifact-toolbar">
+            <span class="artifact-count" id="artifact-count"></span>
+            <button class="button" type="button" id="clear-search">검색 초기화</button>
+          </div>
+        </div>
+
+        <div class="artifact-list" id="artifact-list"></div>
+        <div class="empty-state" id="artifact-empty">검색 조건에 맞는 산출물이 없습니다.</div>
+      </section>
+
+      <section class="section" id="paths" aria-labelledby="paths-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Local Runbook</p>
+            <h2 id="paths-title">로컬 실행과 재생성 명령</h2>
+            <p>
+              루트 폴더 `c:\Users\HANA\Desktop\gemini\jarvis` 기준입니다. 공개 배포, 외부 전송, 저작권 판단은 별도 승인 대상입니다.
+            </p>
+          </div>
+        </div>
+
+        <div class="path-grid">
+          <article class="path-block">
+            <strong>일반 로컬 미리보기</strong>
+            <p>Jarvis 루트에서 정적 서버를 열어 `catbook/web/*.html`을 확인합니다.</p>
+            <div class="command-line">
+              <code>python -m http.server 8787 --bind 127.0.0.1</code>
+              <button class="copy-button" type="button" data-copy="python -m http.server 8787 --bind 127.0.0.1">복사</button>
+            </div>
+          </article>
+          <article class="path-block">
+            <strong>인트라넷 미리보기</strong>
+            <p>같은 네트워크 안에서 확인할 때 쓰는 catbook 전용 서버입니다.</p>
+            <div class="command-line">
+              <code>powershell -ExecutionPolicy Bypass -File catbook/scripts/start-intranet-preview.ps1 -Port 8790 -MaxPort 8800 -Restart</code>
+              <button class="copy-button" type="button" data-copy="powershell -ExecutionPolicy Bypass -File catbook/scripts/start-intranet-preview.ps1 -Port 8790 -MaxPort 8800 -Restart">복사</button>
+            </div>
+          </article>
+          <article class="path-block">
+            <strong>매뉴얼 URL</strong>
+            <p>이 파일을 서버로 열 때의 경로입니다.</p>
+            <div class="command-line">
+              <code>http://127.0.0.1:8787/catbook/web/production-process-manual.html</code>
+              <button class="copy-button" type="button" data-copy="http://127.0.0.1:8787/catbook/web/production-process-manual.html">복사</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section alt" id="checklist" aria-labelledby="checklist-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Operator Checklist</p>
+            <h2 id="checklist-title">다음 제작 전에 확인할 운영 체크</h2>
+            <p>
+              체크 상태는 현재 브라우저에 저장됩니다. 같은 파일을 다시 열어도 이어서 확인할 수 있습니다.
+            </p>
+          </div>
+          <div class="check-head">
+            <strong id="check-progress-text">0/0 완료</strong>
+            <button class="button" type="button" id="reset-checks">초기화</button>
+            <div class="progress" aria-hidden="true"><span id="check-progress-bar"></span></div>
+          </div>
+        </div>
+
+        <div class="check-panel" id="check-panel"></div>
+      </section>
+
+      <section class="section" aria-labelledby="risk-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Risk Shield</p>
+            <h2 id="risk-title">계속 유지해야 할 경계선</h2>
+            <p>
+              이 프로젝트는 공개 콘텐츠를 참고한 독립 창작물입니다. 원문 대본 저장, 말투 모방, 의료 단정,
+              공개 배포는 별도 검토 없이 진행하지 않습니다.
+            </p>
+          </div>
+        </div>
+
+        <div class="matrix">
+          <article class="matrix-cell">
+            <strong>저작권</strong>
+            <p>자막 원문과 진행자 문체를 복제하지 않고, 비문장형 분석 신호와 독립 원고만 남깁니다.</p>
+          </article>
+          <article class="matrix-cell">
+            <strong>의료 표현</strong>
+            <p>진단과 처방처럼 단정하지 않고 관찰 신호, 기록, 상담 기준으로 표현합니다.</p>
+          </article>
+          <article class="matrix-cell">
+            <strong>AI 문체</strong>
+            <p>탐지 회피 목적 지침이 아니라 장면 정확성, 안전성, 독립성을 높이는 편집 스킬만 사용합니다.</p>
+          </article>
+          <article class="matrix-cell">
+            <strong>공개 릴리스</strong>
+            <p>판매, 배포, 외부 공유, 상업 이미지 사용은 Human Conductor 승인 뒤 진행합니다.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>
+        기준 폴더: <code>catbook/</code>. 실제 산출물은 현재 `catbook` 폴더에 있으며,
+        `work-requests/2026-06-02-nyangnyang-chur-cat-book/`에는 호환용 안내 파일만 남아 있습니다.
+      </p>
+    </footer>
+
+    <div class="modal" id="detail-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-backdrop" data-close-modal></div>
+      <section class="modal-panel" tabindex="-1">
+        <button class="modal-close" type="button" aria-label="닫기" data-close-modal>×</button>
+        <p class="eyebrow" id="modal-kicker">Process</p>
+        <h2 id="modal-title"></h2>
+        <p id="modal-summary"></p>
+        <ul class="modal-list" id="modal-list"></ul>
+      </section>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite">복사했습니다</div>
+
+    <script>
+      const stages = [
+        {
+          id: "brief",
+          role: "Jarvis",
+          cc: "Friday, KITT/TRON",
+          risk: "Low",
+          title: "요청 해석과 안전 경계 설정",
+          summary:
+            "Human Brief, Jarvis 전략 브리프, Decision Log로 프로젝트 목표와 금지선을 먼저 고정한다.",
+          outputs: ["catbook/human-brief.md", "catbook/jarvis-strategy-brief.md", "catbook/decision-log.md"],
+          commands: [],
+          details: [
+            "대상은 고양이 행동/돌봄 콘텐츠를 바탕으로 한 독립 창작 책과 소개 웹페이지다.",
+            "자막 원문 저장, 특정 진행자 말투 모방, AI 탐지 회피 목적 글쓰기 지침을 금지선으로 둔다.",
+            "공개 배포와 상업 사용은 Human Conductor 승인 전까지 로컬 산출물로 제한한다.",
+          ],
+        },
+        {
+          id: "research",
+          role: "EVE",
+          cc: "Data, KITT/TRON",
+          risk: "Medium",
+          title: "콘텐츠 인벤토리와 아틀라스 분석",
+          summary:
+            "채널 메타데이터를 수집하고 Shorts 제외 후보 644개를 주제, 시리즈, 길이, 원고 전환 방식으로 분류한다.",
+          outputs: [
+            "catbook/research/video_inventory_ko.csv",
+            "catbook/research/content_atlas.json",
+            "catbook/research/content-atlas-report.md",
+            "catbook/research/cat-signal-behavior-list-142.csv",
+          ],
+          commands: ["python catbook/research/build_content_atlas.py", "node catbook/research/generate_signal_lists.js"],
+          details: [
+            "핵심 수치: Shorts 제외 644개, 약 100.56시간.",
+            "주요 축: 행동 신호, 건강 관찰, 관계/합사, 생활 돌봄, 배변/화장실, 윤리/안전, 묘종 지식.",
+            "분석 결과는 원문 복제가 아니라 책 구조와 장면 소재를 만들기 위한 비문장형 신호로 사용한다.",
+          ],
+        },
+        {
+          id: "voice",
+          role: "C3PO",
+          cc: "KITT/TRON",
+          risk: "Medium",
+          title: "문체 스킬과 출판 톤 설계",
+          summary:
+            "자연 고양이 서사 문체 스킬을 기준으로 장면 중심, 관찰 중심, 의료 표현 안전성을 가진 원고 기준을 만든다.",
+          outputs: [
+            "catbook/skills/natural-cat-narrative-writing/SKILL.md",
+            "catbook/manuscript/book-proposal.md",
+            "catbook/manuscript/medical-review-notes.md",
+          ],
+          commands: [],
+          details: [
+            "설명보다 장면으로 시작하고, 정보는 이야기 뒤에 짧게 붙인다.",
+            "고양이를 과잉 의인화하지 않고 감각, 경계, 선택의 언어로 읽는다.",
+            "증상은 관찰 신호로, 대응은 기록과 상담으로 표현한다.",
+          ],
+        },
+        {
+          id: "manuscript",
+          role: "C3PO",
+          cc: "Jarvis, EVE, KITT/TRON",
+          risk: "Medium",
+          title: "7파트 42장 원고 조립",
+          summary:
+            "v3 핵심 확장 원고와 나머지 확장 원고를 빌드 스크립트로 합쳐 완성 원고를 생성한다.",
+          outputs: [
+            "catbook/manuscript/nyangnyang-chur-manuscript-v3-core-expanded.md",
+            "catbook/manuscript/nyangnyang-chur-manuscript-v3-remaining-expanded.md",
+            "catbook/manuscript/nyangnyang-chur-manuscript-v3-complete.md",
+          ],
+          commands: ["python catbook/scripts/build_complete_manuscript.py"],
+          details: [
+            "구조는 7파트, 각 파트 6장, 총 42장이다.",
+            "각 장은 짧은 이야기, 30초 체크, 집사 메모, 오늘의 한 문장으로 반복된다.",
+            "원고 검증 기준은 30초 체크 42개, 집사 메모 42개, 오늘의 한 문장 42개 유지다.",
+          ],
+        },
+        {
+          id: "assets",
+          role: "Joi",
+          cc: "C3PO",
+          risk: "Medium",
+          title: "이미지 자산과 장면 시각화",
+          summary:
+            "표지, 히어로 이미지, 장별 모노라인 이미지를 독립 자산으로 구성해 웹 리더와 소개 페이지에 연결한다.",
+          outputs: [
+            "catbook/assets/hero-window-cat-1280.jpg",
+            "catbook/assets/generated/chapter-images/",
+            "catbook/manuscript/cover-concepts.md",
+          ],
+          commands: [],
+          details: [
+            "이미지는 실제 책/관찰 노트 맥락을 첫 화면에서 드러내는 용도로 쓴다.",
+            "장별 이미지는 원고 맥락을 고정하고, 과장된 의료/공포 표현을 피한다.",
+            "상업 사용 전 최종 라이선스와 디자이너 검수 여부를 다시 확인해야 한다.",
+          ],
+        },
+        {
+          id: "web",
+          role: "TARS",
+          cc: "Joi, C3PO",
+          risk: "Low",
+          title: "웹 소개 페이지와 원고 리더 생성",
+          summary:
+            "메인 소개 페이지, 단일 HTML 소개 페이지, 원고 리더 HTML을 생성하고 동적 탭/모달/체크 기능을 연결한다.",
+          outputs: [
+            "catbook/web/index.html",
+            "catbook/web/styles.css",
+            "catbook/web/script.js",
+            "catbook/web/nyangnyang-chur-landing-standalone.html",
+            "catbook/web/manuscript.html",
+          ],
+          commands: [
+            "python catbook/scripts/build_manuscript_html.py",
+            "python catbook/scripts/build_standalone_html.py",
+            "node --check catbook/web/script.js",
+          ],
+          details: [
+            "index.html은 외부 CSS/JS를 참조하는 일반 페이지다.",
+            "nyangnyang-chur-landing-standalone.html은 CSS/JS를 인라인으로 합친 단일 소개 HTML이다.",
+            "manuscript.html은 42장 리더와 30초 체크 동적 기능을 포함한다.",
+          ],
+        },
+        {
+          id: "verify",
+          role: "Data",
+          cc: "KITT/TRON, Diagnostic Agent",
+          risk: "Low",
+          title: "검증, 로컬 실행, 완료 증거",
+          summary:
+            "HTTP 200, 참조 누락, JS 문법, 반응형 화면, 리스크 게이트를 evidence 폴더에 남긴다.",
+          outputs: [
+            "catbook/evidence/final-verification-report-2026-06-02.md",
+            "catbook/evidence/web-optimization-verification-2026-06-04.md",
+            "catbook/evidence/catbook-folder-move-2026-06-05.md",
+          ],
+          commands: [
+            "python -m http.server 8787 --bind 127.0.0.1",
+            "powershell -ExecutionPolicy Bypass -File catbook/scripts/start-intranet-preview.ps1 -Port 8790 -MaxPort 8800 -Restart",
+          ],
+          details: [
+            "로컬 URL 기준 메인, 원고, standalone 페이지 모두 200 응답을 확인한다.",
+            "work-requests 아래 이전 URL은 catbook 경로 안내용 호환 파일로 유지한다.",
+            "공개 릴리스, 판매 페이지, 외부 공유는 이 단계에서 자동 진행하지 않는다.",
+          ],
+        },
+      ];
+
+      const artifacts = [
+        ["운영", "Jarvis", "Human Brief", "catbook/human-brief.md"],
+        ["운영", "Jarvis", "전략 브리프", "catbook/jarvis-strategy-brief.md"],
+        ["운영", "Jarvis", "Decision Log", "catbook/decision-log.md"],
+        ["리서치", "EVE", "콘텐츠 아틀라스", "catbook/research/content_atlas.json"],
+        ["리서치", "Data", "아틀라스 리포트", "catbook/research/content-atlas-report.md"],
+        ["리서치", "Data", "644개 신호 목록", "catbook/research/content-signal-list-644.csv"],
+        ["리서치", "Data", "142개 행동 신호 목록", "catbook/research/cat-signal-behavior-list-142.csv"],
+        ["문체", "C3PO", "자연 고양이 서사 문체 스킬", "catbook/skills/natural-cat-narrative-writing/SKILL.md"],
+        ["원고", "C3PO", "책 기획서", "catbook/manuscript/book-proposal.md"],
+        ["원고", "C3PO", "완성 원고", "catbook/manuscript/nyangnyang-chur-manuscript-v3-complete.md"],
+        ["원고", "C3PO", "출판 패키지", "catbook/manuscript/publishing-package.md"],
+        ["웹", "TARS", "메인 소개 페이지", "catbook/web/index.html"],
+        ["웹", "TARS", "단일 HTML 소개 페이지", "catbook/web/nyangnyang-chur-landing-standalone.html"],
+        ["웹", "TARS", "집사용 이야기 노트 HTML", "catbook/web/manuscript.html"],
+        ["웹", "TARS", "제작 프로세스 매뉴얼", "catbook/web/production-process-manual.html"],
+        ["스크립트", "TARS", "원고 조립", "catbook/scripts/build_complete_manuscript.py"],
+        ["스크립트", "TARS", "원고 HTML 생성", "catbook/scripts/build_manuscript_html.py"],
+        ["스크립트", "TARS", "단일 HTML 생성", "catbook/scripts/build_standalone_html.py"],
+        ["검증", "Data", "최종 검증 리포트", "catbook/evidence/final-verification-report-2026-06-02.md"],
+        ["검증", "Data", "폴더 이동 검증", "catbook/evidence/catbook-folder-move-2026-06-05.md"],
+      ];
+
+      const checks = [
+        ["요청과 금지선을 확인했다", "Human Brief, 전략 브리프, Decision Log를 먼저 확인한다."],
+        ["리서치 수치를 확인했다", "644개 후보, 100.56시간, 주제별 분포를 산출물에 반영한다."],
+        ["원문 복제 위험을 제거했다", "자막 원문 저장과 특정 말투 모방 없이 독립 장면으로 전환한다."],
+        ["문체 스킬을 적용했다", "장면 중심, 관찰 중심, 의료 표현 안전장치를 원고에 반영한다."],
+        ["빌드 스크립트를 실행했다", "완성 원고, 원고 HTML, standalone HTML을 필요한 순서로 생성한다."],
+        ["웹 상호작용을 확인했다", "탭, 모달, 체크리스트, 복사 버튼, 검색/필터가 동작하는지 확인한다."],
+        ["로컬 URL을 확인했다", "127.0.0.1 또는 인트라넷 미리보기 URL에서 HTTP 200을 확인한다."],
+        ["릴리스 리스크를 분리했다", "공개 배포, 판매, 외부 공유는 별도 승인 항목으로 남긴다."],
+      ];
+
+      const state = {
+        query: "",
+        role: "전체",
+        activeStage: stages[0].id,
+      };
+
+      const stageGrid = document.querySelector("#stage-grid");
+      const stepRail = document.querySelector("#step-rail");
+      const roleFilters = document.querySelector("#role-filters");
+      const searchInput = document.querySelector("#process-search");
+      const stageEmpty = document.querySelector("#stage-empty");
+      const artifactList = document.querySelector("#artifact-list");
+      const artifactCount = document.querySelector("#artifact-count");
+      const artifactEmpty = document.querySelector("#artifact-empty");
+      const clearSearch = document.querySelector("#clear-search");
+      const checkPanel = document.querySelector("#check-panel");
+      const checkProgressText = document.querySelector("#check-progress-text");
+      const checkProgressBar = document.querySelector("#check-progress-bar");
+      const resetChecks = document.querySelector("#reset-checks");
+      const modal = document.querySelector("#detail-modal");
+      const modalPanel = modal.querySelector(".modal-panel");
+      const modalTitle = document.querySelector("#modal-title");
+      const modalKicker = document.querySelector("#modal-kicker");
+      const modalSummary = document.querySelector("#modal-summary");
+      const modalList = document.querySelector("#modal-list");
+      const toast = document.querySelector("#toast");
+
+      let lastFocusedElement = null;
+      let toastTimer = 0;
+
+      const protectGeneratedMedia = () => {
+        const generatedImages = Array.from(document.querySelectorAll('img[src*="assets/generated/"]'));
+
+        generatedImages.forEach((image) => {
+          const media = image.closest("figure, picture, .hero-media, .chapter-visual") || image.parentElement;
+          if (media) {
+            media.classList.add("ai-generated-media");
+            media.dataset.aiLabel = "AI 생성";
+          }
+
+          image.dataset.aiGenerated = "true";
+          image.draggable = false;
+          image.setAttribute("draggable", "false");
+          image.addEventListener("dragstart", (event) => event.preventDefault());
+        });
+
+        document.addEventListener("contextmenu", (event) => {
+          event.preventDefault();
+        });
+      };
+
+      const normalize = (value) => value.toLowerCase().replace(/\s+/g, " ").trim();
+
+      const matchesQuery = (values) => {
+        if (!state.query) return true;
+        return normalize(values.join(" ")).includes(normalize(state.query));
+      };
+
+      const showToast = (message = "복사했습니다") => {
+        window.clearTimeout(toastTimer);
+        toast.textContent = message;
+        toast.classList.add("is-visible");
+        toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 1600);
+      };
+
+      const copyText = async (value) => {
+        try {
+          await navigator.clipboard.writeText(value);
+        } catch {
+          const helper = document.createElement("textarea");
+          helper.value = value;
+          helper.setAttribute("readonly", "");
+          helper.style.position = "fixed";
+          helper.style.opacity = "0";
+          document.body.append(helper);
+          helper.select();
+          document.execCommand("copy");
+          helper.remove();
+        }
+        showToast();
+      };
+
+      const renderFilters = () => {
+        const roles = ["전체", ...Array.from(new Set(stages.map((stage) => stage.role)))];
+        roleFilters.replaceChildren(
+          ...roles.map((role) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "filter-button";
+            button.textContent = role;
+            button.setAttribute("aria-pressed", String(role === state.role));
+            button.addEventListener("click", () => {
+              state.role = role;
+              renderFilters();
+              renderStages();
+              renderArtifacts();
+            });
+            return button;
+          })
+        );
+      };
+
+      const renderRail = () => {
+        stepRail.replaceChildren(
+          ...stages.map((stage, index) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            button.className = "rail-button";
+            button.dataset.stage = stage.id;
+            button.innerHTML = `<span>${String(index + 1).padStart(2, "0")}</span><strong>${stage.title}</strong>`;
+            if (stage.id === state.activeStage) button.setAttribute("aria-current", "step");
+            button.addEventListener("click", () => {
+              state.activeStage = stage.id;
+              renderRail();
+              document.querySelector(`[data-card="${stage.id}"]`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+            return button;
+          })
+        );
+      };
+
+      const stageMatches = (stage) => {
+        const roleMatches = state.role === "전체" || stage.role === state.role;
+        const queryMatches = matchesQuery([
+          stage.title,
+          stage.summary,
+          stage.role,
+          stage.cc,
+          stage.risk,
+          ...stage.outputs,
+          ...stage.commands,
+          ...stage.details,
+        ]);
+        return roleMatches && queryMatches;
+      };
+
+      const renderStages = () => {
+        let visibleCount = 0;
+        stageGrid.replaceChildren(
+          ...stages.map((stage, index) => {
+            const visible = stageMatches(stage);
+            if (visible) visibleCount += 1;
+
+            const article = document.createElement("article");
+            article.className = `stage-card${visible ? "" : " is-hidden"}`;
+            article.dataset.card = stage.id;
+            article.innerHTML = `
+              <div>
+                <div class="stage-meta">
+                  <span class="pill">Step ${String(index + 1).padStart(2, "0")}</span>
+                  <span class="pill owner">To ${stage.role}</span>
+                  <span class="pill">CC ${stage.cc}</span>
+                  <span class="pill risk">Risk ${stage.risk}</span>
+                </div>
+                <h3>${stage.title}</h3>
+                <p class="stage-summary">${stage.summary}</p>
+                <ul class="stage-list">
+                  ${stage.outputs.map((output) => `<li>${output}</li>`).join("")}
+                </ul>
+                ${
+                  stage.commands.length
+                    ? `<div class="commands">${stage.commands
+                        .map(
+                          (command) => `
+                            <div class="command-line">
+                              <code>${command}</code>
+                              <button class="copy-button" type="button" data-copy="${command}">복사</button>
+                            </div>
+                          `
+                        )
+                        .join("")}</div>`
+                    : ""
+                }
+              </div>
+              <div class="stage-actions">
+                <button class="icon-button" type="button" aria-label="${stage.title} 세부 보기" data-open-stage="${stage.id}">i</button>
+              </div>
+            `;
+            return article;
+          })
+        );
+        stageEmpty.classList.toggle("is-visible", visibleCount === 0);
+      };
+
+      const renderArtifacts = () => {
+        let visibleCount = 0;
+        artifactList.replaceChildren(
+          ...artifacts.map(([kind, owner, title, path]) => {
+            const visible = matchesQuery([kind, owner, title, path]) && (state.role === "전체" || owner === state.role);
+            if (visible) visibleCount += 1;
+
+            const row = document.createElement("article");
+            row.className = `artifact-row${visible ? "" : " is-hidden"}`;
+            row.innerHTML = `
+              <span class="artifact-kind">${kind} / ${owner}</span>
+              <div>
+                <strong>${title}</strong><br />
+                <code>${path}</code>
+              </div>
+              <button class="copy-button" type="button" data-copy="${path}">경로 복사</button>
+            `;
+            return row;
+          })
+        );
+        artifactCount.textContent = `${visibleCount}/${artifacts.length}개 표시`;
+        artifactEmpty.classList.toggle("is-visible", visibleCount === 0);
+      };
+
+      const checkKey = "catbook-production-manual:checks:v1";
+
+      const readChecks = () => {
+        try {
+          return JSON.parse(localStorage.getItem(checkKey) || "{}");
+        } catch {
+          return {};
+        }
+      };
+
+      const writeChecks = (value) => {
+        try {
+          localStorage.setItem(checkKey, JSON.stringify(value));
+        } catch {
+          return;
+        }
+      };
+
+      const renderChecks = () => {
+        const saved = readChecks();
+        checkPanel.replaceChildren(
+          ...checks.map(([title, detail], index) => {
+            const id = `manual-check-${index}`;
+            const checked = Boolean(saved[id]);
+            const label = document.createElement("label");
+            label.className = `check-row${checked ? " is-done" : ""}`;
+            label.innerHTML = `
+              <input type="checkbox" id="${id}" ${checked ? "checked" : ""} />
+              <span><strong>${title}</strong><span>${detail}</span></span>
+            `;
+            label.querySelector("input").addEventListener("change", (event) => {
+              saved[id] = event.target.checked;
+              writeChecks(saved);
+              renderChecks();
+            });
+            return label;
+          })
+        );
+        const done = Object.values(saved).filter(Boolean).length;
+        const total = checks.length;
+        checkProgressText.textContent = `${done}/${total} 완료`;
+        checkProgressBar.style.width = `${Math.round((done / total) * 100)}%`;
+      };
+
+      const openModal = (stageId) => {
+        const stage = stages.find((item) => item.id === stageId);
+        if (!stage) return;
+        lastFocusedElement = document.activeElement;
+        modalKicker.textContent = `To ${stage.role} / CC ${stage.cc}`;
+        modalTitle.textContent = stage.title;
+        modalSummary.textContent = stage.summary;
+        modalList.replaceChildren(...stage.details.map((detail) => {
+          const item = document.createElement("li");
+          item.textContent = detail;
+          return item;
+        }));
+        modal.classList.add("is-open");
+        document.body.classList.add("modal-open");
+        modalPanel.focus();
+      };
+
+      const closeModal = () => {
+        modal.classList.remove("is-open");
+        document.body.classList.remove("modal-open");
+        lastFocusedElement?.focus?.();
+      };
+
+      searchInput.addEventListener("input", (event) => {
+        state.query = event.target.value;
+        renderStages();
+        renderArtifacts();
+      });
+
+      clearSearch.addEventListener("click", () => {
+        state.query = "";
+        searchInput.value = "";
+        renderStages();
+        renderArtifacts();
+        searchInput.focus();
+      });
+
+      resetChecks.addEventListener("click", () => {
+        writeChecks({});
+        renderChecks();
+      });
+
+      document.addEventListener("click", (event) => {
+        const copyTarget = event.target.closest("[data-copy]");
+        if (copyTarget) {
+          copyText(copyTarget.dataset.copy);
+          return;
+        }
+
+        const openTarget = event.target.closest("[data-open-stage]");
+        if (openTarget) {
+          openModal(openTarget.dataset.openStage);
+          return;
+        }
+
+        if (event.target.closest("[data-close-modal]")) {
+          closeModal();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && modal.classList.contains("is-open")) {
+          closeModal();
+        }
+      });
+
+      renderFilters();
+      renderRail();
+      renderStages();
+      renderArtifacts();
+      renderChecks();
+      protectGeneratedMedia();
+    </script>
+  </body>
+</html>
