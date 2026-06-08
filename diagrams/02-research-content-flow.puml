@@ -1,0 +1,81 @@
+@startuml
+title 리서치와 콘텐츠 아틀라스 흐름
+
+left to right direction
+skinparam backgroundColor #FAFAF7
+skinparam shadowing false
+skinparam componentStyle rectangle
+
+cloud "유튜브 공개 채널\n@catdoctor/videos, @catdoctor/shorts" as Youtube
+
+package "research/ 수집" as Collect {
+  component "fetch_youtube_meta_all_tabs.py" as FetchMeta
+  component "fetch_transcript_insights.py" as FetchTranscript
+  component "slow_transcript_backfill.py" as Backfill
+}
+
+package "research/ 메타 산출물" as MetaOutputs {
+  artifact "raw_channel_flat_ko.json" as RawKo
+  artifact "video_inventory_ko.csv/json" as InventoryKo
+  artifact "youtube_meta_all_tabs_2026-06-05.json/csv" as AllTabs
+  artifact "youtube_meta_shortform_2026-06-05.csv" as Shortform
+}
+
+package "research/ 비원문 신호" as Signals {
+  artifact "transcript_insights.jsonl" as Insights
+  artifact "transcript_progress.json" as Progress
+  artifact "partial_transcript_summary.json" as PartialSummary
+}
+
+package "research/ 콘텐츠 아틀라스" as Atlas {
+  component "build_content_atlas.py" as BuildAtlas
+  artifact "content_atlas.json" as ContentAtlas
+  artifact "content-atlas-report.md" as ContentAtlasReport
+  artifact "channel-analysis-report.md" as ChannelReport
+  artifact "behavior-signal-lists.md" as BehaviorLists
+}
+
+package "후속 산출물" as Downstream {
+  artifact "manuscript/book-proposal.md" as BookProposal
+  artifact "research/cat_ontology_graph.json" as OntologyJson
+  artifact "web/ontology.html" as WebOntology
+}
+
+Youtube --> FetchMeta : 공개 메타 수집
+FetchMeta --> RawKo
+FetchMeta --> InventoryKo
+FetchMeta --> AllTabs
+FetchMeta --> Shortform
+
+Youtube --> FetchTranscript : 자막 기반 신호 추출
+FetchTranscript --> Insights
+FetchTranscript --> Progress
+Backfill --> Insights : 저속 보강
+Backfill --> PartialSummary
+
+RawKo --> BuildAtlas
+InventoryKo --> BuildAtlas
+AllTabs --> BuildAtlas
+Insights --> BuildAtlas
+PartialSummary --> BuildAtlas
+
+BuildAtlas --> ContentAtlas
+BuildAtlas --> ContentAtlasReport
+BuildAtlas --> ChannelReport
+BuildAtlas --> BehaviorLists
+
+ContentAtlas --> BookProposal : 책 전환 포인트
+ContentAtlas --> OntologyJson : 주제, 신호, 근거 후보
+BehaviorLists --> OntologyJson : 행동 신호 목록
+OntologyJson --> WebOntology : 탐색형 지식그래프
+
+note bottom of FetchTranscript
+전체 자막 원문 저장 금지.
+키워드, 주제 히트, 비원문 요약만 보존한다.
+end note
+
+note bottom of AllTabs
+최신 메타는 영상과 Shorts를 합산한
+1,277개 고유 콘텐츠 기준이다.
+end note
+@enduml

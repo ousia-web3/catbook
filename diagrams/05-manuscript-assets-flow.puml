@@ -1,0 +1,60 @@
+@startuml
+title 원고, 이미지 자산, 출판 패키지 제작 흐름
+
+skinparam backgroundColor #FAFAF7
+skinparam shadowing false
+skinparam activity {
+  BorderColor #334155
+  FontColor #111827
+}
+
+start
+
+:리서치 결과 확인\ncontent_atlas, channel-analysis-report;
+:책 제품 정의 확인\n3분 에피소드, 30초 체크, 1문장 다짐;
+
+partition "C3PO 원고" {
+  :book-proposal.md 작성;
+  :book-structure-v2.md로 7파트 42장 구조 확정;
+  :v3 core expanded 원고 작성;
+  :v3 remaining expanded 원고 작성;
+}
+
+partition "스크립트 조립" {
+  :python catbook/scripts/build_complete_manuscript.py;
+  :nyangnyang-chur-manuscript-v3-complete.md 생성;
+}
+
+partition "Joi 자산" {
+  :cover-concepts.md 정리;
+  :hero-window-cat 이미지 준비;
+  :generated/chapter-images 42장 이미지 준비;
+  :banners 이미지 준비;
+}
+
+partition "TARS 웹 변환" {
+  :python catbook/scripts/build_manuscript_html.py;
+  :web/manuscript.html 생성;
+  :web/index.html에서 관찰일지와 주요 장면 링크 연결;
+  :python catbook/scripts/build_standalone_html.py;
+  :nyangnyang-chur-landing-standalone.html 생성;
+}
+
+partition "출판 패키지" {
+  :publishing-package.md 정리;
+  :reader-check-cards.md 정리;
+  :medical-review-notes.md로 의료 표현 점검 지점 보존;
+}
+
+partition "검증 증거" {
+  :evidence/verification-report.md 갱신;
+  :데스크톱/모바일 캡처와 카피/이미지 검증 기록 보존;
+}
+
+stop
+
+note right
+원고는 유튜브 대본의 요약이나 변형물이 아니라
+고양이 돌봄 주제를 바탕으로 한 독립 창작물이다.
+end note
+@enduml

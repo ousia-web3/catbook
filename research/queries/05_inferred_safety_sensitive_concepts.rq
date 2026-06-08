@@ -1,0 +1,11 @@
+PREFIX cat: <https://jarvis.local/catbook/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?node ?label ?class
+WHERE {
+  ?node a cat:SafetySensitiveConcept ;
+    a ?class ;
+    rdfs:label ?label .
+  FILTER(?class IN (cat:HealthObservation, cat:SafetyRisk))
+}
+ORDER BY ?class ?label

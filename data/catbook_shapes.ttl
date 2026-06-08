@@ -1,0 +1,95 @@
+@prefix cat: <https://jarvis.local/catbook/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+cat:CatbookConceptShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path rdfs:label ],
+        [ sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path cat:nodeId ],
+        [ sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path cat:classId ] ;
+    sh:targetClass cat:CatbookConcept .
+
+cat:HealthObservationShape a sh:NodeShape ;
+    sh:property [ sh:class cat:CareAction ;
+            sh:minCount 1 ;
+            sh:path cat:requiresRecord ],
+        [ sh:hasValue true ;
+            sh:message "건강 관찰 노드는 진단/처방 금지 플래그를 가져야 한다." ;
+            sh:minCount 1 ;
+            sh:path cat:nonDiagnosticOnly ],
+        [ sh:hasValue true ;
+            sh:message "건강 관찰 노드는 의료 민감 표시를 가져야 한다." ;
+            sh:minCount 1 ;
+            sh:path cat:isMedicalSensitive ] ;
+    sh:targetClass cat:HealthObservation .
+
+cat:RelationAssertionShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path cat:nodeId ],
+        [ sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path cat:confidence ],
+        [ sh:minCount 1 ;
+            sh:path rdf:predicate ],
+        [ sh:minCount 1 ;
+            sh:path rdf:subject ],
+        [ sh:minCount 1 ;
+            sh:path rdf:object ] ;
+    sh:targetClass cat:RelationAssertion .
+
+cat:SafetySensitiveConceptShape a sh:NodeShape ;
+    sh:property [ sh:maxCount 0 ;
+            sh:path cat:prescribes ],
+        [ sh:hasValue true ;
+            sh:minCount 1 ;
+            sh:path cat:nonDiagnosticOnly ],
+        [ sh:maxCount 0 ;
+            sh:path cat:diagnosis ] ;
+    sh:targetClass cat:SafetySensitiveConcept .
+
+cat:ScenarioShape a sh:NodeShape ;
+    sh:property [ sh:minCount 1 ;
+            sh:path cat:startsWith ],
+        [ sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path rdfs:label ],
+        [ sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path rdfs:comment ] ;
+    sh:targetClass cat:Scenario .
+
+cat:SourceShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path cat:sourceId ],
+        [ sh:datatype xsd:anyURI ;
+            sh:minCount 1 ;
+            sh:path cat:url ],
+        [ sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path rdfs:label ],
+        [ sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path cat:mediaFamily ] ;
+    sh:targetClass cat:Source .
+
+cat:TopicShape a sh:NodeShape ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path cat:nodeId ],
+        [ sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path rdfs:label ],
+        [ sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:path cat:classId ] ;
+    sh:targetClass cat:Topic .
+

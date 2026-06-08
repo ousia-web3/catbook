@@ -1,0 +1,12 @@
+PREFIX cat: <https://jarvis.local/catbook/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?concept ?label (COUNT(?source) AS ?sourceCount)
+WHERE {
+  ?concept cat:hasEvidence ?source ;
+    rdfs:label ?label .
+  ?source a cat:Source .
+}
+GROUP BY ?concept ?label
+ORDER BY DESC(?sourceCount)
+LIMIT 20

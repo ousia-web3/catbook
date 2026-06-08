@@ -13,6 +13,32 @@
 - 비-Shorts 총 재생 시간: 약 100.56시간
 - 비-Shorts 중앙값 길이: 약 8.52분
 
+## 1-1. 2026-06-05 숏폼 포함 메타 보강
+
+사용자 피드백에 따라 `@catdoctor/videos`만 기준으로 삼았던 기존 리서치의 한계를 보강했다. 2026-06-05 KST에 `@catdoctor/videos`와 `@catdoctor/shorts`를 함께 수집했고, 한국어 번역 필드를 우선 사용하되 기본 언어 메타를 fallback으로 병합했다.
+
+- 합산 고유 콘텐츠: 1,277개
+- videos 탭 콘텐츠: 649개
+- shorts 탭 콘텐츠: 628개
+- 숏폼 또는 1분 미만 후보: 632개
+- duration이 확인된 1분 미만 콘텐츠: 4개
+- duration 미상 콘텐츠: 628개
+- 기존 `video_inventory_ko.json` 대비 신규 ID: 629개
+- 기존 인벤토리에는 있었지만 이번 탭 합산에서 보이지 않은 ID: 0개
+
+해석:
+
+- 기존 `Shorts 후보 4개`는 `videos` 탭 안에서 duration이 60초 이하인 항목만 잡은 값이었다.
+- 실제 숏폼 확장은 별도 `shorts` 탭 수집이 필요했고, 이번 보강으로 온톨로지/지식그래프에 넣을 수 있는 얕은 메타 범위가 크게 늘었다.
+- flat playlist 기준으로 shorts duration은 대부분 비어 있으므로, 정확한 초 단위 길이와 상세 설명은 후보 선별 후 저속 상세 수집으로 보강한다.
+
+보강 산출물:
+
+- `youtube_meta_all_tabs_2026-06-05.json`
+- `youtube_meta_all_tabs_2026-06-05.csv`
+- `youtube_meta_shortform_2026-06-05.csv`
+- `youtube-meta-refresh-report-2026-06-05.md`
+
 ## 2. 자막 분석 커버리지
 
 자막 원문 전체를 저장하지 않고, 영상별 주제 히트/키워드/분량/비원문 digest만 저장했다.

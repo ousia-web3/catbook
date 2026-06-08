@@ -1,0 +1,74 @@
+{
+  "status": "done",
+  "updated_at": "2026-06-08T14:23:42+09:00",
+  "detail": "YouTube metadata, ontology graph, RDF/OWL, and SHACL validation refreshed.",
+  "latest_meta": "youtube_meta_all_tabs_2026-06-08.json",
+  "graph": {
+    "nodes": 396,
+    "edges": 2037,
+    "content_total": 1280,
+    "matched_content": 817,
+    "generated_from": [
+      "youtube_meta_all_tabs_2026-06-08.json",
+      "content_atlas.json"
+    ],
+    "source_collected_at": null
+  },
+  "rdf": {
+    "status": "pass",
+    "triples": 82652,
+    "shacl": true,
+    "sparql_queries": 8,
+    "inferred_triples": 987
+  },
+  "stages": [
+    {
+      "stage": "fetch_youtube_meta",
+      "command": [
+        "python",
+        "catbook/research/fetch_youtube_meta_all_tabs.py"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 139.11,
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"combined_unique_count\": 1280,\n  \"videos_tab_count\": 649,\n  \"shorts_tab_count\": 631,\n  \"shortform_or_under_60_count\": 635,\n  \"duration_under_60_known_count\": 4,\n  \"duration_unknown_count\": 631,\n  \"new_vs_previous_count\": 632,\n  \"missing_from_current_count\": 0,\n  \"outputs\": [\n    \"C:\\\\Users\\\\HANA\\\\Desktop\\\\gemini\\\\jarvis\\\\catbook\\\\research\\\\youtube_meta_all_tabs_2026-06-08.json\",\n    \"C:\\\\Users\\\\HANA\\\\Desktop\\\\gemini\\\\jarvis\\\\catbook\\\\research\\\\youtube_meta_all_tabs_2026-06-08.csv\",\n    \"C:\\\\Users\\\\HANA\\\\Desktop\\\\gemini\\\\jarvis\\\\catbook\\\\research\\\\youtube_meta_shortform_2026-06-08.csv\",\n    \"C:\\\\Users\\\\HANA\\\\Desktop\\\\gemini\\\\jarvis\\\\catbook\\\\research\\\\youtube-meta-refresh-report-2026-06-08.md\"\n  ]\n}\n",
+      "stderr_tail": ""
+    },
+    {
+      "stage": "compile_pipeline",
+      "command": [
+        "python",
+        "-m",
+        "py_compile",
+        "catbook/research/build_cat_ontology_graph.py",
+        "catbook/research/export_cat_ontology_rdf.py",
+        "catbook/research/validate_cat_ontology_rdf.py"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 2.08,
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "stage": "build_ontology_graph",
+      "command": [
+        "python",
+        "catbook/research/build_cat_ontology_graph.py"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 33.67,
+      "stdout_tail": "{\n  \"status\": \"ok\",\n  \"sqlite\": \"C:\\\\Users\\\\HANA\\\\Desktop\\\\gemini\\\\jarvis\\\\catbook\\\\data\\\\catbook_ontology.sqlite\",\n  \"graph\": \"C:\\\\Users\\\\HANA\\\\Desktop\\\\gemini\\\\jarvis\\\\catbook\\\\research\\\\cat_ontology_graph.json\",\n  \"report\": \"C:\\\\Users\\\\HANA\\\\Desktop\\\\gemini\\\\jarvis\\\\catbook\\\\research\\\\cat-ontology-graph-report.md\",\n  \"rdf_turtle\": \"C:\\\\Users\\\\HANA\\\\Desktop\\\\gemini\\\\jarvis\\\\catbook\\\\data\\\\catbook_ontology.ttl\",\n  \"owl\": \"C:\\\\Users\\\\HANA\\\\Desktop\\\\gemini\\\\jarvis\\\\catbook\\\\data\\\\catbook_ontology.owl\",\n  \"shapes\": \"C:\\\\Users\\\\HANA\\\\Desktop\\\\gemini\\\\jarvis\\\\catbook\\\\data\\\\catbook_shapes.ttl\",\n  \"rdf_triples\": 82652,\n  \"nodes\": 396,\n  \"edges\": 2037,\n  \"content_index\": 1280,\n  \"matched_content_count\": 817\n}\n",
+      "stderr_tail": ""
+    },
+    {
+      "stage": "validate_rdf_owl",
+      "command": [
+        "python",
+        "catbook/research/validate_cat_ontology_rdf.py"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 55.3,
+      "stdout_tail": "     \"curated\"\n        ],\n        [\n          \"https://jarvis.local/catbook/resource/edge%3A00003\",\n          \"https://jarvis.local/catbook/resource/chapter%3A01\",\n          \"https://jarvis.local/catbook/ontology#covers\",\n          \"https://jarvis.local/catbook/resource/signal%3Azoomies\",\n          \"curated\"\n        ],\n        [\n          \"https://jarvis.local/catbook/resource/edge%3A00004\",\n          \"https://jarvis.local/catbook/resource/chapter%3A01\",\n          \"https://jarvis.local/catbook/ontology#covers\",\n          \"https://jarvis.local/catbook/resource/need%3Aenergy_release\",\n          \"curated\"\n        ],\n        [\n          \"https://jarvis.local/catbook/resource/edge%3A00005\",\n          \"https://jarvis.local/catbook/resource/chapter%3A01\",\n          \"https://jarvis.local/catbook/ontology#covers\",\n          \"https://jarvis.local/catbook/resource/action%3Acontext_record\",\n          \"curated\"\n        ]\n      ]\n    },\n    {\n      \"query\": \"07_non_diagnostic_safety_controls.rq\",\n      \"rows\": 13,\n      \"sample\": [\n        [\n          \"https://jarvis.local/catbook/resource/health%3Avomiting\",\n          \"\\uad6c\\ud1a0\",\n          \"https://jarvis.local/catbook/ontology#HealthObservation\"\n        ],\n        [\n          \"https://jarvis.local/catbook/resource/health%3Agrooming_change\",\n          \"\\uadf8\\ub8e8\\ubc0d \\ubcc0\\ud654\",\n          \"https://jarvis.local/catbook/ontology#HealthObservation\"\n        ],\n        [\n          \"https://jarvis.local/catbook/resource/health%3Asenior_change\",\n          \"\\ub178\\ubb18\\uc758 \\ub290\\ub9b0 \\ubcc0\\ud654\",\n          \"https://jarvis.local/catbook/ontology#HealthObservation\"\n        ],\n        [\n          \"https://jarvis.local/catbook/resource/health%3Aclaw_skin_fur\",\n          \"\\ubc1c\\ud1b1\\u00b7\\ud53c\\ubd80\\u00b7\\ud138 \\ubcc0\\ud654\",\n          \"https://jarvis.local/catbook/ontology#HealthObservation\"\n        ],\n        [\n          \"https://jarvis.local/catbook/resource/health%3Alitter_change\",\n          \"\\ubc30\\ubcc0\\u00b7\\ubc30\\ub1e8 \\ubcc0\\ud654\",\n          \"https://jarvis.local/catbook/ontology#HealthObservation\"\n        ]\n      ]\n    },\n    {\n      \"query\": \"08_source_url_coverage.rq\",\n      \"rows\": 30,\n      \"sample\": [\n        [\n          \"https://jarvis.local/catbook/resource/source%3A2FDhF-vMQDU\",\n          \"\\\"\\uc218\\uc758\\uc0ac\\uc778 \\uc9d1\\uc0ac\\\"\\ub294 \\uc790\\uae30\\uac00 \\ud0a4\\uc6b0\\ub294 \\uace0\\uc591\\uc774\\uc5d0\\uac8c \\ubb58 \\uba39\\uc77c\\uae4c? \\ud83c\\udf5a\",\n          \"video\",\n          \"https://www.youtube.com/watch?v=2FDhF-vMQDU\",\n          \"8\"\n        ],\n        [\n          \"https://jarvis.local/catbook/resource/source%3Aht1cjEJeWA8\",\n          \"\\\"\\uc774\\ub7f0\\\" \\uace0\\uc591\\uc774\\ub97c \\ub0e5\\uc90d\\ud558\\uc138\\uc694 (feat. \\uc218\\uc758\\uc0ac)\",\n          \"shorts\",\n          \"https://www.youtube.com/shorts/ht1cjEJeWA8\",\n          \"8\"\n        ],\n        [\n          \"https://jarvis.local/catbook/resource/source%3Ax7582LdLTzQ\",\n          \"'\\uc774 \\uc7a5\\uc18c'\\ub97c \\uc783\\uc73c\\uba74 \\uace0\\uc591\\uc774\\uc758 \\uc2a4\\ud2b8\\ub808\\uc2a4\\uac00 \\uc2dc\\uc791\\ub429\\ub2c8\\ub2e4\",\n          \"video\",\n          \"https://www.youtube.com/watch?v=x7582LdLTzQ\",\n          \"8\"\n        ],\n        [\n          \"https://jarvis.local/catbook/resource/source%3AGBBz9IlSrQk\",\n          \"'\\uc774\\uac70'\\uc5d0 \\ud574\\ub2f9\\ub418\\uba74 \\uace0\\uc591\\uc774 \\uc785\\uc591\\ud558\\uc9c0 \\ub9c8\\uc138\\uc694\\u3163\\uc9d1\\uc0ac\\uba54\\uc774\\ucee4 lv.1\",\n          \"video\",\n          \"https://www.youtube.com/watch?v=GBBz9IlSrQk\",\n          \"8\"\n        ],\n        [\n          \"https://jarvis.local/catbook/resource/source%3AlStn8zvbJfY\",\n          \"(\\uac10\\ub3d9\\uc8fc\\uc758) \\uc11c\\ub85c\\uc5d0\\uac8c \\uad6c\\uc6d0\\uc774 \\ub418\\uc5b4\\uc900 \\ub0e5\\uc90d \\uc774\\uc57c\\uae30\\u3163\\ubbf8\\uc57c\\uc639\\ucca0\\uc758 \\uac00\\uc815\\ubc29\\ubb38 \\ub69c\\ub9ac\\ub69c\\ubc14\\ub791 \\ud3b8\",\n          \"video\",\n          \"https://www.youtube.com/watch?v=lStn8zvbJfY\",\n          \"8\"\n        ]\n      ]\n    }\n  ],\n  \"status\": \"pass\",\n  \"failures\": []\n}\n",
+      "stderr_tail": ""
+    }
+  ]
+}

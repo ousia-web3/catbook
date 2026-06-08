@@ -1,0 +1,74 @@
+@startmindmap
+title catbook 디렉터리 맵
+
+* catbook/
+** 운영 문서
+*** README.md
+*** human-brief.md
+*** jarvis-strategy-brief.md
+*** friday-task-breakdown.md
+*** decision-log.md
+** diagrams/
+*** 유형별 PlantUML 다이어그램
+*** README.md
+** research/
+*** 유튜브 메타 수집
+**** fetch_youtube_meta_all_tabs.py
+**** youtube_meta_all_tabs_2026-06-05.json
+**** youtube_meta_shortform_2026-06-05.csv
+*** 비원문 분석
+**** fetch_transcript_insights.py
+**** transcript_insights.jsonl
+**** content_atlas.json
+**** content-atlas-report.md
+*** 냥톨로지 빌드
+**** build_cat_ontology_graph.py
+**** cat_ontology_graph.json
+**** cat-ontology-graph-report.md
+*** RDF/OWL
+**** export_cat_ontology_rdf.py
+**** validate_cat_ontology_rdf.py
+**** queries/*.rq
+** data/
+*** catbook_ontology.sqlite
+*** catbook_ontology.ttl
+*** catbook_ontology.owl
+*** catbook_shapes.ttl
+*** catbook_rdf_status.json
+** manuscript/
+*** book-proposal.md
+*** book-structure-v2.md
+*** nyangnyang-chur-manuscript-v3-core-expanded.md
+*** nyangnyang-chur-manuscript-v3-remaining-expanded.md
+*** nyangnyang-chur-manuscript-v3-complete.md
+*** publishing-package.md
+*** reader-check-cards.md
+** web/
+*** index.html
+*** manuscript.html
+*** ontology.html
+*** ontology-3d.html
+*** production-process-manual.html
+*** styles.css
+*** script.js
+*** ontology.css / ontology.js
+*** ontology-3d.css / ontology-3d.js
+** assets/
+*** hero-window-cat.png
+*** hero-window-cat-768.jpg
+*** hero-window-cat-1280.jpg
+*** generated/banners/
+*** generated/chapter-images/
+** scripts/
+*** build_complete_manuscript.py
+*** build_manuscript_html.py
+*** build_standalone_html.py
+*** validate-rdf-owl.ps1
+*** start-intranet-preview.ps1
+*** stop-intranet-preview.ps1
+** skills/
+*** natural-cat-narrative-writing/
+** evidence/
+*** verification-report.md
+*** 웹, 이미지, 카피, RDF 검증 증거
+@endmindmap

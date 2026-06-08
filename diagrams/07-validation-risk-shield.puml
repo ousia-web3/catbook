@@ -1,0 +1,65 @@
+@startuml
+title 검증과 Risk Shield 게이트
+
+left to right direction
+skinparam backgroundColor #FAFAF7
+skinparam shadowing false
+skinparam componentStyle rectangle
+
+package "검증 입력" as Inputs {
+  artifact "research/build_cat_ontology_graph.py" as BuildGraph
+  artifact "research/export_cat_ontology_rdf.py" as ExportRdf
+  artifact "research/validate_cat_ontology_rdf.py" as ValidateRdfPy
+  artifact "web/*.html/css/js" as WebFiles
+  artifact "manuscript/*.md" as ManuscriptFiles
+}
+
+package "자동 검증" as Automated {
+  component "py_compile" as PyCompile
+  component "scripts/validate-rdf-owl.ps1 -SkipInstall" as RdfGate
+  component "node --check web/script.js\n필요 시 JS 문법 확인" as NodeCheck
+}
+
+package "Risk Shield 확인" as Risk {
+  artifact "자막 원문 전체 저장 금지" as Copyright
+  artifact "건강/진료는 진단/처방 금지\n관찰, 기록, 상담 준비로 제한" as Medical
+  artifact "이미지와 웹 자산의 공개 가능성 확인" as AssetsRisk
+  artifact "외부 배포는 Human Conductor 승인 필요" as ReleaseRisk
+}
+
+package "검증 산출물" as Outputs {
+  artifact "data/catbook_rdf_status.json" as RdfStatus
+  artifact "work-requests/.../rdf-owl-validation-*.md" as RdfReport
+  artifact "evidence/verification-report.md" as VerificationReport
+  artifact "evidence/*desktop*.png\n*mobile*.png" as Screenshots
+}
+
+BuildGraph --> PyCompile
+ExportRdf --> PyCompile
+ValidateRdfPy --> PyCompile
+
+BuildGraph --> RdfGate
+ExportRdf --> RdfGate
+ValidateRdfPy --> RdfGate
+RdfGate --> RdfStatus
+RdfGate --> RdfReport
+
+WebFiles --> NodeCheck
+WebFiles --> VerificationReport
+ManuscriptFiles --> VerificationReport
+
+Copyright --> VerificationReport
+Medical --> VerificationReport
+AssetsRisk --> VerificationReport
+ReleaseRisk --> VerificationReport
+
+RdfStatus --> VerificationReport
+Screenshots --> VerificationReport
+
+note bottom of RdfGate
+현재 상태 JSON 기준:
+RDF parse ok, OWL parse ok,
+SHACL conforms true,
+8개 SPARQL query 통과.
+end note
+@enduml

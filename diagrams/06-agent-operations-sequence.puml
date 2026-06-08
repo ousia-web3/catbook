@@ -1,0 +1,56 @@
+@startuml
+title Jarvis 에이전트 운영 시퀀스
+
+skinparam backgroundColor #FAFAF7
+skinparam shadowing false
+skinparam sequence {
+  ArrowColor #334155
+  LifeLineBorderColor #334155
+  ParticipantBorderColor #334155
+  ParticipantFontColor #111827
+}
+
+actor "Human Conductor" as Human
+participant "Jarvis\n전략 종합" as Jarvis
+participant "Friday\n태스크 분해" as Friday
+participant "EVE\n리서치" as Eve
+participant "Data\n분석/온톨로지" as Data
+participant "C3PO\n원고/카피" as C3PO
+participant "Joi\nUX/이미지" as Joi
+participant "TARS\n구현/검증" as Tars
+participant "KITT/TRON\nRisk Shield" as Risk
+participant "Diagnostic Agent\n완료 진단" as Diagnostic
+
+Human -> Jarvis : 요청과 비전 전달
+Jarvis -> Jarvis : Human Brief 초안\n성공 기준과 금지사항 정리
+Jarvis -> Friday : 전략 브리프 전달
+Friday -> Friday : Owner(To), CC, Expected Outputs 분해
+
+par 리서치와 분석
+  Friday -> Eve : 공개 메타와 비원문 신호 수집
+  Eve -> Data : 콘텐츠 인벤토리, 자막 신호, 아틀라스 전달
+  Data -> Data : 주제군, 행동 신호, 냥톨로지 구조화
+and 원고와 자산
+  Friday -> C3PO : 책 구조와 원고 작성
+  C3PO -> Joi : 장면별 이미지/독서 경험 요구 전달
+  Joi -> Tars : 웹 자산과 UI 방향 전달
+and 구현
+  Friday -> Tars : 웹 페이지, 빌드 스크립트, 로컬 확인
+end
+
+Data -> Tars : SQLite, JSON, RDF 상태 산출물 제공
+C3PO -> Tars : 원고 Markdown과 페이지 링크 제공
+Joi -> Tars : hero, chapter images, banner 제공
+
+Tars -> Risk : 웹/데이터/원고 산출물 검토 요청
+Risk -> Tars : 저작권, 의료 표현, 보안 리스크 피드백
+Tars -> Diagnostic : 완료 근거와 검증 기록 전달
+Diagnostic -> Jarvis : 누락, 드리프트, 의심 완료 여부 보고
+Jarvis -> Human : 완료 보고와 남은 리스크 전달
+
+note over Risk
+차단 리스크:
+기존 파일 삭제, 외부 배포, 비밀키,
+개인정보, 법무/보안 판단, 큰 방향 변경.
+end note
+@enduml

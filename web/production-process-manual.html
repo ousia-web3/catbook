@@ -6,7 +6,7 @@
     <title>냥냥츄르 제작 프로세스 매뉴얼</title>
     <meta
       name="description"
-      content="catbook 프로젝트 폴더를 분석해 정리한 냥냥츄르 제작 프로세스 단일 HTML 매뉴얼"
+      content="catbook 프로젝트 폴더와 냥톨로지 적용 흐름을 정리한 냥냥츄르 제작 프로세스 단일 HTML 매뉴얼"
     />
     <link rel="icon" href="data:," />
     <link
@@ -614,6 +614,269 @@
         gap: 12px;
       }
 
+      .ontology-dashboard {
+        display: grid;
+        grid-template-columns: minmax(0, 0.74fr) minmax(320px, 0.42fr);
+        gap: 16px;
+        align-items: stretch;
+      }
+
+      .sample-card,
+      .term-card,
+      .flow-node,
+      .ontology-metric {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--paper);
+        box-shadow: 0 8px 22px rgba(28, 30, 33, 0.04);
+      }
+
+      .ontology-panel {
+        min-width: 0;
+      }
+
+      .ontology-metrics {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+
+      .ontology-metric {
+        min-height: 94px;
+        padding: 14px;
+      }
+
+      .ontology-metric strong {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--blue);
+        font-size: clamp(1.45rem, 2vw, 2.2rem);
+        line-height: 1;
+      }
+
+      .ontology-metric span {
+        color: var(--muted);
+        font-size: 0.86rem;
+        font-weight: 820;
+      }
+
+      .ontology-flow {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(120px, 1fr));
+        gap: 10px;
+        align-items: stretch;
+        margin-bottom: 16px;
+      }
+
+      .flow-node {
+        position: relative;
+        min-height: 124px;
+        padding: 14px;
+        overflow: hidden;
+      }
+
+      .flow-node::after {
+        content: "";
+        position: absolute;
+        right: -14px;
+        top: 50%;
+        width: 28px;
+        height: 2px;
+        background: var(--line-strong);
+      }
+
+      .flow-node:last-child::after {
+        display: none;
+      }
+
+      .flow-node b {
+        display: grid;
+        place-items: center;
+        width: 30px;
+        height: 30px;
+        margin-bottom: 10px;
+        border-radius: 50%;
+        background: #ecfdf5;
+        color: var(--teal);
+        font-size: 0.82rem;
+      }
+
+      .flow-node strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .flow-node span {
+        color: var(--muted);
+        font-size: 0.9rem;
+        font-weight: 650;
+      }
+
+      .ontology-link-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .ontology-link-row a {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 7px 11px;
+        background: #fff;
+        color: #1f2937;
+        font-size: 0.86rem;
+        font-weight: 850;
+      }
+
+      .ontology-status {
+        display: grid;
+        gap: 12px;
+      }
+
+      .status-line {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 10px;
+        align-items: start;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 12px;
+        background: #fff;
+      }
+
+      .status-line mark {
+        border-radius: 999px;
+        padding: 4px 8px;
+        background: #dcfce7;
+        color: #166534;
+        font-size: 0.75rem;
+        font-weight: 950;
+      }
+
+      .status-line strong {
+        display: block;
+        margin-bottom: 2px;
+      }
+
+      .status-line span {
+        color: var(--muted);
+        font-size: 0.9rem;
+        font-weight: 650;
+      }
+
+      .ontology-terms {
+        margin-top: 18px;
+      }
+
+      .ontology-terms h3 {
+        margin-bottom: 6px;
+      }
+
+      .ontology-terms > p {
+        max-width: 860px;
+        margin: 0;
+        color: var(--muted);
+        font-weight: 650;
+      }
+
+      .ontology-term-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 14px;
+      }
+
+      .term-card {
+        display: grid;
+        gap: 8px;
+        padding: 16px;
+      }
+
+      .term-card span {
+        width: fit-content;
+        border-radius: 999px;
+        padding: 4px 8px;
+        background: #ecfdf5;
+        color: var(--teal);
+        font-size: 0.76rem;
+        font-weight: 950;
+      }
+
+      .term-card h4 {
+        margin: 0;
+        font-size: 1.02rem;
+        line-height: 1.35;
+      }
+
+      .term-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.92rem;
+        font-weight: 650;
+      }
+
+      .sample-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .sample-card {
+        display: grid;
+        gap: 12px;
+        padding: 16px;
+      }
+
+      .sample-card h3 {
+        margin-bottom: 0;
+      }
+
+      .sample-card p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-weight: 650;
+      }
+
+      .sample-path {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .sample-path li {
+        border-radius: 999px;
+        padding: 5px 9px;
+        background: #eef2ff;
+        color: #3730a3;
+        font-size: 0.78rem;
+        font-weight: 900;
+      }
+
+      .sample-card[data-tone="health"] .sample-path li {
+        background: #fff1f2;
+        color: var(--rose);
+      }
+
+      .sample-card[data-tone="relation"] .sample-path li {
+        background: #f0fdf4;
+        color: var(--leaf);
+      }
+
+      .sample-checks {
+        display: grid;
+        gap: 7px;
+        margin: 0;
+        padding-left: 18px;
+        color: #343941;
+        font-size: 0.92rem;
+        font-weight: 700;
+      }
+
       .path-block {
         padding: 16px;
       }
@@ -871,7 +1134,9 @@
         .section-head,
         .process-layout,
         .path-grid,
-        .matrix {
+        .matrix,
+        .ontology-dashboard,
+        .sample-grid {
           grid-template-columns: 1fr;
         }
 
@@ -897,6 +1162,19 @@
         .stage-card {
           grid-template-columns: 1fr;
         }
+
+        .ontology-metrics,
+        .ontology-flow {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .flow-node::after {
+          display: none;
+        }
+
+        .ontology-term-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
       }
 
       @media (max-width: 640px) {
@@ -907,8 +1185,17 @@
 
         .stats,
         .step-rail,
-        .artifact-row {
+        .artifact-row,
+        .ontology-dashboard,
+        .ontology-metrics,
+        .ontology-flow,
+        .ontology-term-grid,
+        .sample-grid {
           grid-template-columns: 1fr;
+        }
+
+        .flow-node::after {
+          display: none;
         }
 
         .stat {
@@ -957,6 +1244,7 @@
       <a class="brand" href="#top">냥냥츄르 <span>제작 프로세스 매뉴얼</span></a>
       <nav class="nav-links" aria-label="주요 섹션">
         <a href="#manual">프로세스</a>
+        <a href="#ontology">냥톨로지</a>
         <a href="#artifacts">산출물</a>
         <a href="#checklist">체크리스트</a>
         <a href="./index.html">메인</a>
@@ -993,10 +1281,11 @@
           <h1 id="hero-title">catbook 제작 흐름을 한 장으로 운영한다</h1>
           <p class="hero-copy">
             `catbook/` 프로젝트 폴더를 기준으로 리서치, 문체 설계, 원고 빌드, 웹 구현, 검증까지 이어지는
-            제작 프로세스를 정리한 동적 매뉴얼입니다. 이 파일 하나 안에 화면 스타일과 상호작용 스크립트가 함께 들어 있습니다.
+            제작 프로세스를 정리한 동적 매뉴얼입니다. 최신 냥톨로지 적용 흐름, RDF/OWL 검증 상태, 샘플 질의 예시도 함께 추적합니다.
           </p>
           <div class="hero-actions">
             <a class="button primary" href="#manual">프로세스 보기</a>
+            <a class="button" href="#ontology">냥톨로지 적용 보기</a>
             <button class="button" type="button" data-copy="catbook/web/production-process-manual.html">
               HTML 경로 복사
             </button>
@@ -1018,8 +1307,8 @@
           <span>7파트 42장 원고 구조</span>
         </div>
         <div class="stat">
-          <strong>1 file</strong>
-          <span>CSS/JS 인라인 HTML 매뉴얼</span>
+          <strong>396</strong>
+          <span>냥톨로지 지식 노드</span>
         </div>
       </section>
 
@@ -1058,7 +1347,232 @@
         </div>
       </section>
 
-      <section class="section alt" id="artifacts" aria-labelledby="artifacts-title">
+      <section class="section alt" id="ontology" aria-labelledby="ontology-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Ontology Application</p>
+            <h2 id="ontology-title">냥톨로지를 제작 판단의 공통 언어로 적용한다</h2>
+            <p>
+              공개 메타와 콘텐츠 아틀라스를 SQLite SSOT로 묶고, JSON/RDF/OWL 산출물로 웹 탐색과 원고 판단에
+              함께 사용합니다. 초보자 질문에서 출발해 행동 신호, 건강 관찰, 돌봄 행동, 책 챕터, 근거 콘텐츠를 연결합니다.
+            </p>
+          </div>
+          <div class="ontology-status" aria-label="RDF OWL 검증 상태">
+            <div class="status-line">
+              <mark>PASS</mark>
+              <span>
+                <strong>RDF/OWL 검증 통과</strong>
+                Turtle/OWL 파싱, SHACL 적합성, 8개 SPARQL 질의, RDFS/OWL-RL 추론 증가를 확인했습니다.
+              </span>
+            </div>
+            <div class="status-line">
+              <mark>SAFE</mark>
+              <span>
+                <strong>비진단 안전선 유지</strong>
+                건강/진료 관계는 진단이나 처방이 아니라 관찰, 기록, 상담 준비로만 표현합니다.
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ontology-dashboard">
+          <div class="ontology-panel">
+            <div class="ontology-metrics" aria-label="냥톨로지 핵심 지표">
+              <div class="ontology-metric">
+                <strong>1,277</strong>
+                <span>콘텐츠 인덱스</span>
+              </div>
+              <div class="ontology-metric">
+                <strong>396</strong>
+                <span>그래프 노드</span>
+              </div>
+              <div class="ontology-metric">
+                <strong>2,039</strong>
+                <span>의미 연결</span>
+              </div>
+              <div class="ontology-metric">
+                <strong>82,471</strong>
+                <span>RDF triples</span>
+              </div>
+            </div>
+
+            <div class="ontology-flow" aria-label="냥톨로지 적용 흐름">
+              <div class="flow-node">
+                <b>1</b>
+                <strong>공개 메타 수집</strong>
+                <span>YouTube 공개 메타와 콘텐츠 아틀라스를 원문 저장 없이 비문장형 신호로 정리한다.</span>
+              </div>
+              <div class="flow-node">
+                <b>2</b>
+                <strong>SQLite SSOT</strong>
+                <span>`nodes`, `edges`, `content_items`, `safety_rules` 테이블로 운영 질의 기준을 고정한다.</span>
+              </div>
+              <div class="flow-node">
+                <b>3</b>
+                <strong>JSON/RDF/OWL export</strong>
+                <span>정적 웹은 JSON을 읽고, 의미론 검증은 TTL, OWL, SHACL shapes를 사용한다.</span>
+              </div>
+              <div class="flow-node">
+                <b>4</b>
+                <strong>2D/3D 탐색</strong>
+                <span>초보 길잡이, 온톨로지, 콘텐츠 근거 모드로 관계를 시각화한다.</span>
+              </div>
+              <div class="flow-node">
+                <b>5</b>
+                <strong>원고/웹 반영</strong>
+                <span>질문 입구, 체크 카드, 안전 문구, 챕터 연결을 같은 지식 구조로 유지한다.</span>
+              </div>
+            </div>
+
+            <div class="ontology-link-row" aria-label="냥톨로지 관련 화면과 산출물">
+              <a href="./ontology.html">2D 지식그래프</a>
+              <a href="./ontology-3d.html">3D 살쾡이자리</a>
+              <a href="../data/catbook_ontology.ttl">TTL</a>
+              <a href="../data/catbook_ontology.owl">OWL</a>
+              <a href="../data/catbook_shapes.ttl">SHACL</a>
+            </div>
+          </div>
+
+          <div class="ontology-panel">
+            <p class="eyebrow">SSOT Files</p>
+            <h3>적용 기준 파일</h3>
+            <div class="commands">
+              <div class="command-line">
+                <code>catbook/data/catbook_ontology.sqlite</code>
+                <button class="copy-button" type="button" data-copy="catbook/data/catbook_ontology.sqlite">복사</button>
+              </div>
+              <div class="command-line">
+                <code>catbook/research/cat_ontology_graph.json</code>
+                <button class="copy-button" type="button" data-copy="catbook/research/cat_ontology_graph.json">복사</button>
+              </div>
+              <div class="command-line">
+                <code>catbook/data/catbook_rdf_status.json</code>
+                <button class="copy-button" type="button" data-copy="catbook/data/catbook_rdf_status.json">복사</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ontology-terms" aria-label="냥톨로지 용어 쉬운 설명">
+          <p class="eyebrow">Plain Language Glossary</p>
+          <h3>냥톨로지 용어는 제작팀의 공통 메모장처럼 읽는다</h3>
+          <p>
+            아래 단어들은 복잡한 기술 이름처럼 보이지만, 이 매뉴얼에서는 고양이 콘텐츠 지식을 같은 기준으로 저장하고
+            검증하고 찾아보는 장치로 이해하면 됩니다.
+          </p>
+          <div class="ontology-term-grid">
+            <article class="term-card">
+              <span>온톨로지</span>
+              <h4>지식의 관계 지도를 만드는 일</h4>
+              <p>
+                냥톨로지에서는 하악질, 구토, 합사 같은 주제를 신호, 원인 후보, 돌봄 행동, 책 챕터와 연결한 지도입니다.
+              </p>
+            </article>
+            <article class="term-card">
+              <span>RDF/OWL</span>
+              <h4>사실과 의미 규칙을 담는 표준</h4>
+              <p>
+                RDF는 “하악질은 거리 요청 신호다”처럼 주어-관계-대상으로 사실을 적고, OWL은 그 사실들이 어떤 분류와
+                규칙을 따르는지 정리합니다.
+              </p>
+            </article>
+            <article class="term-card">
+              <span>Turtle/OWL</span>
+              <h4>사람과 도구가 읽는 저장 형식</h4>
+              <p>
+                Turtle은 RDF 관계를 사람이 보기 쉽게 적은 파일 형식이고, OWL 파일은 검증 도구가 냥톨로지의 구조를
+                읽도록 제공하는 의미 모델입니다.
+              </p>
+            </article>
+            <article class="term-card">
+              <span>SHACL</span>
+              <h4>그래프 데이터용 체크리스트</h4>
+              <p>
+                필수 이름이 빠졌는지, 노드 타입이 맞는지, 위험 안내 관계가 제대로 붙었는지 확인하는 품질 검사표입니다.
+              </p>
+            </article>
+            <article class="term-card">
+              <span>SPARQL</span>
+              <h4>관계 지도에 질문하는 검색문</h4>
+              <p>
+                “구토와 연결된 관찰 항목은 무엇인가?”, “둘째 고민은 어떤 행동 카드로 이어지는가?” 같은 질문을 RDF
+                그래프에 던지는 질의 언어입니다.
+              </p>
+            </article>
+            <article class="term-card">
+              <span>RDFS/OWL-RL</span>
+              <h4>숨은 연결을 자동으로 보태는 추론 규칙</h4>
+              <p>
+                어떤 노드가 더 큰 분류에 속하거나 같은 의미 규칙을 공유하면, 직접 적지 않은 연결도 가볍게 계산해
+                검증에 활용합니다.
+              </p>
+            </article>
+          </div>
+        </div>
+
+        <div class="sample-grid" aria-label="온톨로지 적용 샘플">
+          <article class="sample-card">
+            <p class="eyebrow">Sample 01</p>
+            <h3>하악질해요</h3>
+            <p>
+              성격 판정 대신 거리 요청 신호로 읽고, 접근을 멈춘 뒤 퇴로와 시간을 확보하는 대응으로 연결합니다.
+            </p>
+            <ul class="sample-path">
+              <li>scenario:hissing</li>
+              <li>signal:hissing</li>
+              <li>need:distance</li>
+              <li>action:pause_contact</li>
+              <li>environment:route</li>
+            </ul>
+            <ul class="sample-checks">
+              <li>퇴로가 막혀 있나요?</li>
+              <li>새 고양이나 손님이 있나요?</li>
+              <li>손이 너무 빨리 가까워졌나요?</li>
+            </ul>
+          </article>
+
+          <article class="sample-card" data-tone="health">
+            <p class="eyebrow">Sample 02</p>
+            <h3>토했어요</h3>
+            <p>
+              건강 관찰 노드는 진단 결론으로 가지 않고 횟수, 내용물, 활력, 반복성을 기록해 상담 준비로 보냅니다.
+            </p>
+            <ul class="sample-path">
+              <li>scenario:vomiting</li>
+              <li>health:vomiting</li>
+              <li>action:vet_notes</li>
+              <li>risk:self_diagnosis</li>
+            </ul>
+            <ul class="sample-checks">
+              <li>몇 번 토했나요?</li>
+              <li>내용물과 색을 기록했나요?</li>
+              <li>식욕과 활력은 어떤가요?</li>
+            </ul>
+          </article>
+
+          <article class="sample-card" data-tone="relation">
+            <p class="eyebrow">Sample 03</p>
+            <h3>둘째를 고민해요</h3>
+            <p>
+              관계/합사 질문은 빠른 결론 대신 첫째의 선택권, 분리 공간, 천천히 소개하는 루틴으로 변환합니다.
+            </p>
+            <ul class="sample-path">
+              <li>scenario:second_cat</li>
+              <li>context:second_cat</li>
+              <li>context:introduction</li>
+              <li>need:choice</li>
+              <li>action:slow_introduction</li>
+            </ul>
+            <ul class="sample-checks">
+              <li>첫째의 루틴은 안정적인가요?</li>
+              <li>자원과 공간이 충분한가요?</li>
+              <li>분리 공간을 마련할 수 있나요?</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="artifacts" aria-labelledby="artifacts-title">
         <div class="section-head">
           <div>
             <p class="eyebrow">Artifact Ledger</p>
@@ -1112,6 +1626,22 @@
             <div class="command-line">
               <code>http://127.0.0.1:8787/catbook/web/production-process-manual.html</code>
               <button class="copy-button" type="button" data-copy="http://127.0.0.1:8787/catbook/web/production-process-manual.html">복사</button>
+            </div>
+          </article>
+          <article class="path-block">
+            <strong>냥톨로지 화면</strong>
+            <p>2D 지식그래프와 3D 살쾡이자리 시각화를 로컬 서버에서 확인합니다.</p>
+            <div class="command-line">
+              <code>http://127.0.0.1:8787/catbook/web/ontology.html</code>
+              <button class="copy-button" type="button" data-copy="http://127.0.0.1:8787/catbook/web/ontology.html">복사</button>
+            </div>
+          </article>
+          <article class="path-block">
+            <strong>RDF/OWL 검증</strong>
+            <p>온톨로지 재생성, Python 문법 검사, RDF/OWL/SHACL/SPARQL 검증을 한 번에 실행합니다.</p>
+            <div class="command-line">
+              <code>powershell -ExecutionPolicy Bypass -File catbook/scripts/validate-rdf-owl.ps1 -SkipInstall</code>
+              <button class="copy-button" type="button" data-copy="powershell -ExecutionPolicy Bypass -File catbook/scripts/validate-rdf-owl.ps1 -SkipInstall">복사</button>
             </div>
           </article>
         </div>
@@ -1172,7 +1702,7 @@
     <footer class="footer">
       <p>
         기준 폴더: <code>catbook/</code>. 실제 산출물은 현재 `catbook` 폴더에 있으며,
-        `work-requests/2026-06-02-nyangnyang-chur-cat-book/`에는 호환용 안내 파일만 남아 있습니다.
+        과거 작업 기록은 `catbook/project-records/work-requests/`에 보관되어 있습니다.
       </p>
     </footer>
 
@@ -1226,6 +1756,33 @@
             "핵심 수치: Shorts 제외 644개, 약 100.56시간.",
             "주요 축: 행동 신호, 건강 관찰, 관계/합사, 생활 돌봄, 배변/화장실, 윤리/안전, 묘종 지식.",
             "분석 결과는 원문 복제가 아니라 책 구조와 장면 소재를 만들기 위한 비문장형 신호로 사용한다.",
+          ],
+        },
+        {
+          id: "ontology",
+          role: "Data",
+          cc: "TARS, EVE, KITT/TRON",
+          risk: "Medium",
+          title: "냥톨로지 SSOT와 RDF/OWL 적용",
+          summary:
+            "공개 메타, 콘텐츠 아틀라스, 책 목차, 고양이 신호를 SQLite SSOT와 JSON/RDF/OWL 산출물로 연결한다.",
+          outputs: [
+            "catbook/data/catbook_ontology.sqlite",
+            "catbook/research/cat_ontology_graph.json",
+            "catbook/data/catbook_ontology.ttl",
+            "catbook/data/catbook_ontology.owl",
+            "catbook/data/catbook_shapes.ttl",
+            "catbook/data/catbook_rdf_status.json",
+          ],
+          commands: [
+            "python catbook/research/build_cat_ontology_graph.py",
+            "powershell -ExecutionPolicy Bypass -File catbook/scripts/validate-rdf-owl.ps1 -SkipInstall",
+          ],
+          details: [
+            "스키마 2026-06-05.2 기준 노드 396개, 엣지 2,039개, 콘텐츠 인덱스 1,277개, RDF triple 82,471개다.",
+            "초보자 입구 11개 상황 질문을 Scenario로 두고 CatSignal, HealthObservation, Need, CareAction, SafetyRisk로 이어 붙인다.",
+            "2D/3D 냥톨로지 화면은 JSON export와 RDF 상태 JSON을 읽어 그래프 규모, RDF Pass, TTL/OWL/SHACL 링크를 표시한다.",
+            "건강 관련 노드는 진단/처방이 아니라 관찰 기록과 전문가 상담 준비로만 연결한다.",
           ],
         },
         {
@@ -1333,7 +1890,7 @@
           ],
           details: [
             "로컬 URL 기준 메인, 원고, standalone 페이지 모두 200 응답을 확인한다.",
-            "work-requests 아래 이전 URL은 catbook 경로 안내용 호환 파일로 유지한다.",
+            "catbook 관련 작업 기록은 catbook/project-records/work-requests 아래에서 확인한다.",
             "공개 릴리스, 판매 페이지, 외부 공유는 이 단계에서 자동 진행하지 않는다.",
           ],
         },
@@ -1347,6 +1904,13 @@
         ["리서치", "Data", "아틀라스 리포트", "catbook/research/content-atlas-report.md"],
         ["리서치", "Data", "644개 신호 목록", "catbook/research/content-signal-list-644.csv"],
         ["리서치", "Data", "142개 행동 신호 목록", "catbook/research/cat-signal-behavior-list-142.csv"],
+        ["온톨로지", "Data", "냥톨로지 SQLite SSOT", "catbook/data/catbook_ontology.sqlite"],
+        ["온톨로지", "Data", "냥톨로지 JSON export", "catbook/research/cat_ontology_graph.json"],
+        ["온톨로지", "Data", "RDF Turtle", "catbook/data/catbook_ontology.ttl"],
+        ["온톨로지", "Data", "OWL/RDFXML", "catbook/data/catbook_ontology.owl"],
+        ["온톨로지", "Data", "SHACL shapes", "catbook/data/catbook_shapes.ttl"],
+        ["온톨로지", "TARS", "2D 지식그래프", "catbook/web/ontology.html"],
+        ["온톨로지", "TARS", "3D 살쾡이자리", "catbook/web/ontology-3d.html"],
         ["문체", "C3PO", "자연 고양이 서사 문체 스킬", "catbook/skills/natural-cat-narrative-writing/SKILL.md"],
         ["원고", "C3PO", "책 기획서", "catbook/manuscript/book-proposal.md"],
         ["원고", "C3PO", "완성 원고", "catbook/manuscript/nyangnyang-chur-manuscript-v3-complete.md"],
@@ -1365,6 +1929,8 @@
       const checks = [
         ["요청과 금지선을 확인했다", "Human Brief, 전략 브리프, Decision Log를 먼저 확인한다."],
         ["리서치 수치를 확인했다", "644개 후보, 100.56시간, 주제별 분포를 산출물에 반영한다."],
+        ["냥톨로지 적용 상태를 확인했다", "SQLite SSOT, JSON export, RDF/OWL/SHACL, RDF Pass 상태를 함께 확인한다."],
+        ["온톨로지 샘플을 반영했다", "하악질, 구토, 둘째 고민 같은 상황 질문을 신호, 행동, 리스크 경계로 연결한다."],
         ["원문 복제 위험을 제거했다", "자막 원문 저장과 특정 말투 모방 없이 독립 장면으로 전환한다."],
         ["문체 스킬을 적용했다", "장면 중심, 관찰 중심, 의료 표현 안전장치를 원고에 반영한다."],
         ["빌드 스크립트를 실행했다", "완성 원고, 원고 HTML, standalone HTML을 필요한 순서로 생성한다."],

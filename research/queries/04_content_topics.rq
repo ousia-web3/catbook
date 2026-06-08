@@ -1,0 +1,12 @@
+PREFIX cat: <https://jarvis.local/catbook/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?source ?sourceLabel ?topicLabel
+WHERE {
+  ?source a cat:Source ;
+    rdfs:label ?sourceLabel ;
+    cat:hasTopic ?topic .
+  ?topic rdfs:label ?topicLabel .
+}
+ORDER BY ?topicLabel ?sourceLabel
+LIMIT 30

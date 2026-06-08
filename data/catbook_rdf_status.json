@@ -1,0 +1,36 @@
+{
+  "status": "pass",
+  "generated_at": "2026-06-08T06:05:18.349640+00:00",
+  "rdf_parse": "ok",
+  "owl_parse": "ok",
+  "shacl_conforms": true,
+  "rdf_triples": 82652,
+  "owl_triples": 82652,
+  "shape_triples": 108,
+  "sparql_queries": 8,
+  "sparql_query_rows": {
+    "01_scenario_entry_points.rq": 30,
+    "02_health_observation_safety.rq": 8,
+    "03_top_evidence_sources.rq": 20,
+    "04_content_topics.rq": 30,
+    "05_inferred_safety_sensitive_concepts.rq": 13,
+    "06_relation_assertion_integrity.rq": 30,
+    "07_non_diagnostic_safety_controls.rq": 13,
+    "08_source_url_coverage.rq": 30
+  },
+  "inferred_triples": 987,
+  "catbook_concepts": 1416,
+  "safety_sensitive_concepts": 13,
+  "sources": 1280,
+  "relation_assertions": 6929,
+  "artifacts": {
+    "ttl": "catbook_ontology.ttl",
+    "owl": "catbook_ontology.owl",
+    "shapes": "catbook_shapes.ttl"
+  },
+  "reports": {
+    "markdown": "catbook/project-records/work-requests/2026-06-08-catbook-ontology-rdf-owl-audit/evidence/rdf-owl-validation-2026-06-08.md",
+    "json": "catbook/project-records/work-requests/2026-06-08-catbook-ontology-rdf-owl-audit/evidence/rdf-owl-validation-2026-06-08.json"
+  },
+  "failures": []
+}

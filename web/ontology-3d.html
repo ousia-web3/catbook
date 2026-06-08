@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>냥톨로지 3D 살쾡이자리 | 고양이 지식그래프</title>
+    <meta
+      name="description"
+      content="살쾡이자리 Lynx의 희미한 별자리 은유로 냥톨로지 고양이 지식그래프를 탐색하는 WebGL 3D 시각화"
+    />
+    <link rel="icon" href="data:," />
+    <link rel="preload" as="image" href="../assets/hero-window-cat-768.jpg" fetchpriority="high" />
+    <link rel="stylesheet" href="./ontology-3d.css?v=20260608-youtube-refresh1" />
+  </head>
+  <body>
+    <a class="skip-link" href="#graph-3d-title">살쾡이자리 그래프로 건너뛰기</a>
+    <div class="kg3d-shell">
+      <header class="kg3d-topbar" aria-label="3D 살쾡이자리 온톨로지 상단 바">
+        <a class="brand" href="./index.html" aria-label="냥톨로지">냥톨로지</a>
+        <div class="top-stats" aria-label="그래프 요약">
+          <span><strong id="stat-nodes">-</strong>노드</span>
+          <span><strong id="stat-links">-</strong>연결</span>
+          <span><strong id="stat-matched">-</strong>매칭</span>
+          <span><strong id="stat-backend">-</strong>DB</span>
+          <span><strong id="stat-rdf">-</strong>RDF</span>
+        </div>
+      </header>
+
+      <main class="kg3d-workspace">
+        <section class="kg3d-scene" aria-labelledby="graph-3d-title">
+          <div id="graph-3d" class="graph-3d" role="img" aria-label="살쾡이자리 형태의 냥톨로지 3D 고양이 지식그래프"></div>
+          <div class="scene-shade"></div>
+          <div class="lynx-constellation-mark" aria-hidden="true">
+            <svg class="lynx-mini-map" viewBox="0 0 260 110" focusable="false">
+              <path class="lynx-trail" d="M18 68 L52 38 L88 61 L126 34 L162 76 L198 54 L236 82" />
+              <g class="lynx-stars">
+                <circle cx="18" cy="68" r="4" />
+                <circle cx="52" cy="38" r="3.4" />
+                <circle cx="88" cy="61" r="3" />
+                <circle cx="126" cy="34" r="3.7" />
+                <circle cx="162" cy="76" r="3.2" />
+                <circle cx="198" cy="54" r="3.1" />
+                <circle cx="236" cy="82" r="4.2" />
+              </g>
+            </svg>
+            <span>살쾡이자리 관측선</span>
+          </div>
+          <div class="loading-panel" id="loading-panel">
+            <strong>살쾡이자리 관측 지도 로딩 중</strong>
+            <span id="loading-detail">희미한 고양이 신호를 WebGL 별자리로 잇고 있습니다.</span>
+          </div>
+          <div class="scene-hud" aria-live="polite">
+            <div>
+              <p class="eyebrow">Lynx Constellation Graph</p>
+              <h1 id="graph-3d-title">냥톨로지</h1>
+            </div>
+            <div class="hud-metrics">
+              <span id="visible-summary">-</span>
+              <span id="selection-summary">선택 없음</span>
+            </div>
+          </div>
+        </section>
+
+        <div class="kg3d-menu-rail" aria-label="3D 탐색 메뉴">
+          <aside class="menu-column intro-column" aria-label="냥톨로지 소개와 지식 층">
+          <section class="panel intro-panel">
+            <picture>
+              <source srcset="../assets/hero-window-cat-768.jpg" type="image/jpeg" />
+              <img
+                src="../assets/hero-window-cat-768.jpg"
+                width="768"
+                height="410"
+                alt="창가에 앉은 고양이와 책"
+                decoding="async"
+              />
+            </picture>
+            <div class="panel-body">
+              <p class="eyebrow">Lynx Research Map</p>
+              <h2>희미한 신호를 잇는 지도</h2>
+              <p>
+                살쾡이자리 Lynx는 희미한 별을 보려면 예민한 눈이 필요하다는 이야기와 맞닿아 있다. 이 화면은 초보자 상황, 행동 신호, 건강 관찰, 집사 행동, 챕터와 영상 근거를 하나의 관측선으로 잇는다.
+              </p>
+              <div class="constellation-note">
+                <strong>Lynx Lens</strong>
+                <span>사소해 보이는 행동을 맥락, 기록, 상담 근거까지 따라가는 관측 프레임.</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel rdf-panel" aria-labelledby="rdf-3d-title">
+            <div class="panel-heading">
+              <h2 id="rdf-3d-title">RDF/OWL 상태</h2>
+              <span class="status-badge" id="rdf-status-badge">확인 중</span>
+            </div>
+            <button class="refresh-button" id="refresh-ontology" type="button">YouTube 최신 반영</button>
+            <div class="rdf-metric-grid" aria-label="RDF OWL 검증 지표">
+              <span><strong id="rdf-triples">-</strong>triples</span>
+              <span><strong id="rdf-shapes">-</strong>SHACL</span>
+              <span><strong id="rdf-queries">-</strong>SPARQL</span>
+              <span><strong id="rdf-inference">-</strong>inferred</span>
+            </div>
+            <p class="rdf-updated" id="rdf-generated">검증 상태를 불러오는 중</p>
+            <p class="refresh-status" id="refresh-status">
+              로컬 갱신 서버가 켜져 있으면 버튼으로 공개 YouTube 메타를 다시 수집합니다.
+            </p>
+            <div class="rdf-link-row" aria-label="RDF OWL 산출물">
+              <a href="../data/catbook_ontology.ttl">TTL</a>
+              <a href="../data/catbook_ontology.owl">OWL</a>
+              <a href="../data/catbook_shapes.ttl">SHACL</a>
+              <a href="../project-records/work-requests/2026-06-08-catbook-ontology-rdf-owl-audit/evidence/rdf-owl-validation-2026-06-08.md">검증</a>
+            </div>
+          </section>
+
+          <section class="panel control-panel" aria-labelledby="class-title">
+            <div class="panel-heading">
+              <h2 id="class-title">지식 층</h2>
+            </div>
+            <div class="class-grid" id="class-grid"></div>
+          </section>
+          </aside>
+
+          <aside class="menu-column observe-column" aria-label="3D 보기와 관측 입구">
+            <section class="panel control-panel" aria-labelledby="mode-title">
+            <div class="panel-heading">
+              <h2 id="mode-title">보기</h2>
+              <button class="ghost-button" id="fit-graph" type="button">시야 맞춤</button>
+            </div>
+            <div class="mode-switch" role="group" aria-label="3D 그래프 보기 모드">
+              <button class="mode-button active" type="button" data-mode="starter">초보</button>
+              <button class="mode-button" type="button" data-mode="ontology">구조</button>
+              <button class="mode-button" type="button" data-mode="evidence">근거</button>
+            </div>
+            <label class="search-box">
+              <span>검색</span>
+              <input id="graph-search" type="search" autocomplete="off" placeholder="우다다, 하악질, 물그릇" />
+            </label>
+            <div class="utility-row">
+              <button class="tool-button active" id="auto-rotate" type="button">회전</button>
+              <button class="tool-button" id="pause-graph" type="button">정지</button>
+              <button class="tool-button" id="reset-filter" type="button">초기화</button>
+            </div>
+            </section>
+
+            <section class="panel control-panel" aria-labelledby="scenario-title">
+            <div class="panel-heading">
+              <h2 id="scenario-title">관측 입구</h2>
+            </div>
+            <div class="scenario-list" id="scenario-list"></div>
+            </section>
+
+          </aside>
+
+          <aside class="menu-column detail-column" aria-label="선택 노드 상세와 근거">
+            <section class="panel detail-panel" aria-label="선택 노드 상세">
+            <div class="detail-media">
+              <img id="detail-image" src="../assets/hero-window-cat-768.jpg" alt="" />
+            </div>
+            <div class="panel-body">
+              <div class="detail-kicker" id="detail-class">선택</div>
+              <h2 id="detail-title">노드를 선택하세요</h2>
+              <p id="detail-summary">왼쪽 관측 입구나 3D 별 노드를 누르면 관찰 포인트와 연결 근거가 열린다.</p>
+              <div class="chip-row" id="detail-chips"></div>
+              <div class="observe-box" id="observe-box" hidden>
+                <h3>관찰 포인트</h3>
+                <ul id="observe-list"></ul>
+              </div>
+            </div>
+            </section>
+
+            <section class="panel relation-panel" aria-labelledby="relations-title">
+            <div class="panel-heading">
+              <h2 id="relations-title">가까운 연결</h2>
+            </div>
+            <div id="relation-list" class="relation-list"></div>
+            </section>
+
+            <section class="panel evidence-panel" aria-labelledby="evidence-title">
+            <div class="panel-heading">
+              <h2 id="evidence-title">근거 콘텐츠</h2>
+              <span id="evidence-count">0</span>
+            </div>
+            <div id="evidence-list" class="evidence-list"></div>
+            </section>
+          </aside>
+        </div>
+      </main>
+    </div>
+
+    <script src="./vendor/3d-force-graph.min.js" defer></script>
+    <script src="./ontology-3d.js?v=20260608-youtube-refresh2" defer></script>
+  </body>
+</html>

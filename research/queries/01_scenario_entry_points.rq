@@ -1,0 +1,13 @@
+PREFIX cat: <https://jarvis.local/catbook/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?scenario ?scenarioLabel ?target ?targetLabel
+WHERE {
+  ?scenario a cat:Scenario ;
+    rdfs:label ?scenarioLabel ;
+    cat:startsWith ?target .
+  ?target rdfs:label ?targetLabel .
+  FILTER(?scenario != <https://jarvis.local/catbook/resource/ontology%3Acatbook>)
+}
+ORDER BY ?scenarioLabel ?targetLabel
+LIMIT 30

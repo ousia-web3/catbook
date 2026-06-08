@@ -1,0 +1,12 @@
+PREFIX cat: <https://jarvis.local/catbook/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?observation ?label ?recordAction ?recordLabel
+WHERE {
+  ?observation a cat:HealthObservation ;
+    rdfs:label ?label ;
+    cat:nonDiagnosticOnly true ;
+    cat:requiresRecord ?recordAction .
+  ?recordAction rdfs:label ?recordLabel .
+}
+ORDER BY ?label

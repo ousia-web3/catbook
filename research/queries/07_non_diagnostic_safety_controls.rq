@@ -1,0 +1,14 @@
+PREFIX cat: <https://jarvis.local/catbook/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?concept ?label ?class
+WHERE {
+  ?concept a cat:SafetySensitiveConcept ;
+    a ?class ;
+    rdfs:label ?label ;
+    cat:nonDiagnosticOnly true .
+  FILTER(?class IN (cat:HealthObservation, cat:SafetyRisk))
+  FILTER NOT EXISTS { ?concept cat:diagnosis ?diagnosis . }
+  FILTER NOT EXISTS { ?concept cat:prescribes ?prescription . }
+}
+ORDER BY ?class ?label

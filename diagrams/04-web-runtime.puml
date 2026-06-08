@@ -1,0 +1,86 @@
+@startuml
+title catbook 웹 런타임 컴포넌트
+
+left to right direction
+skinparam backgroundColor #FAFAF7
+skinparam shadowing false
+skinparam componentStyle rectangle
+
+actor "독자/검토자" as Reader
+node "정적 HTTP 서버\npython -m http.server 8787\n또는 intranet preview" as Server
+
+package "web/" as Web {
+  artifact "index.html\n소개 페이지" as IndexHtml
+  artifact "styles.css" as Styles
+  artifact "script.js\n파트 탭, 모달, 이미지 보호" as Script
+
+  artifact "manuscript.html\n집사용 이야기 노트" as ManuscriptHtml
+  artifact "ontology.html\n2D 냥톨로지" as OntologyHtml
+  artifact "ontology.js / ontology.css" as OntologyJs
+  artifact "ontology-3d.html\n3D 살쾡이자리" as Ontology3dHtml
+  artifact "ontology-3d.js / ontology-3d.css" as Ontology3dJs
+  artifact "nyangnyang-chur-landing-standalone.html" as StandaloneHtml
+  artifact "production-process-manual.html" as ProcessManual
+}
+
+package "assets/" as Assets {
+  artifact "hero-window-cat-768.jpg" as Hero768
+  artifact "hero-window-cat-1280.jpg" as Hero1280
+  artifact "generated/chapter-images/*.png" as ChapterImages
+  artifact "generated/banners/*.webp/png" as Banners
+}
+
+package "research/, data/" as DataFiles {
+  artifact "research/cat_ontology_graph.json" as GraphJson
+  artifact "data/catbook_rdf_status.json" as RdfStatus
+  artifact "data/catbook_ontology.ttl/owl\ncatbook_shapes.ttl" as RdfArtifacts
+}
+
+cloud "cdn.jsdelivr.net\n3d-force-graph@1.80.0" as Cdn3d
+
+package "scripts/" as BuildScripts {
+  component "build_standalone_html.py" as BuildStandalone
+  component "build_manuscript_html.py" as BuildManuscriptHtml
+  component "start-intranet-preview.ps1" as StartPreview
+}
+
+Reader --> Server : 페이지 열람
+Server --> IndexHtml
+Server --> ManuscriptHtml
+Server --> OntologyHtml
+Server --> Ontology3dHtml
+Server --> ProcessManual
+
+IndexHtml --> Styles
+IndexHtml --> Script
+IndexHtml --> Hero768
+IndexHtml --> Hero1280
+IndexHtml --> ManuscriptHtml : 관찰일지 링크
+
+ManuscriptHtml --> ChapterImages
+ManuscriptHtml --> Hero768
+
+OntologyHtml --> OntologyJs
+OntologyJs --> GraphJson : fetch
+OntologyJs --> RdfStatus : fetch
+OntologyJs --> Hero768
+
+Ontology3dHtml --> Ontology3dJs
+Ontology3dHtml --> Cdn3d
+Ontology3dJs --> GraphJson : fetch
+Ontology3dJs --> RdfStatus : fetch
+Ontology3dJs --> Hero768
+
+ProcessManual --> GraphJson
+ProcessManual --> RdfStatus
+ProcessManual --> RdfArtifacts
+
+BuildStandalone --> StandaloneHtml : CSS/JS 인라인화
+BuildManuscriptHtml --> ManuscriptHtml : 원고 Markdown 렌더링
+StartPreview --> Server : 인트라넷 미리보기
+
+note bottom of Ontology3dHtml
+3D 화면은 WebGL과 외부 CDN 라이브러리에 의존한다.
+오프라인 검증 시 2D 온톨로지도 함께 확인한다.
+end note
+@enduml

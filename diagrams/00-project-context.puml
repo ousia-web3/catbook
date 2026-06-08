@@ -1,0 +1,67 @@
+@startuml
+title catbook 프로젝트 컨텍스트
+
+left to right direction
+skinparam backgroundColor #FAFAF7
+skinparam shadowing false
+skinparam rectangle {
+  BorderColor #334155
+  FontColor #111827
+}
+skinparam actor {
+  BorderColor #334155
+  FontColor #111827
+}
+skinparam database {
+  BorderColor #334155
+  FontColor #111827
+}
+
+actor "Human Conductor\n사용자" as Human
+
+rectangle "Jarvis 운영 모델" as Jarvis {
+  rectangle "Jarvis\n전략 종합" as JarvisRole
+  rectangle "Friday\n태스크 분해" as Friday
+  rectangle "전문 에이전트\nEVE, Data, C3PO, Joi, TARS, KITT/TRON" as Agents
+}
+
+cloud "유튜브 공개 메타\n@catdoctor videos/shorts" as Youtube
+
+rectangle "catbook/" as Catbook {
+  rectangle "운영 문서\nhuman-brief, strategy, task, decision" as Ops
+  rectangle "research/\n메타, 자막 신호, 콘텐츠 아틀라스" as Research
+  database "data/\nSQLite, RDF/OWL, SHACL" as DataStore
+  rectangle "manuscript/\n책 기획, 42장 원고, 출판 패키지" as Manuscript
+  rectangle "assets/\n히어로 이미지, 챕터 이미지, 배너" as Assets
+  rectangle "web/\n소개, 원고, 2D/3D 냥톨로지" as Web
+  rectangle "evidence/\n검증 리포트, 캡처, 로컬 확인" as Evidence
+}
+
+rectangle "로컬 미리보기\n127.0.0.1:8787 또는 intranet preview" as Preview
+rectangle "작업 요청 보관\nwork-requests/" as WorkRequests
+
+Human --> Jarvis : 비전, 요청, 최종 판단
+JarvisRole --> Friday : 우선순위와 성공 기준
+Friday --> Agents : To/CC 배정
+Agents --> Catbook : 리서치, 구현, 검증 산출물
+
+Youtube --> Research : 공개 메타와 비원문 분석 신호
+Research --> DataStore : 냥톨로지 SSOT 구성
+Research --> Manuscript : 장면, 주제, 안전한 관찰 신호
+DataStore --> Web : JSON/RDF 상태 표시
+Manuscript --> Web : 집사용 이야기 노트 HTML
+Assets --> Web : 이미지와 배너 자산
+Web --> Preview : 정적 페이지 제공
+Evidence --> WorkRequests : 검증 증거 링크와 보고
+Catbook --> WorkRequests : 요청별 Human Brief와 완료 기록
+
+note bottom of Research
+자막 원문 전체를 저장하거나 재배포하지 않는다.
+리서치 산출물은 키워드, 신호, 비원문 요약 중심이다.
+end note
+
+note bottom of DataStore
+운영 질의 원본은 SQLite이고,
+웹 표시용은 JSON export와 RDF 상태 JSON이다.
+end note
+@enduml

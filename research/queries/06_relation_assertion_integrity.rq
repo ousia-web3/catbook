@@ -1,0 +1,14 @@
+PREFIX cat: <https://jarvis.local/catbook/ontology#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT ?assertion ?subject ?predicate ?object ?confidence
+WHERE {
+  ?assertion a cat:RelationAssertion ;
+    cat:nodeId ?assertionId ;
+    rdf:subject ?subject ;
+    rdf:predicate ?predicate ;
+    rdf:object ?object ;
+    cat:confidence ?confidence .
+}
+ORDER BY ?assertionId
+LIMIT 30

@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>냥톨로지 | 고양이 지식그래프</title>
+    <meta
+      name="description"
+      content="냥톨로지: 책 구조, 고양이 신호, 건강 관찰, 집사 행동, 유튜브 메타 근거를 연결한 인터랙티브 지식그래프"
+    />
+    <link rel="icon" href="data:," />
+    <link
+      rel="preload"
+      as="image"
+      href="../assets/hero-window-cat-768.jpg"
+      fetchpriority="high"
+    />
+    <link rel="stylesheet" href="./ontology.css?v=20260608-rdf1" />
+  </head>
+  <body>
+    <a class="skip-link" href="#graph-title">그래프로 건너뛰기</a>
+    <div class="app-shell">
+      <header class="topbar" aria-label="온톨로지 상단 바">
+        <a class="brand" href="./index.html" aria-label="냥톨로지 홈으로">냥톨로지</a>
+        <nav class="top-nav" aria-label="관련 페이지">
+          <a href="./index.html">홈</a>
+          <a href="./ontology-3d.html">3D 그래프</a>
+          <a href="./manuscript.html">관찰일지</a>
+        </nav>
+        <div class="top-stats" aria-label="그래프 요약">
+          <span><strong id="stat-nodes">-</strong>노드</span>
+          <span><strong id="stat-edges">-</strong>연결</span>
+          <span><strong id="stat-matched">-</strong>매칭</span>
+          <span><strong id="stat-backend">-</strong>DB</span>
+          <span><strong id="stat-rdf">-</strong>RDF</span>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="left-rail" aria-label="탐색 컨트롤">
+          <section class="intro-panel">
+            <picture>
+              <source srcset="../assets/hero-window-cat-768.jpg" type="image/jpeg" />
+              <img
+                src="../assets/hero-window-cat-768.jpg"
+                width="768"
+                height="410"
+                alt="창가에 앉은 고양이와 책"
+                decoding="async"
+              />
+            </picture>
+            <div>
+              <p class="eyebrow">Knowledge Graph</p>
+              <h1>냥톨로지</h1>
+              <p>
+                초보자 질문에서 출발해 행동 신호, 욕구, 환경, 건강 관찰, 집사 행동, 책 챕터와 공개 콘텐츠 근거를 한 화면에서 엮었다.
+              </p>
+            </div>
+          </section>
+
+          <section class="control-panel rdf-panel" aria-labelledby="rdf-title">
+            <div class="panel-heading">
+              <h2 id="rdf-title">RDF/OWL 상태</h2>
+              <span class="status-badge" id="rdf-status-badge">확인 중</span>
+            </div>
+            <div class="rdf-metric-grid" aria-label="RDF OWL 검증 지표">
+              <span><strong id="rdf-triples">-</strong>triples</span>
+              <span><strong id="rdf-shapes">-</strong>SHACL</span>
+              <span><strong id="rdf-queries">-</strong>SPARQL</span>
+              <span><strong id="rdf-inference">-</strong>inferred</span>
+            </div>
+            <p class="rdf-updated" id="rdf-generated">검증 상태를 불러오는 중</p>
+            <div class="rdf-link-row" aria-label="RDF OWL 산출물">
+              <a href="../data/catbook_ontology.ttl">TTL</a>
+              <a href="../data/catbook_ontology.owl">OWL</a>
+              <a href="../data/catbook_shapes.ttl">SHACL</a>
+              <a href="../project-records/work-requests/2026-06-08-catbook-ontology-rdf-owl-audit/evidence/rdf-owl-validation-2026-06-08.md">검증</a>
+            </div>
+          </section>
+
+          <section class="control-panel" aria-labelledby="scenario-title">
+            <div class="panel-heading">
+              <h2 id="scenario-title">상황 입구</h2>
+              <button class="ghost-button" id="clear-scenario" type="button">전체</button>
+            </div>
+            <div class="scenario-list" id="scenario-list"></div>
+          </section>
+
+          <section class="control-panel" aria-labelledby="class-title">
+            <div class="panel-heading">
+              <h2 id="class-title">온톨로지 층</h2>
+              <button class="ghost-button" id="reset-classes" type="button">복원</button>
+            </div>
+            <div class="class-grid" id="class-grid"></div>
+          </section>
+        </aside>
+
+        <section class="graph-stage" aria-labelledby="graph-title">
+          <div class="graph-toolbar">
+            <div>
+              <p class="eyebrow">Interactive Graph</p>
+              <h2 id="graph-title">지식그래프</h2>
+            </div>
+            <div class="mode-switch" role="group" aria-label="그래프 보기 모드">
+              <button class="mode-button active" type="button" data-mode="beginner">초보 길잡이</button>
+              <button class="mode-button" type="button" data-mode="ontology">온톨로지</button>
+              <button class="mode-button" type="button" data-mode="content">콘텐츠 근거</button>
+            </div>
+            <label class="search-box">
+              <span>검색</span>
+              <input id="graph-search" type="search" autocomplete="off" placeholder="하악질, 화장실, 구토..." />
+            </label>
+            <div class="zoom-tools" role="group" aria-label="그래프 화면 조정">
+              <button class="icon-button zoom-button zoom-out" id="zoom-out" type="button" aria-label="그래프 축소" title="그래프 축소">
+                <span class="zoom-icon" aria-hidden="true"></span>
+              </button>
+              <button class="icon-button zoom-button zoom-fit" id="zoom-reset" type="button" aria-label="그래프 중앙 정렬" title="그래프 중앙 정렬">
+                <span class="fit-icon" aria-hidden="true"></span>
+              </button>
+              <button class="icon-button zoom-button zoom-in" id="zoom-in" type="button" aria-label="그래프 확대" title="그래프 확대">
+                <span class="zoom-icon" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="graph-meta" aria-live="polite">
+            <span id="visible-summary">-</span>
+            <span id="selection-summary">선택 없음</span>
+          </div>
+
+          <div class="graph-canvas" id="graph-canvas">
+            <svg
+              id="graph-svg"
+              viewBox="-900 -760 1800 1520"
+              role="img"
+              aria-label="냥톨로지 고양이 지식그래프"
+            >
+              <g id="graph-layer">
+                <g id="edge-layer"></g>
+                <g id="node-layer"></g>
+              </g>
+            </svg>
+            <div class="loading-state" id="loading-state">그래프 로딩 중</div>
+          </div>
+        </section>
+
+        <aside class="right-rail" aria-label="선택 노드 상세">
+          <section class="detail-panel" id="detail-panel">
+            <div class="detail-media">
+              <img id="detail-image" src="../assets/hero-window-cat-768.jpg" alt="" />
+            </div>
+            <div class="detail-body">
+              <div class="detail-kicker" id="detail-class">선택</div>
+              <h2 id="detail-title">노드를 선택하세요</h2>
+              <p id="detail-summary">상황 버튼이나 그래프 노드를 누르면 연결된 신호와 근거가 여기에 열린다.</p>
+              <div class="chip-row" id="detail-chips"></div>
+              <div class="observe-box" id="observe-box" hidden>
+                <h3>관찰 포인트</h3>
+                <ul id="observe-list"></ul>
+              </div>
+              <div class="relation-box">
+                <h3>가까운 연결</h3>
+                <div id="relation-list" class="relation-list"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="evidence-panel" aria-labelledby="evidence-title">
+            <div class="panel-heading">
+              <h2 id="evidence-title">근거 콘텐츠</h2>
+              <span id="evidence-count">0</span>
+            </div>
+            <div id="evidence-list" class="evidence-list"></div>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <script src="./ontology.js?v=20260608-rdf1" defer></script>
+  </body>
+</html>

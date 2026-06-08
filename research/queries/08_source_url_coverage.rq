@@ -1,0 +1,16 @@
+PREFIX cat: <https://jarvis.local/catbook/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?source ?label ?mediaFamily ?url (COUNT(?concept) AS ?linkedConcepts)
+WHERE {
+  ?source a cat:Source ;
+    rdfs:label ?label ;
+    cat:mediaFamily ?mediaFamily ;
+    cat:url ?url .
+  OPTIONAL {
+    ?concept cat:hasEvidence ?source .
+  }
+}
+GROUP BY ?source ?label ?mediaFamily ?url
+ORDER BY DESC(?linkedConcepts) ?label
+LIMIT 30

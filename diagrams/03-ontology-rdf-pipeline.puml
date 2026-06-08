@@ -1,0 +1,91 @@
+@startuml
+title 냥톨로지 SQLite, JSON, RDF/OWL 파이프라인
+
+left to right direction
+skinparam backgroundColor #FAFAF7
+skinparam shadowing false
+skinparam componentStyle rectangle
+
+package "입력" as Inputs {
+  artifact "research/youtube_meta_all_tabs_2026-06-05.json" as YoutubeMeta
+  artifact "research/content_atlas.json" as ContentAtlas
+  artifact "manuscript/book structure\n7파트 42장" as BookStructure
+  artifact "고양이 신호/상황/안전 규칙" as SafetyKnowledge
+}
+
+component "research/build_cat_ontology_graph.py" as BuildGraph
+
+database "data/catbook_ontology.sqlite\n운영 SSOT" as SQLite
+
+package "SQLite 스키마" as SQLiteSchema {
+  artifact "classes, relations" as Classes
+  artifact "nodes, edges" as NodesEdges
+  artifact "content_items, content_matches, content_topics" as ContentTables
+  artifact "scenarios, safety_rules, metadata" as ScenarioTables
+  artifact "v_node_counts_by_class\nv_edge_counts_by_relation\nv_top_evidence_concepts" as Views
+}
+
+artifact "research/cat_ontology_graph.json\n정적 웹 export" as GraphJson
+component "research/export_cat_ontology_rdf.py" as ExportRdf
+
+package "data/ RDF 산출물" as RdfOutputs {
+  artifact "catbook_ontology.ttl" as TTL
+  artifact "catbook_ontology.owl" as OWL
+  artifact "catbook_shapes.ttl" as SHACL
+}
+
+component "research/validate_cat_ontology_rdf.py" as ValidateRdf
+artifact "research/queries/*.rq\n8개 competency query" as Queries
+artifact "data/catbook_rdf_status.json" as RdfStatus
+artifact "검증 리포트\nwork-requests/.../evidence/" as RdfReport
+
+package "웹 표시" as Web {
+  artifact "web/ontology.html" as Ontology2d
+  artifact "web/ontology-3d.html" as Ontology3d
+  artifact "web/production-process-manual.html" as ProcessManual
+}
+
+YoutubeMeta --> BuildGraph
+ContentAtlas --> BuildGraph
+BookStructure --> BuildGraph
+SafetyKnowledge --> BuildGraph
+
+BuildGraph --> SQLite : 테이블 재생성
+SQLite --> Classes
+SQLite --> NodesEdges
+SQLite --> ContentTables
+SQLite --> ScenarioTables
+SQLite --> Views
+SQLite --> GraphJson : export_graph_from_sqlite
+
+GraphJson --> ExportRdf
+ExportRdf --> TTL
+ExportRdf --> OWL
+ExportRdf --> SHACL
+
+TTL --> ValidateRdf
+OWL --> ValidateRdf
+SHACL --> ValidateRdf
+Queries --> ValidateRdf
+ValidateRdf --> RdfStatus
+ValidateRdf --> RdfReport
+
+GraphJson --> Ontology2d
+GraphJson --> Ontology3d
+RdfStatus --> Ontology2d
+RdfStatus --> Ontology3d
+RdfStatus --> ProcessManual
+
+note bottom of SQLite
+schema_version 2026-06-05.2 기준:
+노드 396개, 엣지 2,039개,
+콘텐츠 인덱스 1,277개,
+RDF triple 82,471개.
+end note
+
+note bottom of ValidateRdf
+검증 게이트:
+Turtle/OWL 파싱, SHACL 적합성,
+8개 SPARQL 질의, RDFS/OWL-RL 추론 증가.
+end note
+@enduml
